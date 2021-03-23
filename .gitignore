@@ -1,0 +1,7 @@
+# Do not upload this folder
+/target
+
+# Additional files that don't need to upload
+unist_software_engineering.iml
+.idea
+.DS_Store
