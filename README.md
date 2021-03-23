@@ -1,2 +1,3 @@
 # unist_software_engineering
-For group assignment
+
+For group project CSE 364, Software Programming
