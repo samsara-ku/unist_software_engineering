@@ -57,8 +57,7 @@ public class Load {
                 for (int i=0; i<this.getMovieLength(); i++) {
                     String[] temp = this.movieList.get(i).split("::");
 
-                    if (parseLine[1] == temp[0]) {
-                        System.out.println(line);
+                    if (parseLine[1].equals(temp[0])) {
                         sum += Integer.parseInt(parseLine[2]);
                         count++;
                     }
