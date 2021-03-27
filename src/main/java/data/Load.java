@@ -3,44 +3,17 @@ package data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Load {
     private String[] categories;
     private String occupation;
-    public ArrayList<String> movieList;
+    private ArrayList<String> movieList = new ArrayList<String>();
 
     public Load(String args1, String args2) {
         this.setCategories(args1);
         this.setOccupation(this.neutralizeString(args2));
-        this.movieList = new ArrayList<String> ();
-    }
-
-    public void printMovieList () {
-        File file = new File("./data/movies.dat");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                int count = 0;
-
-                for (int i=0; i<this.categoriesLength(); i++) {
-                    if (line.contains(this.categories[i])) {
-                        count++;
-                    }
-                }
-
-                if (count == this.categoriesLength()) {
-                    this.movieList.add(line);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.setMovieList();
     }
 
     public void getTotalScore () {
@@ -54,7 +27,7 @@ public class Load {
             while ((line = br.readLine()) != null) {
                 String[] parseLine = line.split("::");
 
-                for (int i=0; i<this.getMovieLength(); i++) {
+                for (int i=0; i<this.movieListLength(); i++) {
                     String[] temp = this.movieList.get(i).split("::");
 
                     if (parseLine[1].equals(temp[0])) {
@@ -72,10 +45,6 @@ public class Load {
         }
     }
 
-    public int getMovieLength () {
-        return this.movieList.size();
-    }
-
     public String neutralizeString (String input) {
         return StringUtils.capitalize(input.toLowerCase());
     }
@@ -86,6 +55,10 @@ public class Load {
 
     public int categoriesLength() {
         return this.categories.length;
+    }
+
+    public int movieListLength () {
+        return this.movieList.size();
     }
 
     public void setCategories(String categories) {
@@ -106,5 +79,37 @@ public class Load {
 
     public String getOccupation() {
         return this.occupation;
+    }
+
+    public ArrayList<String> getMovieList () {
+        return this.movieList;
+    }
+
+    public void setMovieList () {
+        File file = new File("./data/movies.dat");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                // For checking entire user input. e.g) Adventure|Comedy ==> Data in movieList should be count == 2 case.
+                int count = 0;
+
+                for (int i=0; i<this.categoriesLength(); i++) {
+                    if (line.contains(this.categories[i])) {
+                        count++;
+                    }
+                }
+
+                if (count == this.categoriesLength()) {
+                    System.out.println(line);
+                    this.movieList.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
