@@ -9,43 +9,16 @@ public class Load {
     private String[] categories;
     private String occupation;
     private ArrayList<String> movieList = new ArrayList<String>();
+    private ArrayList<String> userList = new ArrayList<String>();
 
     public Load(String args1, String args2) {
         this.setCategories(args1);
-        this.setOccupation(this.neutralizeString(args2));
+        this.setOccupation(args2);
         this.setMovieList();
+        this.setUserList();
     }
 
-    public void getTotalScore () {
-        File file = new File("./data/ratings.dat");
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            int sum = 0;
-            int count = 0;
-
-            while ((line = br.readLine()) != null) {
-                String[] parseLine = line.split("::");
-
-                for (int i=0; i<this.movieListLength(); i++) {
-                    String[] temp = this.movieList.get(i).split("::");
-
-                    if (parseLine[1].equals(temp[0])) {
-                        sum += Integer.parseInt(parseLine[2]);
-                        count++;
-                    }
-                }
-            }
-            System.out.println("Sum: " + sum);
-            System.out.println("Count: " + count);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String neutralizeString (String input) {
+    public String neutralizeString(String input) {
         return StringUtils.capitalize(input.toLowerCase());
     }
 
@@ -57,7 +30,7 @@ public class Load {
         return this.categories.length;
     }
 
-    public int movieListLength () {
+    public int movieListLength() {
         return this.movieList.size();
     }
 
@@ -74,14 +47,14 @@ public class Load {
     }
 
     public void setOccupation(String occupation) {
-        this.occupation = occupation;
+        this.occupation = this.neutralizeString(occupation);
     }
 
     public String getOccupation() {
         return this.occupation;
     }
 
-    public ArrayList<String> getMovieList () {
+    public ArrayList<String> getMovieList() {
         return this.movieList;
     }
 
@@ -104,6 +77,44 @@ public class Load {
                 if (count == this.categoriesLength()) {
                     System.out.println(line);
                     this.movieList.add(line);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<String> getUserList() {
+        return this.userList;
+    }
+
+    public void setUserList() {
+        String occupationNumber = new String();
+        File file = new File("./data/occupation.dat");
+        File file2 = new File("./data/users.dat");
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                if (line.contains(this.getOccupation().toLowerCase())) {
+                    occupationNumber = line.split("::")[0];
+                }
+            }
+
+            if (occupationNumber == null) {
+                occupationNumber = "0";
+            }
+
+            BufferedReader br2 = new BufferedReader(new FileReader(file2));
+            String line2;
+
+            while ((line2 = br2.readLine()) != null) {
+                if (line2.split("::")[3].equals(occupationNumber)) {
+                    userList.add(line2);
                 }
             }
         } catch (FileNotFoundException e) {
