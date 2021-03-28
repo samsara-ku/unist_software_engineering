@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Load {
     private String[] categories;
@@ -16,6 +17,16 @@ public class Load {
         this.setOccupation(args2);
         this.setMovieList();
         this.setUserList();
+    }
+
+    // return boolean value that compArr has all value of targetArr
+    public boolean hasContained (String[] compArr, String[] targetArr) {
+        for(String value: targetArr) {
+            if (!Arrays.asList(compArr).contains(value)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String neutralizeString(String input) {
@@ -60,23 +71,17 @@ public class Load {
 
     public void setMovieList () {
         File file = new File("./data/movies.dat");
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
 
             while ((line = br.readLine()) != null) {
-                // For checking entire user input. e.g) Adventure|Comedy ==> Data in movieList should be count == 2 case.
-                int count = 0;
+                String[] fileCategories = this.parseCategory(line.split("::")[2]);
 
-                for (int i=0; i<this.categoriesLength(); i++) {
-                    if (line.contains(this.categories[i])) {
-                        count++;
-                    }
-                }
-
-                if (count == this.categoriesLength()) {
+                if (hasContained(fileCategories, this.getCategories())) {
                     System.out.println(line);
-                    this.movieList.add(line);
+                    this.getMovieList().add(line);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -100,7 +105,9 @@ public class Load {
             String line;
 
             while ((line = br.readLine()) != null) {
-                if (line.contains(this.getOccupation().toLowerCase())) {
+                String[] fileOccupation = line.split("::")[1].split("/");
+
+                if (this.hasContained(fileOccupation, new String[] {this.getOccupation().toLowerCase()})) {
                     occupationNumber = line.split("::")[0];
                 }
             }
@@ -114,7 +121,7 @@ public class Load {
 
             while ((line2 = br2.readLine()) != null) {
                 if (line2.split("::")[3].equals(occupationNumber)) {
-                    userList.add(line2);
+                    this.getUserList().add(line2);
                 }
             }
         } catch (FileNotFoundException e) {
