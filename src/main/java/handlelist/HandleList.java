@@ -1,4 +1,4 @@
-package data.handlelist;
+package handlelist;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,6 +28,7 @@ public class HandleList {
 
         ArrayList<String> filtered_rating = new ArrayList<>();
         ArrayList<String> filtered_userid = new ArrayList<>();
+
 
         /* filter rating list by movie genre first */
         for(String rateLine : ratingList){
