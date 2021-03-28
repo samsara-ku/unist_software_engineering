@@ -19,7 +19,8 @@ public class Load {
         this.setUserList();
     }
 
-    // return boolean value that compArr has all value of targetArr
+    // Return boolean value that compArr has all value of targetArr.
+    // If compArr has all values of targetArr return true, or return false.
     public boolean hasContained (String[] compArr, String[] targetArr) {
         for(String value: targetArr) {
             if (!Arrays.asList(compArr).contains(value)) {
@@ -29,10 +30,13 @@ public class Load {
         return true;
     }
 
+    // Due to various input, we have to make our member variables to consistently.
+    // This function capitalizes only first letter, the others are small letters.
     public String neutralizeString(String input) {
         return StringUtils.capitalize(input.toLowerCase());
     }
 
+    // Because "movies.dat" files has several line which has delimiter "::", we should have separate it properly.
     public String[] parseCategory(String input) {
         return input.split("\\|");
     }
@@ -73,6 +77,7 @@ public class Load {
         File file = new File("./data/movies.dat");
 
         try {
+            // In this step, we read "movies.dat" and filter movie data properly using member variable "categories".
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
 
@@ -80,12 +85,9 @@ public class Load {
                 String[] fileCategories = this.parseCategory(line.split("::")[2]);
 
                 if (hasContained(fileCategories, this.getCategories())) {
-                    System.out.println(line);
                     this.getMovieList().add(line);
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,11 +98,12 @@ public class Load {
     }
 
     public void setUserList() {
-        String occupationNumber = new String();
+        String occupationNumber = "";
         File file = new File("./data/occupation.dat");
         File file2 = new File("./data/users.dat");
 
         try {
+            // In this step, we read "occupation.dat" and transform member variable "occupation" to corresponding String number.
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
 
@@ -112,10 +115,12 @@ public class Load {
                 }
             }
 
-            if (occupationNumber == null) {
+            // If occupation search is failed, default value should be 0
+            if (StringUtils.isEmpty(occupationNumber)) {
                 occupationNumber = "0";
             }
 
+            // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
             BufferedReader br2 = new BufferedReader(new FileReader(file2));
             String line2;
 
@@ -124,8 +129,6 @@ public class Load {
                     this.getUserList().add(line2);
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
