@@ -21,14 +21,18 @@ public class HandleList {
 
     public double getAverageRating() {
         int movieIndexSize = getAllMovieListSize();
+        int intMovieIdIndex;
+
+        /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
         HashMap<String,String>[] movieIdIndexList = new HashMap[movieIndexSize];
         for(int i=0; i<movieIndexSize; i++){
             movieIdIndexList[i] = new HashMap<String,String>();
         }
 
-        int intMovieIdIndex;
+        /* movieIdList, userIdList, ratingList 생성 */
         setRequiredLists();
 
+        /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
         for (String rateLine : ratingList) {
             String[] parseLine = rateLine.split("::");
             intMovieIdIndex = Integer.parseInt(parseLine[1])-1;
@@ -38,6 +42,8 @@ public class HandleList {
         int ratingCount = 0;
         double averageSum = 0;
 
+        /* filterd된 movieId와 userId를 이용하여 해당 movieIndex의
+            userId 포함 여부를 확인후 평균 계산 */
         for(String movieId : movieIdList){
             intMovieIdIndex = Integer.parseInt(movieId)-1;
             for(String userId : userIdList){
@@ -47,9 +53,7 @@ public class HandleList {
                 }
             }
         }
-        for(HashMap<String,String> userIdRatingMap : movieIdIndexList){
 
-        }
         if (ratingCount == 0) return 0;
         averageSum /= ratingCount;
         return averageSum;
@@ -107,7 +111,6 @@ public class HandleList {
             BufferedReader br = new BufferedReader(new FileReader(file));
             while ( (line = br.readLine()) != null) {
                 lastLine = line;
-                System.out.println(lastLine);
             }
             return Integer.parseInt(lastLine.split("::")[0]);
         } catch (IOException e) {
