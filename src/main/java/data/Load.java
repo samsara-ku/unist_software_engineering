@@ -88,6 +88,7 @@ public class Load {
                     this.getMovieList().add(line);
                 }
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,6 +130,8 @@ public class Load {
                     this.getUserList().add(line2);
                 }
             }
+            br.close();
+            br2.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
