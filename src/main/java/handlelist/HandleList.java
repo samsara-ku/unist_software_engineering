@@ -21,7 +21,7 @@ public class HandleList {
         this.userList = userList;
     }
 
-    public float getAverageRating(){
+    public double getAverageRating(){
         ArrayList<String> filteredRating = new ArrayList<>();
         ArrayList<String> filteredUserId = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class HandleList {
 
         int filteredListIndex = 0;
         int ratingCount = 0;
-        float averageSum = 0;
+        double averageSum = 0;
 
         /* filter rating list by userId, get average sum */
         for(String filtered_user : filteredUserId){

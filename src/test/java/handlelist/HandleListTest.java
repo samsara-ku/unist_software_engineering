@@ -12,7 +12,7 @@ public class HandleListTest {
         Load test = new Load("comedy", "unemployed");
         HandleList listHandler = new HandleList(test.getMovieList(), test.getUserList());
 
-        System.out.println(listHandler.getAverageRating());
+        System.out.println(listHandler.getAverageRating():);
 
     }
 }
