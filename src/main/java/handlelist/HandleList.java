@@ -60,6 +60,9 @@ public class HandleList {
             }
             filteredListIndex++;
         }
+
+        /* return 0 if there is no matched data */
+        if (ratingCount == 0) return 0;
         averageSum /= ratingCount;
         return averageSum;
     }
