@@ -86,7 +86,6 @@ public class Load {
 
                 if (hasContained(fileCategories, this.getCategories())) {
                     this.getMovieList().add(line);
-                    System.out.println(line);
                 }
             }
             br.close();
@@ -137,7 +136,6 @@ public class Load {
             while ((line2 = br2.readLine()) != null) {
                 if (line2.split("::")[3].equals(occupationNumber)) {
                     this.getUserList().add(line2);
-                    System.out.println(line2);
                 }
             }
             br.close();
