@@ -1,10 +1,8 @@
 package handlelist;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HandleList {
     private final ArrayList<String> movieList;
@@ -21,52 +19,44 @@ public class HandleList {
         this.userList = userList;
     }
 
-    public double getAverageRating(){
-        ArrayList<String> filteredRating = new ArrayList<>();
-        ArrayList<String> filteredUserId = new ArrayList<>();
-
-        /* set movieIdList, userIdList, and ratingList */
-        setRequiredLists();
-
-        /* filter rating list by movie genre first */
-        for(String rateLine : ratingList){
-
-            /* split each line to [userId, movieId, rating, timestamp] */
-            String[] parseLine = rateLine.split("::");
-
-            for (String movieId : movieIdList) {
-
-                /* if ratingList's movieId == movieId filtered by genre,
-                       add userId to filteredUserId,
-                       add rating to filteredRating */
-                if (parseLine[1].equals(movieId)) {
-                    filteredUserId.add(parseLine[0]);
-                    filteredRating.add(parseLine[2]);
-                }
-            }
+    public double getAverageRating() {
+        int movieIndexSize = getAllMovieListSize();
+        HashMap<String,String>[] movieIdIndexList = new HashMap[movieIndexSize];
+        for(int i=0; i<movieIndexSize; i++){
+            movieIdIndexList[i] = new HashMap<String,String>();
         }
 
-        int filteredListIndex = 0;
+        int intMovieIdIndex;
+        setRequiredLists();
+
+        for (String rateLine : ratingList) {
+            String[] parseLine = rateLine.split("::");
+            intMovieIdIndex = Integer.parseInt(parseLine[1])-1;
+            movieIdIndexList[intMovieIdIndex].put(parseLine[0],parseLine[2]);
+        }
+
         int ratingCount = 0;
         double averageSum = 0;
 
-        /* filter rating list by userId, get average sum */
-        for(String filtered_user : filteredUserId){
-            for(String user : userIdList){
-                if (filtered_user.equals(user)){
-                    averageSum += Integer.parseInt(filteredRating.get(filteredListIndex));
+        for(String movieId : movieIdList){
+            intMovieIdIndex = Integer.parseInt(movieId)-1;
+            for(String userId : userIdList){
+                if(movieIdIndexList[intMovieIdIndex].containsKey(userId)) {
+                    averageSum += Integer.parseInt(movieIdIndexList[intMovieIdIndex].get(userId));
                     ratingCount++;
                 }
             }
-            filteredListIndex++;
         }
+        for(HashMap<String,String> userIdRatingMap : movieIdIndexList){
 
-        /* return 0 if there is no matched data */
+        }
         if (ratingCount == 0) return 0;
         averageSum /= ratingCount;
         return averageSum;
     }
 
+    
+    
     /* Set ArrayList that only has movieId */
     public void setMovieIdList(){
         this.movieIdList = new ArrayList<String>();
@@ -89,11 +79,13 @@ public class HandleList {
     public void setRatingList() {
         this.ratingList = new ArrayList<String>();
         File file = new File("./data/ratings.dat");
+        int lineCount = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
                 ratingList.add(line);
+                lineCount++;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,6 +96,24 @@ public class HandleList {
         if(movieIdList==null) setMovieIdList();
         if(userIdList==null) setUserIdList();
         if(ratingList==null) setRatingList();
+    }
+
+    /* get original movie list size from file */
+    public int getAllMovieListSize() {
+        File file = new File("./data/movies.dat");
+        String line ;
+        String lastLine = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            while ( (line = br.readLine()) != null) {
+                lastLine = line;
+                System.out.println(lastLine);
+            }
+            return Integer.parseInt(lastLine.split("::")[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public ArrayList<String> getMovieList(){
@@ -128,4 +138,5 @@ public class HandleList {
         if(ratingList==null) setRatingList();
         return userIdList;
     }
+
 }
