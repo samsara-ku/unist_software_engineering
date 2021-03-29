@@ -9,10 +9,10 @@ public class HandleListTest {
 
     @Test
     public void testLoad() {
-        Load test = new Load("comedy", "student");
+        Load test = new Load("comedy", "unemployed");
         HandleList listHandler = new HandleList(test.getMovieList(), test.getUserList());
 
-        System.out.println(listHandler.getAverageSum());
+        System.out.println(listHandler.getAverageRating());
 
     }
 }

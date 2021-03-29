@@ -21,41 +21,46 @@ public class HandleList {
         this.userList = userList;
     }
 
-    public float getAverageSum(){
-        if(movieIdList==null) setMovieIdList();
-        if(userIdList==null) setUserIdList();
-        if(ratingList==null) setRatingList();
+    public float getAverageRating(){
+        ArrayList<String> filteredRating = new ArrayList<>();
+        ArrayList<String> filteredUserId = new ArrayList<>();
 
-        ArrayList<String> filtered_rating = new ArrayList<>();
-        ArrayList<String> filtered_userid = new ArrayList<>();
-
+        /* set movieIdList, userIdList, and ratingList */
+        setRequiredLists();
 
         /* filter rating list by movie genre first */
         for(String rateLine : ratingList){
+
+            /* split each line to [userId, movieId, rating, timestamp] */
             String[] parseLine = rateLine.split("::");
+
             for (String movieId : movieIdList) {
+
+                /* if ratingList's movieId == movieId filtered by genre,
+                       add userId to filteredUserId,
+                       add rating to filteredRating */
                 if (parseLine[1].equals(movieId)) {
-                    filtered_userid.add(parseLine[0]);
-                    filtered_rating.add(parseLine[2]);
+                    filteredUserId.add(parseLine[0]);
+                    filteredRating.add(parseLine[2]);
                 }
             }
         }
 
-        int index = 0;
-        int count = 0;
+        int filteredListIndex = 0;
+        int ratingCount = 0;
         float averageSum = 0;
 
         /* filter rating list by userId, get average sum */
-        for(String filtered_user : filtered_userid){
+        for(String filtered_user : filteredUserId){
             for(String user : userIdList){
                 if (filtered_user.equals(user)){
-                    averageSum += Integer.parseInt(filtered_rating.get(index));
-                    count++;
+                    averageSum += Integer.parseInt(filteredRating.get(filteredListIndex));
+                    ratingCount++;
                 }
             }
-            index++;
+            filteredListIndex++;
         }
-        averageSum /= count;
+        averageSum /= ratingCount;
         return averageSum;
     }
 
@@ -92,24 +97,32 @@ public class HandleList {
         }
     }
 
+    public void setRequiredLists(){
+        if(movieIdList==null) setMovieIdList();
+        if(userIdList==null) setUserIdList();
+        if(ratingList==null) setRatingList();
+    }
+
     public ArrayList<String> getMovieList(){
         return movieList;
     }
+
     public ArrayList<String> getUserList(){
         return userList;
     }
+
     public ArrayList<String> getMovieIdList(){
         if(movieIdList==null) setMovieIdList();
         return movieIdList;
     }
+
     public ArrayList<String> getUserIdList(){
         if(userIdList==null) setUserIdList();
         return userIdList;
     }
+
     public ArrayList<String> getRatingList(){
         if(ratingList==null) setRatingList();
         return userIdList;
     }
-
-
 }
