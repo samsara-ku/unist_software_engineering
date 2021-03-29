@@ -86,6 +86,7 @@ public class Load {
 
                 if (hasContained(fileCategories, this.getCategories())) {
                     this.getMovieList().add(line);
+                    System.out.println(line);
                 }
             }
             br.close();
@@ -109,7 +110,15 @@ public class Load {
             String line;
 
             while ((line = br.readLine()) != null) {
-                String[] fileOccupation = line.split("::")[1].split("/");
+                String[] fileOccupation = new String[2];
+                try {
+                    String fileOccupation_1 = line.split("::")[1].split("/")[0].replaceAll(" ", "");
+                    String fileOccupation_2 = line.split("::")[1].split("/")[1].replaceAll(" ", "");
+                    fileOccupation[0] = fileOccupation_1;
+                    fileOccupation[1] = fileOccupation_2;
+                } catch (Exception e){
+                    fileOccupation = line.split("::")[1].split("/");
+                }
 
                 if (this.hasContained(fileOccupation, new String[] {this.getOccupation().toLowerCase()})) {
                     occupationNumber = line.split("::")[0];
@@ -128,6 +137,7 @@ public class Load {
             while ((line2 = br2.readLine()) != null) {
                 if (line2.split("::")[3].equals(occupationNumber)) {
                     this.getUserList().add(line2);
+                    System.out.println(line2);
                 }
             }
             br.close();
