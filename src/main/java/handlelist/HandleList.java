@@ -91,6 +91,7 @@ public class HandleList {
                 ratingList.add(line);
                 lineCount++;
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -112,6 +113,7 @@ public class HandleList {
             while ( (line = br.readLine()) != null) {
                 lastLine = line;
             }
+            br.close();
             return Integer.parseInt(lastLine.split("::")[0]);
         } catch (IOException e) {
             e.printStackTrace();
