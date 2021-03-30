@@ -88,6 +88,7 @@ public class Load {
                     this.getMovieList().add(line);
                 }
             }
+            br.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,7 +109,15 @@ public class Load {
             String line;
 
             while ((line = br.readLine()) != null) {
-                String[] fileOccupation = line.split("::")[1].split("/");
+                String[] fileOccupation = new String[2];
+                try {
+                    String fileOccupation_1 = line.split("::")[1].split("/")[0].replaceAll(" ", "");
+                    String fileOccupation_2 = line.split("::")[1].split("/")[1].replaceAll(" ", "");
+                    fileOccupation[0] = fileOccupation_1;
+                    fileOccupation[1] = fileOccupation_2;
+                } catch (Exception e){
+                    fileOccupation = line.split("::")[1].split("/");
+                }
 
                 if (this.hasContained(fileOccupation, new String[] {this.getOccupation().toLowerCase()})) {
                     occupationNumber = line.split("::")[0];
@@ -129,6 +138,8 @@ public class Load {
                     this.getUserList().add(line2);
                 }
             }
+            br.close();
+            br2.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

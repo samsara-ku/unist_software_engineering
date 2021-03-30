@@ -1,11 +1,14 @@
 import data.Load;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class HelloWorld {
-    public static void main(String[] arg) throws IOException {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
 
-        Load Load = new Load(sc.nextLine(), sc.nextLine());
+        // Check whether the arguments are two or not
+        if(args.length != 2){
+            System.out.println("Inappropriate # of arguments!");
+            return;
+        }
+        Load Load = new Load(args[0], args[1]);
     }
 }
