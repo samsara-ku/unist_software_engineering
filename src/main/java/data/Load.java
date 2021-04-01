@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
@@ -24,7 +25,7 @@ public class Load {
             return;
         }
 
-        if (!hasContainedString(this.occupation_list, this.occupation)) {
+        if (!hasContained(this.occupation_list, this.occupation)) {
             System.out.println(String.format("no such occupation: %s", this.occupation));
             return;
         }
@@ -35,21 +36,31 @@ public class Load {
 
     // Return boolean value that compArr has all value of targetArr.
     // If compArr has all values of targetArr return true, or return false.
-    public boolean hasContained (String[] compArr, String[] targetArr) {
-        for(String value: targetArr) {
-            if (!Arrays.asList(compArr).contains(value)) {
-                return false;
+    public boolean hasContained (String[] truthArr, String[] targetArr) {
+        int count = 0;
+
+        for(String targetValue: targetArr) {
+            for(String truthValue: truthArr) {
+                if (targetValue.toLowerCase().equals(truthValue.toLowerCase())){
+                    count++;
+                }
             }
         }
+
+        if (targetArr.length != count) {
+            return false;
+        }
+
         return true;
     }
 
-    // string version of hasContained function
-    public boolean hasContainedString (String[] compArr, String target) {
-        if (!Arrays.asList(compArr).contains(target)) {
-            return false;
+    public boolean hasContained (String[] truthArr, String targetArr) {
+        for(String truthValue: truthArr) {
+            if (truthValue.toLowerCase().equals(targetArr.toLowerCase())) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     // Due to various input, we have to make our member variables to consistently.
