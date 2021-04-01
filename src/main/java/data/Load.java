@@ -1,5 +1,6 @@
 package data;
 
+import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
@@ -11,23 +12,55 @@ public class Load {
     private String occupation;
     private ArrayList<String> movieList = new ArrayList<String>();
     private ArrayList<String> userList = new ArrayList<String>();
+    private String[] occupation_list = new String[]{"Academic", "Educator", "Artist", "Clerical", "Admin", "College", "Gradstudent", "Custormerservice", "Doctor", "Healthcare", "Executive", "Managerial", "Farmer", "Homemaker", "K-12student", "Lawyer", "Programmer", "Retired", "Sales", "Marketing", "Scientist", "Self-employed", "Technician", "Engineer", "Tradesman", "Craftsman", "Unemployed", "Writer"};
+    private String[] genre_list = new String[]{"Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-noir", "Horror", "Musical", "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"};
 
     public Load(String args1, String args2) {
+
         this.setCategories(args1);
         this.setOccupation(args2);
+
+        if (!hasContained(this.genre_list, this.categories)) {
+            System.out.println("no such categories");
+            return;
+        }
+
+        if (!hasContained(this.occupation_list, this.occupation)) {
+            System.out.println(String.format("no such occupation: %s", this.occupation));
+            return;
+        }
+
         this.setMovieList();
         this.setUserList();
     }
 
     // Return boolean value that compArr has all value of targetArr.
     // If compArr has all values of targetArr return true, or return false.
-    public boolean hasContained (String[] compArr, String[] targetArr) {
-        for(String value: targetArr) {
-            if (!Arrays.asList(compArr).contains(value)) {
-                return false;
+    public boolean hasContained (String[] truthArr, String[] targetArr) {
+        int count = 0;
+
+        for(String targetValue: targetArr) {
+            for(String truthValue: truthArr) {
+                if (targetValue.toLowerCase().equals(truthValue.toLowerCase())){
+                    count++;
+                }
             }
         }
+
+        if (targetArr.length != count) {
+            return false;
+        }
+
         return true;
+    }
+
+    public boolean hasContained (String[] truthArr, String targetArr) {
+        for(String truthValue: truthArr) {
+            if (truthValue.toLowerCase().equals(targetArr.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Due to various input, we have to make our member variables to consistently.
