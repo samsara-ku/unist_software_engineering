@@ -63,12 +63,6 @@ public class Load {
         return false;
     }
 
-    // Due to various input, we have to make our member variables to consistently.
-    // This function capitalizes only first letter, the others are small letters.
-    public String neutralizeString(String input) {
-        return StringUtils.capitalize(input.toLowerCase());
-    }
-
     // Because "movies.dat" files has several line which has delimiter "::", we should have separate it properly.
     public String[] parseCategory(String input) {
         return input.split("\\|");
@@ -84,10 +78,6 @@ public class Load {
 
     public void setCategories(String categories) {
         this.categories = this.parseCategory(categories);
-
-        for (int i=0; i<this.categoriesLength(); i++) {
-            this.categories[i] = this.neutralizeString(this.categories[i]);
-        }
     }
 
     public String[] getCategories() {
@@ -95,7 +85,7 @@ public class Load {
     }
 
     public void setOccupation(String occupation) {
-        this.occupation = this.neutralizeString(occupation);
+        this.occupation = occupation;
     }
 
     public String getOccupation() {
@@ -150,16 +140,12 @@ public class Load {
                     fileOccupation[1] = fileOccupation_2;
                 } catch (Exception e){
                     fileOccupation = line.split("::")[1].split("/");
+                    fileOccupation[0] = fileOccupation[0].replaceAll(" ","");
                 }
 
-                if (this.hasContained(fileOccupation, new String[] {this.getOccupation().toLowerCase()})) {
+                if (this.hasContained(fileOccupation, this.getOccupation())) {
                     occupationNumber = line.split("::")[0];
                 }
-            }
-
-            // If occupation search is failed, default value should be 0
-            if (StringUtils.isEmpty(occupationNumber)) {
-                occupationNumber = "0";
             }
 
             // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
