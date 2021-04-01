@@ -140,6 +140,7 @@ public class Load {
                     fileOccupation[1] = fileOccupation_2;
                 } catch (Exception e){
                     fileOccupation = line.split("::")[1].split("/");
+                    fileOccupation[0] = fileOccupation[0].replaceAll(" ","");
                 }
 
                 if (this.hasContained(fileOccupation, this.getOccupation())) {
