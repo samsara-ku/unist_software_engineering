@@ -45,6 +45,10 @@ mvn install
 java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld "adventure" "educator"
 ```
 ## 3.  Roles of each member (i.e. who did what?)
+20181228_YunyoungJung : Make unit test case. Suggest an algorithm idea to reduce execution time.
+20181049_OhnKim : Improve overall execution, Handle some error cases (invalid input, spacing, lowercase, etc), Modificate the input method.
+
+Common : Comment and suggest a better idea about other codes. (e.g Github activity, Slack communication)
 
 
 ## 4. Input error handling
