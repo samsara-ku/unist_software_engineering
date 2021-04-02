@@ -12,30 +12,10 @@ public class Load {
   private String occupation;
   private ArrayList<String> movieList = new ArrayList<String>();
   private ArrayList<String> userList = new ArrayList<String>();
-  private String[] occupation_list = new String[]{"Academic", "Educator", "Artist", "Clerical",
-      "Admin", "College", "Gradstudent", "Custormerservice", "Doctor", "Healthcare", "Executive",
-      "Managerial", "Farmer", "Homemaker", "K-12student", "Lawyer", "Programmer", "Retired",
-      "Sales", "Marketing", "Scientist", "Self-employed", "Technician", "Engineer", "Tradesman",
-      "Craftsman", "Unemployed", "Writer"};
-  private String[] category_list = new String[]{"Action", "Adventure", "Animation", "Children's",
-      "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-noir", "Horror", "Musical",
-      "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"};
 
   public Load(String args1, String args2) {
-
     this.setCategories(args1);
     this.setOccupation(args2);
-
-    if (!hasContained(this.category_list, this.categories)) {
-      System.out.println("no such categories");
-      return;
-    }
-
-    if (!hasContained(this.occupation_list, this.occupation)) {
-      System.out.println(String.format("no such occupation: %s", this.occupation));
-      return;
-    }
-
     this.setMovieList();
     this.setUserList();
   }
