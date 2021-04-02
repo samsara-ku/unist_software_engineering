@@ -88,13 +88,11 @@ public class HandleList {
   public void setRatingList() {
     this.ratingList = new ArrayList<String>();
     File file = new File("./data/ratings.dat");
-    int lineCount = 0;
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
       while ((line = br.readLine()) != null) {
         ratingList.add(line);
-        lineCount++;
       }
       br.close();
     } catch (IOException e) {
