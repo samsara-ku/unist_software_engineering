@@ -18,7 +18,7 @@ Initially, we created a git repository for this milestone. For multiple people t
 |	    ├── handlelist
 |		└── HandleList.java      Handleing lists and get average rating
 |	    └── com
-|		└── Main.java      Main class
+|		└── Main.java            Main class
 |
 |	└── test      Test files to test methods of classes
 | 	
@@ -29,7 +29,7 @@ Initially, we created a git repository for this milestone. For multiple people t
 
 ## 2. A description of how to run your program. An example of java command line will be good.
 
-### 실행 환경
+### Environments
 
 * ubuntu 20.04
 * VIM - Vi IMproved 8.1
@@ -37,7 +37,7 @@ Initially, we created a git repository for this milestone. For multiple people t
 * openjdk 11.0.10
 * Apache Maven 3.6.3
 
-### 설치 및 실행
+### Install and Execute
 ```
 git clone https://github.com/samsara-ku/unist_software_engineering.git  
 cd unist_software_engineering  
