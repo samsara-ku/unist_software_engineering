@@ -28,29 +28,44 @@ public class Main {
     Load data = new Load(args[0], args[1]);
     HandleList process = new HandleList(data.getMovieList(), data.getUserList());
 
+    int movieCount = data.movieListLength();
+    double result = process.getAverageRating();
     boolean hasProperCategories = data.hasContained(category_list, data.getCategories());
     boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
 
     if (!hasProperCategories && !hasProperOccupation) {
       System.out
           .println(String.format(
-              "No results were found for the movie category and occupation \"%s\" you requested. Please try again.",
+              "Can't search because there are inappropriate category and occupation. Please try again with appropriate category and occupation.",
               data.getOccupation()));
       return;
     } else if (!hasProperCategories) {
       System.out
-          .println("No results were found for the movie category you requested. Please try again.");
+          .println("Can't search because there is inappropriate category. Please try again with appropriate category.");
       return;
     } else if (!hasProperOccupation) {
       System.out.println(String.format(
-          "No results were found for the occupation \"%s\" you requested. Please try again.",
+          "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.",
           data.getOccupation()));
       return;
     } else {
+      if (movieCount == 0) {
+        System.out.println(
+            "Despite the correct category and occupation, nothing was found. Please try again with different category.");
+        return;
+      }
+
+      if (result == 0) {
+        System.out.println(String.format(
+            "There are a total of \"%d\" movies that fit the requested category, but the average score is 0 points due to no rating data. Please try again with another occupation.",
+            movieCount));
+        return;
+      }
+
       // Result for searching and calculating avg. score
       System.out.println(String.format(
           "There are a total of \"%d\" movies that fit the requested category, and the average score is about \"%.2f\" points.",
-          data.movieListLength(), process.getAverageRating()));
+          movieCount, result));
     }
   }
 }
