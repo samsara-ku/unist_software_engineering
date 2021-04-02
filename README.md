@@ -12,15 +12,15 @@ Initially, we created a git repository for this milestone. For multiple people t
 ├── data     contain .dat files
 ├── src
 |   ├── main
-|   	├── Java
-|	    ├── data
-|		└── Load.java     	 Reading data from .dat files
-|	    ├── handlelist
-|		└── HandleList.java      Handleing lists and get average rating
-|	    └── com
-|		└── Main.java            Main class
-|
-|	└── test      Test files to test methods of classes
+|   |   └── Java
+|   |       ├── data
+|   |       |      Load.java          Reading data from .dat files
+|   |       ├── handlelist
+|   |       |      HandleList.java    Handleing lists and get average rating
+|   |       └── com
+|   |              Main.java          Main class
+|   |
+|   └── test       Test files to test methods of classes
 | 	
 ├── pom.xml        Including informations about this project
 ├── README.md
