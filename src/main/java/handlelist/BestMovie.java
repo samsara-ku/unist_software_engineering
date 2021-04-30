@@ -18,14 +18,20 @@ public class BestMovie {
   private ArrayList<Integer> top10_num = new ArrayList<Integer>();
   private ArrayList<Double> top10_rat = new ArrayList<Double>();
   private  HashMap<String, Integer>[] userIdIndexList;
+  private HashMap<String, String[]> movieGenreList;
 
 
   public BestMovie(ArrayList<String> userList) {
-
     this.setUserIdIndexList(userList);
     this.setTop10(userList);
 
 
+  }
+
+  public BestMovie(ArrayList<String> userList, String genre) {
+    this.setMovieGenreList();
+    this.setUserIdIndexList(userList, parseGenre(genre));
+    this.setTop10(userList);
   }
 
   public boolean hasContained(String user, ArrayList<String> userList) {
@@ -35,6 +41,37 @@ public class BestMovie {
           }
       }
       return false;
+  }
+
+  public String[] parseGenre(String genre) {
+    if (genre.contains("|")) {
+      String[] genreArr = genre.split("\\|");
+      return genreArr;
+    }
+    else {
+      String[] genreArr = {genre};
+      return genreArr;
+    }
+  }
+
+  public void setMovieGenreList() {
+
+    File file = new File("./data/movies.dat");
+    movieGenreList = new HashMap<String, String[]>();
+
+    try {
+
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+
+      while ((line = br.readLine()) != null) {
+        String[] parseLine = line.split("::");
+        movieGenreList.put(parseLine[0], parseGenre(parseLine[2]));
+      }
+      br.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public ArrayList<Integer> getTop10_num() {
@@ -73,6 +110,54 @@ public class BestMovie {
         String[] parseLine = line.split("::");
         intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
         userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
+      }
+      br.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setUserIdIndexList(ArrayList<String> UserList, String[] genreList) {
+
+    for (String genreValue : genreList) {
+      System.out.println(genreValue);
+    }
+    int userSize = getAllUserListSize();
+
+    userIdIndexList = new HashMap[userSize];
+    for (int i = 0; i < userSize; i++) {
+      userIdIndexList[i] = new HashMap<String, Integer>();
+    }
+
+    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
+
+    int intUserIdIndex;
+
+    File file = new File("./data/ratings.dat");
+
+    try {
+
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+
+      while ((line = br.readLine()) != null) {
+
+        String[] parseLine = line.split("::");
+        intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
+        
+        for (String genreListValue : genreList) {
+          boolean isPut = false;
+          for (String genreValue : movieGenreList.get(parseLine[1])) {
+            if (genreListValue.toLowerCase().equals(genreValue.toLowerCase())) {
+              userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
+              isPut = true;
+              break;
+            }
+          }
+          if (isPut) {
+            break;
+          }
+        }
       }
       br.close();
     } catch (IOException e) {

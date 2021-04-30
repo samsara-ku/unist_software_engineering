@@ -96,6 +96,30 @@ public class Main {
 
     // Milestone2 Part2 - 4 arguments : "gender", "age", "occupation", "genre"
     else if (args.length == 4) {
+      boolean genrePass = (args[3].equals("")) ? true : false;
+      LoadUser data = new LoadUser(args[0], args[1], args[2]);
+      BestMovie best;
+      if (genrePass == true) {
+        best = new BestMovie(data.getUserList());
+      }
+      else {
+        best = new BestMovie(data.getUserList(), args[3]);
+      }
+      
+      LoadLink result = new LoadLink(best.getTop10());
+
+      ArrayList<String> top10 = result.getLinkList();
+
+      int idx = 0;
+
+      for (String line : top10) {
+        String name = line.split("/")[0];
+        String link = line.split("/")[1];
+        int number = best.getTop10_num().get(idx);
+        double rating = best.getTop10_rat().get(idx);
+        idx = idx + 1;
+        System.out.println(String.format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.", idx, name, link, number, rating));
+      }
       
     }
 
