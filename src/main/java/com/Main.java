@@ -3,8 +3,8 @@ package com;
 import data.Load;
 import data.LoadLink;
 import data.LoadUser;
-import handlelist.HandleList;
 import handlelist.BestMovie;
+import handlelist.HandleList;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,7 +20,6 @@ public class Main {
     String[] category_list = new String[]{"Action", "Adventure", "Animation", "Children's",
         "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-noir", "Horror", "Musical",
         "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"};
-
 
     // Check the # of arguments
 
@@ -44,7 +43,8 @@ public class Main {
         return;
       } else if (!hasProperCategories) {
         System.out
-            .println("Can't search because there is inappropriate category. Please try again with appropriate category.");
+            .println(
+                "Can't search because there is inappropriate category. Please try again with appropriate category.");
         return;
       } else if (!hasProperOccupation) {
         System.out.println(String.format(
@@ -76,7 +76,7 @@ public class Main {
     else if (args.length == 3) {
       LoadUser data = new LoadUser(args[0], args[1], args[2]);
       BestMovie best = new BestMovie(data.getUserList());
-      
+
       LoadLink result = new LoadLink(best.getTop10());
 
       ArrayList<String> top10 = result.getLinkList();
@@ -89,7 +89,9 @@ public class Main {
         int number = best.getTop10_num().get(idx);
         double rating = best.getTop10_rat().get(idx);
         idx = idx + 1;
-        System.out.println(String.format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.", idx, name, link, number, rating));
+        System.out.println(String
+            .format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.",
+                idx, name, link, number, rating));
       }
 
     }
@@ -101,11 +103,10 @@ public class Main {
       BestMovie best;
       if (genrePass == true) {
         best = new BestMovie(data.getUserList());
-      }
-      else {
+      } else {
         best = new BestMovie(data.getUserList(), args[3]);
       }
-      
+
       LoadLink result = new LoadLink(best.getTop10());
 
       ArrayList<String> top10 = result.getLinkList();
@@ -118,12 +119,12 @@ public class Main {
         int number = best.getTop10_num().get(idx);
         double rating = best.getTop10_rat().get(idx);
         idx = idx + 1;
-        System.out.println(String.format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.", idx, name, link, number, rating));
+        System.out.println(String
+            .format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.",
+                idx, name, link, number, rating));
       }
-      
-    }
 
-    else {
+    } else {
       System.out.println(
           "The number of arguments is not appropriate. ~~(Need to fix)~~ Please use only 2 parameters, Categories and Occupation. (e.g Adventure Educator)");
       return;

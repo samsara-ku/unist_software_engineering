@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class BestMovie {
 
@@ -17,15 +17,13 @@ public class BestMovie {
   private ArrayList<Integer> top10 = new ArrayList<Integer>();
   private ArrayList<Integer> top10_num = new ArrayList<Integer>();
   private ArrayList<Double> top10_rat = new ArrayList<Double>();
-  private  HashMap<String, Integer>[] userIdIndexList;
+  private HashMap<String, Integer>[] userIdIndexList;
   private HashMap<String, String[]> movieGenreList;
 
 
   public BestMovie(ArrayList<String> userList) {
     this.setUserIdIndexList(userList);
     this.setTop10(userList);
-
-
   }
 
   public BestMovie(ArrayList<String> userList, String genre) {
@@ -35,27 +33,25 @@ public class BestMovie {
   }
 
   public boolean hasContained(String user, ArrayList<String> userList) {
-      for (String listedUser : userList) {
-          if (listedUser.equals(user)) {
-              return true;
-          }
+    for (String listedUser : userList) {
+      if (listedUser.equals(user)) {
+        return true;
       }
-      return false;
+    }
+    return false;
   }
 
   public String[] parseGenre(String genre) {
     if (genre.contains("|")) {
       String[] genreArr = genre.split("\\|");
       return genreArr;
-    }
-    else {
+    } else {
       String[] genreArr = {genre};
       return genreArr;
     }
   }
 
   public void setMovieGenreList() {
-
     File file = new File("./data/movies.dat");
     movieGenreList = new HashMap<String, String[]>();
 
@@ -87,7 +83,6 @@ public class BestMovie {
   }
 
   public void setUserIdIndexList(ArrayList<String> UserList) {
-
     int userSize = getAllUserListSize();
 
     userIdIndexList = new HashMap[userSize];
@@ -101,7 +96,6 @@ public class BestMovie {
     File file = new File("./data/ratings.dat");
 
     try {
-
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
 
@@ -118,7 +112,6 @@ public class BestMovie {
   }
 
   public void setUserIdIndexList(ArrayList<String> UserList, String[] genreList) {
-
     for (String genreValue : genreList) {
       System.out.println(genreValue);
     }
@@ -136,15 +129,13 @@ public class BestMovie {
     File file = new File("./data/ratings.dat");
 
     try {
-
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
 
       while ((line = br.readLine()) != null) {
-
         String[] parseLine = line.split("::");
         intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
-        
+
         for (String genreListValue : genreList) {
           boolean isPut = false;
           for (String genreValue : movieGenreList.get(parseLine[1])) {
@@ -166,9 +157,8 @@ public class BestMovie {
   }
 
 
-
-   /* get original movie list size from file */
-   public int getAllMovieListSize() {
+  /* get original movie list size from file */
+  public int getAllMovieListSize() {
     File file = new File("./data/movies.dat");
     String line;
     String lastLine = null;
@@ -209,7 +199,6 @@ public class BestMovie {
   // Find the best 10 movies to recommend 
 
   public void setTop10(ArrayList<String> userList) {
-
     int userSize = getAllUserListSize();
 
     int movieIndexSize = getAllMovieListSize();
@@ -242,9 +231,9 @@ public class BestMovie {
       }
     }
 
-
     // Sorting number_list (descending order)
-    List<Entry<Integer, Integer>> number_list = new ArrayList<Entry<Integer, Integer>>(numberOfMovie.entrySet());
+    List<Entry<Integer, Integer>> number_list = new ArrayList<Entry<Integer, Integer>>(
+        numberOfMovie.entrySet());
 
     Collections.sort(number_list, new Comparator<Entry<Integer, Integer>>() {
       public int compare(Entry<Integer, Integer> obj1, Entry<Integer, Integer> obj2) {
@@ -269,12 +258,13 @@ public class BestMovie {
     for (int movieID : top30) {
       int sum = sumOfRating.get(movieID);
       int num = numberOfMovie.get(movieID);
-      double avg_rating = (double)sum / (double)num;
+      double avg_rating = (double) sum / (double) num;
       avgRating.put(movieID, avg_rating);
     }
 
     // Sorting avgRating (descending order)
-    List<Entry<Integer, Double>> sortedRating = new ArrayList<Entry<Integer, Double>>(avgRating.entrySet());
+    List<Entry<Integer, Double>> sortedRating = new ArrayList<Entry<Integer, Double>>(
+        avgRating.entrySet());
 
     Collections.sort(sortedRating, new Comparator<Entry<Integer, Double>>() {
       public int compare(Entry<Integer, Double> obj1, Entry<Integer, Double> obj2) {

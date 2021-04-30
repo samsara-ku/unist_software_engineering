@@ -58,9 +58,9 @@ public class HandleList {
       }
     }
 
-      if (ratingCount == 0) {
-          return 0;
-      }
+    if (ratingCount == 0) {
+      return 0;
+    }
     averageSum /= ratingCount;
     return averageSum;
   }
@@ -101,15 +101,15 @@ public class HandleList {
   }
 
   public void setRequiredLists() {
-      if (movieIdList == null) {
-          setMovieIdList();
-      }
-      if (userIdList == null) {
-          setUserIdList();
-      }
-      if (ratingList == null) {
-          setRatingList();
-      }
+    if (movieIdList == null) {
+      setMovieIdList();
+    }
+    if (userIdList == null) {
+      setUserIdList();
+    }
+    if (ratingList == null) {
+      setRatingList();
+    }
   }
 
   /* get original movie list size from file */
@@ -139,23 +139,23 @@ public class HandleList {
   }
 
   public ArrayList<String> getMovieIdList() {
-      if (movieIdList == null) {
-          setMovieIdList();
-      }
+    if (movieIdList == null) {
+      setMovieIdList();
+    }
     return movieIdList;
   }
 
   public ArrayList<String> getUserIdList() {
-      if (userIdList == null) {
-          setUserIdList();
-      }
+    if (userIdList == null) {
+      setUserIdList();
+    }
     return userIdList;
   }
 
   public ArrayList<String> getRatingList() {
-      if (ratingList == null) {
-          setRatingList();
-      }
+    if (ratingList == null) {
+      setRatingList();
+    }
     return userIdList;
   }
 

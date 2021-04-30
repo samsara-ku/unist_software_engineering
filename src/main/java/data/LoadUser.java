@@ -30,7 +30,7 @@ public class LoadUser {
   }
 
   public void setGender(String gender) {
-      this.gender = gender;
+    this.gender = gender;
   }
 
   public String getGender() {
@@ -52,6 +52,7 @@ public class LoadUser {
   public String getOccupation() {
     return this.occupation;
   }
+
   public ArrayList<String> getUserList() {
     return this.userList;
   }
@@ -69,35 +70,35 @@ public class LoadUser {
     // If occupation input exists
     if (!occupationPass) {
 
-        File file_o = new File("./data/occupation.dat");
+      File file_o = new File("./data/occupation.dat");
 
-        try {
+      try {
         // In this step, we read "occupation.dat" and transform member variable "occupation" to corresponding String number.
         BufferedReader br = new BufferedReader(new FileReader(file_o));
         String line;
 
         while ((line = br.readLine()) != null) {
-            String[] fileOccupation = new String[2];
+          String[] fileOccupation = new String[2];
 
-            try {
+          try {
             String fileOccupation_1 = line.split("::")[1].split("/")[0].replaceAll(" ", "");
             String fileOccupation_2 = line.split("::")[1].split("/")[1].replaceAll(" ", "");
             fileOccupation[0] = fileOccupation_1;
             fileOccupation[1] = fileOccupation_2;
-            } catch (Exception e) {
+          } catch (Exception e) {
             fileOccupation = line.split("::")[1].split("/");
             fileOccupation[0] = fileOccupation[0].replaceAll(" ", "");
-            }
+          }
 
-            if (this.hasContained(fileOccupation, this.getOccupation().toLowerCase())) {
+          if (this.hasContained(fileOccupation, this.getOccupation().toLowerCase())) {
             occupationNumber = line.split("::")[0];
-            }
+          }
         }
 
         br.close();
-        } catch (IOException e) {
+      } catch (IOException e) {
         e.printStackTrace();
-        }
+      }
     }
 
     // user detection
@@ -112,49 +113,43 @@ public class LoadUser {
       while ((line = br.readLine()) != null) {
 
         // If gender, occupation input don't exist, pass for all cases.
-        if ( ((line.split("::")[1].equals(gender)) || genderPass) && ((line.split("::")[3].equals(occupationNumber) || occupationPass))) {
+        if (((line.split("::")[1].equals(gender)) || genderPass) && ((
+            line.split("::")[3].equals(occupationNumber) || occupationPass))) {
 
-            String num = line.split("::")[2];
-            Integer Age = (agePass) ? 0 : Integer.parseInt(age);
+          String num = line.split("::")[2];
+          Integer Age = (agePass) ? 0 : Integer.parseInt(age);
 
-            if (agePass) {
-                this.getUserList().add(line.split("::")[0]);
+          if (agePass) {
+            this.getUserList().add(line.split("::")[0]);
+          } else if (Age < 18) {
+            if (num.equals("1")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (Age < 18) {
-                if (num.equals("1")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else if (18 <= Age && Age < 25) {
+            if (num.equals("18")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (18 <= Age && Age < 25) {
-                if (num.equals("18")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else if (25 <= Age && Age < 35) {
+            if (num.equals("25")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (25 <= Age && Age < 35) {
-                if (num.equals("25")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else if (35 <= Age && Age < 45) {
+            if (num.equals("35")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (35 <= Age && Age < 45) {
-                if (num.equals("35")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else if (45 <= Age && Age < 50) {
+            if (num.equals("45")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (45 <= Age && Age < 50) {
-                if (num.equals("45")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else if (50 <= Age && Age < 56) {
+            if (num.equals("50")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else if (50 <= Age && Age < 56) {
-                if (num.equals("50")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
+          } else {
+            if (num.equals("56")) {
+              this.getUserList().add(line.split("::")[0]);
             }
-            else {
-                if (num.equals("56")) {
-                    this.getUserList().add(line.split("::")[0]);
-                }
-            }
+          }
         }
       }
 
