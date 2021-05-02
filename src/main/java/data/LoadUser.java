@@ -7,48 +7,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoadUser {
-  private String gender;
-  private String age;
-  private String occupation;
-  private ArrayList<String> userList = new ArrayList<String>();
 
-  public LoadUser(String args1, String args2, String args3) {
-    this.setGender(args1);
-    this.setAge(args2);
-    this.setOccupation(args3);
-    this.setUserList(args1, args2, args3);
+  private final ArrayList<String> userList = new ArrayList<>();
+
+  public LoadUser(String gender, String age, String occupation) {
+    this.setUserList(gender, age, occupation);
   }
 
   public boolean hasContained(String[] truthArr, String targetArr) {
     for (String truthValue : truthArr) {
-      if (truthValue.equalsIgnoreCase(targetArr))
+      if (truthValue.equalsIgnoreCase(targetArr)) {
         return true;
+      }
     }
     return false;
-  }
-
-  public String getGender() {
-    return this.gender;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  public String getAge() {
-    return this.age;
-  }
-
-  public void setAge(String age) {
-    this.age = age;
-  }
-
-  public String getOccupation() {
-    return this.occupation;
-  }
-
-  public void setOccupation(String occupation) {
-    this.occupation = occupation;
   }
 
   public ArrayList<String> getUserList() {
@@ -57,16 +29,9 @@ public class LoadUser {
 
   // find user with input conditions
   public void setUserList(String gender, String age, String occupation) {
-
-    // Check whether each input exist or not
-    boolean genderPass = gender.equals("");
-    boolean agePass = age.equals("");
-    boolean occupationPass = occupation.equals("");
-
     String occupationNumber = "";
 
-    // If occupation input exists
-    if (!occupationPass) {
+    if (!occupation.isBlank()) {
       File file_o = new File("./data/occupation.dat");
 
       try {
@@ -87,7 +52,7 @@ public class LoadUser {
             fileOccupation[0] = fileOccupation[0].replaceAll(" ", "");
           }
 
-          if (this.hasContained(fileOccupation, this.getOccupation())) {
+          if (this.hasContained(fileOccupation, occupation)) {
             occupationNumber = line.split("::")[0];
           }
         }
@@ -108,35 +73,35 @@ public class LoadUser {
 
       while ((line = br.readLine()) != null) {
         // If gender, occupation input don't exist, pass for all cases.
-        if (((line.split("::")[1].equals(gender)) || genderPass) && ((
-            line.split("::")[3].equals(occupationNumber) || occupationPass))) {
+        if (((line.split("::")[1].equals(gender)) || gender.isBlank()) && ((
+            line.split("::")[3].equals(occupationNumber) || occupation.isBlank()))) {
 
           String num = line.split("::")[2];
-          int Age = (agePass) ? 0 : Integer.parseInt(age);
+          int Age = (age.isBlank()) ? 0 : Integer.parseInt(age);
 
-          if (agePass) {
+          if (age.isBlank()) {
             this.getUserList().add(line.split("::")[0]);
           } else if (Age < 18) {
             if (num.equals("1")) {
               this.getUserList().add(line.split("::")[0]);
             }
-          } else if (18 <= Age && Age < 25) {
+          } else if (Age < 25) {
             if (num.equals("18")) {
               this.getUserList().add(line.split("::")[0]);
             }
-          } else if (25 <= Age && Age < 35) {
+          } else if (Age < 35) {
             if (num.equals("25")) {
               this.getUserList().add(line.split("::")[0]);
             }
-          } else if (35 <= Age && Age < 45) {
+          } else if (Age < 45) {
             if (num.equals("35")) {
               this.getUserList().add(line.split("::")[0]);
             }
-          } else if (45 <= Age && Age < 50) {
+          } else if (Age < 50) {
             if (num.equals("45")) {
               this.getUserList().add(line.split("::")[0]);
             }
-          } else if (50 <= Age && Age < 56) {
+          } else if (Age < 56) {
             if (num.equals("50")) {
               this.getUserList().add(line.split("::")[0]);
             }
