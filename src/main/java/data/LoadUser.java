@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LoadUser {
-
   private String gender;
   private String age;
   private String occupation;
@@ -22,35 +21,34 @@ public class LoadUser {
 
   public boolean hasContained(String[] truthArr, String targetArr) {
     for (String truthValue : truthArr) {
-      if (truthValue.toLowerCase().equals(targetArr.toLowerCase())) {
+      if (truthValue.equalsIgnoreCase(targetArr))
         return true;
-      }
     }
     return false;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
   }
 
   public String getGender() {
     return this.gender;
   }
 
-  public void setAge(String age) {
-    this.age = age;
+  public void setGender(String gender) {
+    this.gender = gender;
   }
 
   public String getAge() {
     return this.age;
   }
 
-  public void setOccupation(String occupation) {
-    this.occupation = occupation;
+  public void setAge(String age) {
+    this.age = age;
   }
 
   public String getOccupation() {
     return this.occupation;
+  }
+
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
   }
 
   public ArrayList<String> getUserList() {
@@ -61,15 +59,14 @@ public class LoadUser {
   public void setUserList(String gender, String age, String occupation) {
 
     // Check whether each input exist or not
-    boolean genderPass = (gender.equals("")) ? true : false;
-    boolean agePass = (age.equals("")) ? true : false;
-    boolean occupationPass = (occupation.equals("")) ? true : false;
+    boolean genderPass = gender.equals("");
+    boolean agePass = age.equals("");
+    boolean occupationPass = occupation.equals("");
 
     String occupationNumber = "";
 
     // If occupation input exists
     if (!occupationPass) {
-
       File file_o = new File("./data/occupation.dat");
 
       try {
@@ -90,7 +87,7 @@ public class LoadUser {
             fileOccupation[0] = fileOccupation[0].replaceAll(" ", "");
           }
 
-          if (this.hasContained(fileOccupation, this.getOccupation().toLowerCase())) {
+          if (this.hasContained(fileOccupation, this.getOccupation())) {
             occupationNumber = line.split("::")[0];
           }
         }
@@ -105,19 +102,17 @@ public class LoadUser {
     File file = new File("./data/users.dat");
 
     try {
-
       // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
 
       while ((line = br.readLine()) != null) {
-
         // If gender, occupation input don't exist, pass for all cases.
         if (((line.split("::")[1].equals(gender)) || genderPass) && ((
             line.split("::")[3].equals(occupationNumber) || occupationPass))) {
 
           String num = line.split("::")[2];
-          Integer Age = (agePass) ? 0 : Integer.parseInt(age);
+          int Age = (agePass) ? 0 : Integer.parseInt(age);
 
           if (agePass) {
             this.getUserList().add(line.split("::")[0]);
