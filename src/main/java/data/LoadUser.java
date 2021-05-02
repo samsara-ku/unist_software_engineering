@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LoadUser {
 
-  private final ArrayList<String> userList = new ArrayList<>();
+  private final HashMap<String, Double> userList = new HashMap<>();
 
   public LoadUser(String gender, String age, String occupation) {
+    this.setUserList(gender, age, occupation);
     this.setUserList(gender, age, occupation);
   }
 
@@ -23,7 +24,7 @@ public class LoadUser {
     return false;
   }
 
-  public ArrayList<String> getUserList() {
+  public HashMap<String, Double> getUserList() {
     return this.userList;
   }
 
@@ -72,43 +73,56 @@ public class LoadUser {
       String line;
 
       while ((line = br.readLine()) != null) {
-        // If gender, occupation input don't exist, pass for all cases.
-        if (((line.split("::")[1].equals(gender)) || gender.isBlank()) && ((
-            line.split("::")[3].equals(occupationNumber) || occupation.isBlank()))) {
+        double weight = 1;
+        boolean isSameGender = line.split("::")[1].equals(gender);
+        boolean isSameOccupation = line.split("::")[3].equals(occupationNumber);
 
-          String num = line.split("::")[2];
-          int Age = (age.isBlank()) ? 0 : Integer.parseInt(age);
+        if (!((isSameGender || gender.isBlank()) && (isSameOccupation || occupation.isBlank()))) {
+          if (Math.random() >= 0.25) {
+            continue;
+          }
 
-          if (age.isBlank()) {
-            this.getUserList().add(line.split("::")[0]);
-          } else if (Age < 18) {
-            if (num.equals("1")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else if (Age < 25) {
-            if (num.equals("18")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else if (Age < 35) {
-            if (num.equals("25")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else if (Age < 45) {
-            if (num.equals("35")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else if (Age < 50) {
-            if (num.equals("45")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else if (Age < 56) {
-            if (num.equals("50")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
-          } else {
-            if (num.equals("56")) {
-              this.getUserList().add(line.split("::")[0]);
-            }
+          if (!isSameOccupation && !occupation.isBlank()) {
+            weight *= 0.75;
+          }
+          if (!isSameGender && !gender.isBlank()) {
+            weight *= 0.5;
+          }
+        }
+
+        String userId = line.split("::")[0];
+        String num = line.split("::")[2];
+        int Age = (age.isBlank()) ? 0 : Integer.parseInt(age);
+
+        if (age.isBlank()) {
+          this.getUserList().put(userId, weight);
+        } else if (Age < 18) {
+          if (num.equals("1")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else if (Age < 25) {
+          if (num.equals("18")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else if (Age < 35) {
+          if (num.equals("25")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else if (Age < 45) {
+          if (num.equals("35")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else if (Age < 50) {
+          if (num.equals("45")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else if (Age < 56) {
+          if (num.equals("50")) {
+            this.getUserList().put(userId, weight);
+          }
+        } else {
+          if (num.equals("56")) {
+            this.getUserList().put(userId, weight);
           }
         }
       }

@@ -13,42 +13,25 @@ import java.util.Map.Entry;
 
 public class BestMovie {
 
-  private ArrayList<String> movieList = new ArrayList<String>();
-  private ArrayList<Integer> top10 = new ArrayList<Integer>();
-  private ArrayList<Integer> top10_num = new ArrayList<Integer>();
-  private ArrayList<Double> top10_rat = new ArrayList<Double>();
+  private final ArrayList<Integer> top10 = new ArrayList<Integer>();
+  private final ArrayList<Integer> top10_num = new ArrayList<Integer>();
+  private final ArrayList<Double> top10_rat = new ArrayList<Double>();
   private HashMap<String, Integer>[] userIdIndexList;
   private HashMap<String, String[]> movieGenreList;
 
-
-  public BestMovie(ArrayList<String> userList) {
-    this.setUserIdIndexList(userList);
+  public BestMovie(HashMap<String, Double> userList) {
+    this.setUserIdIndexList();
     this.setTop10(userList);
   }
 
-  public BestMovie(ArrayList<String> userList, String genre) {
+  public BestMovie(HashMap<String, Double> userList, String genre) {
     this.setMovieGenreList();
-    this.setUserIdIndexList(userList, parseGenre(genre));
+    this.setUserIdIndexList(parseGenre(genre));
     this.setTop10(userList);
-  }
-
-  public boolean hasContained(String user, ArrayList<String> userList) {
-    for (String listedUser : userList) {
-      if (listedUser.equals(user)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public String[] parseGenre(String genre) {
-    if (genre.contains("|")) {
-      String[] genreArr = genre.split("\\|");
-      return genreArr;
-    } else {
-      String[] genreArr = {genre};
-      return genreArr;
-    }
+    return genre.contains("|") ? genre.split("\\|") : new String[]{genre};
   }
 
   public void setMovieGenreList() {
@@ -56,7 +39,6 @@ public class BestMovie {
     movieGenreList = new HashMap<String, String[]>();
 
     try {
-
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
 
@@ -65,6 +47,7 @@ public class BestMovie {
         movieGenreList.put(parseLine[0], parseGenre(parseLine[2]));
       }
       br.close();
+
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -78,20 +61,15 @@ public class BestMovie {
     return this.top10_rat;
   }
 
-  public ArrayList<String> getMovieList() {
-    return this.movieList;
-  }
-
-  public void setUserIdIndexList(ArrayList<String> UserList) {
-    int userSize = getAllUserListSize();
-
-    userIdIndexList = new HashMap[userSize];
-    for (int i = 0; i < userSize; i++) {
-      userIdIndexList[i] = new HashMap<String, Integer>();
-    }
-
-    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
+  public void setUserIdIndexList() {
     int intUserIdIndex;
+    int userSize = getFileListSize("./data/users.dat");
+
+    this.userIdIndexList = new HashMap[userSize];
+
+    for (int i = 0; i < userSize; i++) {
+      this.userIdIndexList[i] = new HashMap<String, Integer>();
+    }
 
     File file = new File("./data/ratings.dat");
 
@@ -100,31 +78,26 @@ public class BestMovie {
       String line;
 
       while ((line = br.readLine()) != null) {
-
         String[] parseLine = line.split("::");
         intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
-        userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
+        this.userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
       }
+
       br.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  public void setUserIdIndexList(ArrayList<String> UserList, String[] genreList) {
-    for (String genreValue : genreList) {
-      System.out.println(genreValue);
-    }
-    int userSize = getAllUserListSize();
-
-    userIdIndexList = new HashMap[userSize];
-    for (int i = 0; i < userSize; i++) {
-      userIdIndexList[i] = new HashMap<String, Integer>();
-    }
-
-    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
-
+  public void setUserIdIndexList(String[] genreList) {
+    int userSize = getFileListSize("./data/users.dat");
     int intUserIdIndex;
+
+    this.userIdIndexList = new HashMap[userSize];
+
+    for (int i = 0; i < userSize; i++) {
+      this.userIdIndexList[i] = new HashMap<String, Integer>();
+    }
 
     File file = new File("./data/ratings.dat");
 
@@ -139,8 +112,9 @@ public class BestMovie {
         for (String genreListValue : genreList) {
           boolean isPut = false;
           for (String genreValue : movieGenreList.get(parseLine[1])) {
-            if (genreListValue.toLowerCase().equals(genreValue.toLowerCase())) {
-              userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
+            if (genreListValue.equalsIgnoreCase(genreValue)) {
+              this.userIdIndexList[intUserIdIndex]
+                  .put(parseLine[1], Integer.parseInt(parseLine[2]));
               isPut = true;
               break;
             }
@@ -158,25 +132,8 @@ public class BestMovie {
 
 
   /* get original movie list size from file */
-  public int getAllMovieListSize() {
-    File file = new File("./data/movies.dat");
-    String line;
-    String lastLine = null;
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(file));
-      while ((line = br.readLine()) != null) {
-        lastLine = line;
-      }
-      br.close();
-      return Integer.parseInt(lastLine.split("::")[0]);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return 0;
-  }
-
-  public int getAllUserListSize() {
-    File file = new File("./data/users.dat");
+  public int getFileListSize(String path) {
+    File file = new File(path);
     String line;
     String lastLine = null;
     try {
@@ -196,36 +153,36 @@ public class BestMovie {
     return this.top10;
   }
 
-  // Find the best 10 movies to recommend 
-
-  public void setTop10(ArrayList<String> userList) {
-    int userSize = getAllUserListSize();
-
-    int movieIndexSize = getAllMovieListSize();
+  // Find the best 10 movies to recommend
+  public void setTop10(HashMap<String, Double> userList) {
+    double sumOfWeight = 0;
+    int numOfWeight = 0;
+    int movieIndexSize = getFileListSize("./data/movies.dat");
     HashMap<Integer, Integer> numberOfMovie = new HashMap<>(movieIndexSize);
-    HashMap<Integer, Integer> sumOfRating = new HashMap<>(movieIndexSize);
+    HashMap<Integer, Double> sumOfRating = new HashMap<>(movieIndexSize);
 
     // Count the number of movie watched by users, and calculate rating
+    for (HashMap.Entry<String, Double> user : userList.entrySet()) {
+      int index = Integer.parseInt(user.getKey()) - 1;
 
-    for (String userId : userList) {
-      int index = Integer.parseInt(userId) - 1;
-      for (HashMap.Entry<String, Integer> entry : userIdIndexList[index].entrySet()) {
-
+      for (HashMap.Entry<String, Integer> entry : this.userIdIndexList[index].entrySet()) {
         int movieID = Integer.parseInt(entry.getKey());
         int rating = entry.getValue();
         if (numberOfMovie.get(movieID) == null) {
-          int num = 1;
-          numberOfMovie.put(movieID, num);
+          numberOfMovie.put(movieID, 1);
         } else {
-          int num = numberOfMovie.get(movieID) + 1;
-          numberOfMovie.put(movieID, num);
+          numberOfMovie.put(movieID, numberOfMovie.get(movieID) + 1);
         }
 
         if (sumOfRating.get(movieID) == null) {
-          int sum = rating;
+          double sum = rating * user.getValue();
+          sumOfWeight += user.getValue();
+          numOfWeight++;
           sumOfRating.put(movieID, sum);
         } else {
-          int sum = sumOfRating.get(movieID) + rating;
+          double sum = sumOfRating.get(movieID) + rating * user.getValue();
+          sumOfWeight += user.getValue();
+          numOfWeight++;
           sumOfRating.put(movieID, sum);
         }
       }
@@ -256,10 +213,12 @@ public class BestMovie {
 
     // Calculate average rating
     for (int movieID : top30) {
-      int sum = sumOfRating.get(movieID);
+      double sum = sumOfRating.get(movieID);
       int num = numberOfMovie.get(movieID);
-      double avg_rating = (double) sum / (double) num;
-      avgRating.put(movieID, avg_rating);
+      double avg_rating = sum / (double) num;
+      double avg_weight = sumOfWeight / (double) numOfWeight;
+
+      avgRating.put(movieID, avg_rating / avg_weight);
     }
 
     // Sorting avgRating (descending order)
