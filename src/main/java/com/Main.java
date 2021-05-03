@@ -74,7 +74,43 @@ public class Main {
 
     // Milestone2 Part1 - 3 arguments : "gender", "age", "occupation"
     else if (args.length == 3) {
+
+      // Gender input error handling
+      if (!(args[0].equals("F") || (args[0].equals("M")) || (args[0].isEmpty()))) {
+        System.out.println(
+              "Wrong gender input. Please try again with appropriate gender.");
+          return;
+      }
+      
+      // Age input error handling
+      if (!args[1].isEmpty()) {
+        try {
+          int age = Integer.parseInt(args[1]);
+          if (age <= 0) {
+            System.out.println(
+                  "Wrong age input. (Non-positive age) Please try again with appropriate age.");
+              return;
+          }
+        } catch (Exception e) {
+          System.out.println(
+                "Wrong age input. (Not an integer) Please try again with appropriate age.");
+            return;
+        }
+      }
+
       LoadUser data = new LoadUser(args[0], args[1], args[2]);
+
+      // Occupation input error handling
+
+      boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
+
+      if (!(hasProperOccupation || args[2].isEmpty())) {
+        System.out.println(String.format(
+            "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.",
+            data.getOccupation()));
+        return;
+      }
+
       BestMovie best = new BestMovie(data.getUserList());
 
       LoadLink result = new LoadLink(best.getTop10());
@@ -98,8 +134,67 @@ public class Main {
 
     // Milestone2 Part2 - 4 arguments : "gender", "age", "occupation", "genre"
     else if (args.length == 4) {
+
+      // Gender input error handling
+      if (!(args[0].equals("F") || (args[0].equals("M") || (args[0].isEmpty())))) {
+        System.out.println(
+              "Wrong gender input. Please try again with appropriate gender.");
+          return;
+      }
+      
+      // Age input error handling
+      if (!args[1].isEmpty()) {
+        try {
+          int age = Integer.parseInt(args[1]);
+          if (age <= 0) {
+            System.out.println(
+                  "Wrong age input. (Non-positive age) Please try again with appropriate age.");
+              return;
+          }
+        } catch (Exception e) {
+          System.out.println(
+                "Wrong age input. (Not an integer) Please try again with appropriate age.");
+            return;
+        }
+      }
+
       boolean genrePass = (args[3].equals("")) ? true : false;
       LoadUser data = new LoadUser(args[0], args[1], args[2]);
+
+      // Occupation input error handling
+
+      boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
+
+      if (!(hasProperOccupation || args[2].isEmpty())) {
+        System.out.println(String.format(
+            "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.",
+            data.getOccupation()));
+        return;
+      }
+
+      // Genre input error handling
+
+      String[] inputCategory = args[3].split("\\|");
+
+      int count = 0;
+
+      for (String input : inputCategory) {
+        for (String truthValue : category_list) {
+          if (input.toLowerCase().equals(truthValue.toLowerCase())) {
+            count++;
+          }
+        }
+      }
+
+      boolean valid_category = (inputCategory.length == count);
+
+      if (!(genrePass || valid_category)) {
+        System.out
+            .println(
+                "Can't search because there is inappropriate category. Please try again with appropriate category.");
+        return;
+      }
+
       BestMovie best;
       if (genrePass == true) {
         best = new BestMovie(data.getUserList());
@@ -126,7 +221,7 @@ public class Main {
 
     } else {
       System.out.println(
-          "The number of arguments is not appropriate. ~~(Need to fix)~~ Please use only 2 parameters, Categories and Occupation. (e.g Adventure Educator)");
+          "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre");
       return;
     }
   }
