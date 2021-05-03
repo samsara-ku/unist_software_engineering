@@ -68,7 +68,7 @@ public class MainTest {
     try {
       String[] userInput = {"InvalidGender", "", ""};
       Main.main(userInput);
-      String expectedOutput = "Wrong gender input. Please try again with F for female or M for male.\r\n";
+      String expectedOutput = "Wrong gender input. Please try again with F for female or M for male.\n";
       assertEquals("fail to check invalid gender", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid gender input");
     } catch (IOException e) {
@@ -82,7 +82,7 @@ public class MainTest {
     try {
       String[] userInput = {"InvalidGender", "", "", "adventure"};
       Main.main(userInput);
-      String expectedOutput = "Wrong gender input. Please try again with F for female or M for male.\r\n";
+      String expectedOutput = "Wrong gender input. Please try again with F for female or M for male.\n";
       assertEquals("fail to check invalid gender", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid gender input (include genre)");
     } catch (IOException e) {
@@ -96,7 +96,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "-1", ""};
       Main.main(userInput);
-      String expectedOutput = "Wrong age input. (Non-positive age) Please try again with appropriate age.\r\n";
+      String expectedOutput = "Wrong age input. (Non-positive age) Please try again with appropriate age.\n";
       assertEquals("fail to check negative age", expectedOutput, this.outContent.toString());
       System.out.print("passed test negative age input");
     } catch (IOException e) {
@@ -110,7 +110,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "-1", "", "adventure"};
       Main.main(userInput);
-      String expectedOutput = "Wrong age input. (Non-positive age) Please try again with appropriate age.\r\n";
+      String expectedOutput = "Wrong age input. (Non-positive age) Please try again with appropriate age.\n";
       assertEquals("fail to check negative age", expectedOutput, this.outContent.toString());
       System.out.print("passed test negative age input (include genre)");
     } catch (IOException e) {
@@ -124,7 +124,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "InvalidAge", ""};
       Main.main(userInput);
-      String expectedOutput = "Wrong age input. (Not an integer) Please try again with appropriate age.\r\n";
+      String expectedOutput = "Wrong age input. (Not an integer) Please try again with appropriate age.\n";
       assertEquals("fail to check not-num age", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid not-num age input");
     } catch (IOException e) {
@@ -138,7 +138,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "InvalidAge", "", "adventure"};
       Main.main(userInput);
-      String expectedOutput = "Wrong age input. (Not an integer) Please try again with appropriate age.\r\n";
+      String expectedOutput = "Wrong age input. (Not an integer) Please try again with appropriate age.\n";
       assertEquals("fail to check not-num age", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid not-num age input (include genre)");
     } catch (IOException e) {
@@ -152,7 +152,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "", "InvalidOccupation"};
       Main.main(userInput);
-      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\r\n";
+      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\n";
       assertEquals("fail to check invalid occupation", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid occupation input");
     } catch (IOException e) {
@@ -166,7 +166,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "", "InvalidOccupation", "adventure"};
       Main.main(userInput);
-      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\r\n";
+      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\n";
       assertEquals("fail to check invalid occupation", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid occupation input (include genre)");
     } catch (IOException e) {
@@ -180,7 +180,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "", "", "InvalidGenre|Comedy|Romance"};
       Main.main(userInput);
-      String expectedOutput = "Can't search because there is inappropriate category. Please try again with appropriate category.\r\n";
+      String expectedOutput = "Can't search because there is inappropriate category. Please try again with appropriate category.\n";
       assertEquals("fail to check invalid genre", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid genre input");
     } catch (IOException e) {
@@ -194,7 +194,7 @@ public class MainTest {
     try {
       String[] userInput = {"F"};
       Main.main(userInput);
-      String expectedOutput = "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)\r\n";
+      String expectedOutput = "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)\n";
       assertEquals("fail to check wrong number of args", expectedOutput,
           this.outContent.toString());
       System.out.print("passed test wrong argues input");
@@ -209,7 +209,7 @@ public class MainTest {
     try {
       String[] userInput = {"F", "23", "gradstudent", "comedy", "wrongArg"};
       Main.main(userInput);
-      String expectedOutput = "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)\r\n";
+      String expectedOutput = "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)\n";
       assertEquals("fail to check wrong number of args", expectedOutput,
           this.outContent.toString());
       System.out.print("passed test wrong argues input");
