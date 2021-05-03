@@ -9,10 +9,31 @@ import java.util.HashMap;
 public class LoadUser {
 
   private final HashMap<String, Double> userList = new HashMap<>();
+  private String occupation;
 
   public LoadUser(String gender, String age, String occupation) {
+    this.setOccupation(occupation);
     this.setUserList(gender, age, occupation);
-    this.setUserList(gender, age, occupation);
+  }
+
+  // Return boolean value that compArr has all value of targetArr.
+  // If compArr has all values of targetArr return true, or return false.
+  public boolean hasContained(String[] truthArr, String[] targetArr) {
+    int count = 0;
+
+    for (String targetValue : targetArr) {
+      for (String truthValue : truthArr) {
+        if (targetValue.toLowerCase().equals(truthValue.toLowerCase())) {
+          count++;
+        }
+      }
+    }
+
+    if (targetArr.length != count) {
+      return false;
+    }
+
+    return true;
   }
 
   public boolean hasContained(String[] truthArr, String targetArr) {
@@ -22,6 +43,14 @@ public class LoadUser {
       }
     }
     return false;
+  }
+
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
+  }
+
+  public String getOccupation() {
+    return this.occupation;
   }
 
   public HashMap<String, Double> getUserList() {
