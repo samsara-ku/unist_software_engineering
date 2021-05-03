@@ -11,7 +11,6 @@ public class LoadLink {
   private ArrayList<String> LinkList = new ArrayList<String>();
 
   public LoadLink(ArrayList<Integer> top10) {
-
     this.setLinkList(top10);
   }
 
@@ -20,7 +19,6 @@ public class LoadLink {
   }
 
   public void setLinkList(ArrayList<Integer> top10) {
-
     int idx = 0;
 
     // Find movie name and link from .dat file with movieID
