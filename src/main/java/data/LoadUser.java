@@ -14,7 +14,6 @@ public class LoadUser {
   public LoadUser(String gender, String age, String occupation) {
     this.setOccupation(occupation);
     this.setUserList(gender, age, occupation);
-    this.setUserList(gender, age, occupation);
   }
 
   // Return boolean value that compArr has all value of targetArr.

@@ -101,7 +101,6 @@ public class Main {
       LoadUser data = new LoadUser(args[0], args[1], args[2]);
 
       // Occupation input error handling
-
       boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
 
       if (!(hasProperOccupation || args[2].isEmpty())) {
@@ -162,7 +161,6 @@ public class Main {
       LoadUser data = new LoadUser(args[0], args[1], args[2]);
 
       // Occupation input error handling
-
       boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
 
       if (!(hasProperOccupation || args[2].isEmpty())) {
@@ -173,7 +171,6 @@ public class Main {
       }
 
       // Genre input error handling
-
       String[] inputCategory = args[3].split("\\|");
 
       int count = 0;
