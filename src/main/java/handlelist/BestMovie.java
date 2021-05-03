@@ -61,6 +61,12 @@ public class BestMovie {
     return this.top10_rat;
   }
 
+  public HashMap<String, Integer>[] getUserIdIndexList() {
+    return this.userIdIndexList;
+  }
+
+  public HashMap<String, String[]> getMovieGenreList() { return this.movieGenreList; }
+
   public void setUserIdIndexList() {
     int intUserIdIndex;
     int userSize = getFileListSize("./data/users.dat");
