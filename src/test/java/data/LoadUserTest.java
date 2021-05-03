@@ -14,6 +14,14 @@ public class LoadUserTest {
 
     assertTrue(data.hasContained(truthArr, "I"));
     assertFalse(data.hasContained(truthArr, "Th"));
+
+    String[] testArr1 = {"I", "AM", "TEST"};
+
+    assertTrue(data.hasContained(truthArr, testArr1));
+
+    String[] testArr2 = {"STT", "SE"};
+
+    assertFalse(data.hasContained(truthArr, testArr2));
   }
 
   @Test

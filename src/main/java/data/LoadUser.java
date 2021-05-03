@@ -23,7 +23,7 @@ public class LoadUser {
 
     for (String targetValue : targetArr) {
       for (String truthValue : truthArr) {
-        if (targetValue.toLowerCase().equals(truthValue.toLowerCase())) {
+        if (targetValue.equalsIgnoreCase(truthValue)) {
           count++;
         }
       }
