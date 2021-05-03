@@ -218,11 +218,42 @@ public class MainTest {
     }
   }
 
-  //for milestone 1
+
+  //below tests are for cover branch of milestone1
   @Test
   public void testCorrectInput() {
     try {
       String[] userInput = {"Comedy", "gradstudent"};
+      Main.main(userInput);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testInvalidOccupationM1() {
+    try {
+      String[] userInput = {"Comedy", "gradstunt"};
+      Main.main(userInput);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testInvalidGenreOccupationM1() {
+    try {
+      String[] userInput = {"Come", "gradstudent"};
+      Main.main(userInput);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testNoMovieResult() {
+    try {
+      String[] userInput = {"Comedy|Romance|Horror|sci-fi|adventure|War", "gradstudent"};
       Main.main(userInput);
     } catch (IOException e) {
       e.printStackTrace();
