@@ -5,7 +5,7 @@ For group project CSE 364, Software Programming
 ## 1.  Project description 
 ### Workflow
 
-Initially, we created a git repository for this milestone. For multiple people to write code at the same time, we decided to use the Issue, branch, and Pull Request of git. First, we raised the Issue of what to develop, and write code on their own branch, than posted Pull Requests to repository before merge it. After that, the other team members suggested problems and errors of code and refactored it. In this process, we tested the codes using test cases.
+The way of using github is same as milestone1. we make issues and branches of some topics and Pull Requests to repository before merge it. We seperate the project to two teams;team1 for algorithm of part1 & part2 and team2 for unit test. After making the algorithm of part1 and part2, team2 reviews that and edit to proper way. Then, team2 makes unit test and team1 write input error handling and README.md file. each teams reviews other teams' outcomes.
 
 ### Project file tree
 ```
@@ -15,8 +15,11 @@ Initially, we created a git repository for this milestone. For multiple people t
 |   |   └── Java
 |   |       ├── data
 |   |       |      Load.java          Reading data from .dat files
+|   |       |      LoadLink.java      Reading links of movie
+|   |       |      LoadUser.java      Select proper users with input conditions.
 |   |       ├── handlelist
 |   |       |      HandleList.java    Handleing lists and get average rating
+|   |       |      BestMovie.java     Recommanding the top 10 best movies. This contains main algorithm of Milestone2
 |   |       └── com
 |   |              Main.java          Main class
 |   |
@@ -26,6 +29,9 @@ Initially, we created a git repository for this milestone. For multiple people t
 ├── README.md
 └── .gitignore
 ```
+### Brief explanation of recommandation algorithm
+
+In `LoadUser.java`, Select proper users of input criteria and put them to user list. When the user information is not same as criteria, only 1/4 of them is putted in user list with their weight value which denoting similarity with input criteria. After that, select top 10 movies in `BestMovie.java`. To recommand movies, select top 30 most viewed movies first, and then select 10 top movies according to its average rating.
 
 ## 2. How to run program?
 
@@ -42,34 +48,40 @@ Initially, we created a git repository for this milestone. For multiple people t
 git clone https://github.com/samsara-ku/unist_software_engineering.git  
 cd unist_software_engineering  
 mvn install  
-java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar com.Main "adventure" "educator"
+java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar com.Main "F" "25" "Gradstudent"
+java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar com.Main "F" "25" "Gradstudent" "Drama"
 ```
 ## 3.  Roles of each member
-20171013_YunhoeKu : Make Load class and refactoring Main class. Assist other teammates' working and initiating our project structure.    
-20171021_GeonUKim : Make HandleList class and enhancement. Write README file and some test cases.    
-20181228_YunyoungJung : Make unit test case. Suggest an algorithm idea to reduce execution time.    
-20181049_OhnKim : Improve overall execution, Handle some error cases (invalid input, spacing, lowercase, etc), Modificate the input method.    
+20171013_YunhoeKu : 
+20171021_GeonUKim : 
+20181049_OhnKim : 
+20181228_YunyoungJung : 
 
 Common : Comment and suggest a better idea about other codes. (e.g Github activity, Slack communication)
 
 ## 4. Expected output
- #### The average rating score of all movies in the given category rated by the given occupation
+ #### The best top 10 recommanded movies in the given user information and given movie genres
 
 ```
-java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar com.Main "category" "occupation"
-There are a total of \"%d\" movies that fit the requested category, and the average score is about \"%.2f\" points.
+java -cp target/cse364-project-1.0-SNAPSHOT-jar-with-dependencies.jar com.Main "gender" "age" "occupation" "genres"
+1. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.
+2. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.
+...
+10. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.
 ```
 
  ### Input error handling
 
-1. If there are not two arguments, print "The number of arguments is not appropriate. Please use only 2 parameters, Categories and Occupation. (e.g Adventure Educator)".    
+This explains only milestone2 error handling. Error handling of milestone 1 is also contained in the code.
+1. If the number of arguments are wrong, print "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)".
 `ex.) com.Main "adventure"`
-2. If Input category is not in the category list, print "Can't search because there is inappropriate category. Please try again with appropriate category.".    
-`ex.) com.Main "adventu" "lawyer"`
-3. If Input occupation is not in the occupation list, print "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.".    
-`ex.) com.Main "adventure" "astronaut"`
-4. If both category and occupation are inappropriate , print "Can't search because there are inappropriate category and occupation. Please try again with appropriate category and occupation."    
-`ex.) com.Main "adventu" "astronaut"`
-5. If entered correctly but there is no corresponding movies, print "Despite the correct category and occupation, nothing was found. Please try again with different category."    
-`ex.) com.Main "Action|Comedy|Crime|Horror|Thriller|Romance" "self-employed"`
-6. If entered correctly and corresponding movies exist but there is no rating data, print "There are a total of # movies that fit the requested category, but the average score is 0 points due to no rating data. Please try again with another occupation."
+2. If input gender is wrong, print "Wrong gender input. Please try again with F for female or M for male."
+`ex.) com.Main "Female" "25" "Gradstudent"`
+3.  If the input age is non-positive, print "Wrong age input. (Non-positive age) Please try again with appropriate age."
+`ex.) com.Main "F" "0" "Gradstudent"`
+4. If the input age is not integer, print "Wrong age input. (Not an integer) Please try again with appropriate age."
+`ex.) com.Main "F" "Ten" "Gradstudent"`
+5. If the input occupation is not in the occupation list, print "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation."
+`ex.) com.Main "F" "25" "Gradstu"`
+6. If the input genre is not in the genre list, print "Can't search because there is inappropriate category. Please try again with appropriate category."
+`ex.) com.Main "F" "25" "Gradstudent" "com"`
