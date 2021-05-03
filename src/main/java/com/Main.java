@@ -78,7 +78,7 @@ public class Main {
       // Gender input error handling
       if (!(args[0].equals("F") || (args[0].equals("M")) || (args[0].isEmpty()))) {
         System.out.println(
-              "Wrong gender input. Please try again with appropriate gender.");
+              "Wrong gender input. Please try again with F for female or M for male.");
           return;
       }
       
@@ -138,7 +138,7 @@ public class Main {
       // Gender input error handling
       if (!(args[0].equals("F") || (args[0].equals("M") || (args[0].isEmpty())))) {
         System.out.println(
-              "Wrong gender input. Please try again with appropriate gender.");
+              "Wrong gender input. Please try again with F for female or M for male.");
           return;
       }
       
@@ -221,7 +221,7 @@ public class Main {
 
     } else {
       System.out.println(
-          "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre");
+          "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)");
       return;
     }
   }
