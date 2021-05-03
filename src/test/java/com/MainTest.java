@@ -222,7 +222,7 @@ public class MainTest {
   @Test
   public void testCorrectInput() {
     try {
-      String[] userInput = {"Comedy", "23"};
+      String[] userInput = {"Comedy", "gradstudent"};
       Main.main(userInput);
     } catch (IOException e) {
       e.printStackTrace();
