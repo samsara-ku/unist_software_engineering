@@ -26,8 +26,6 @@ public class AverageRatingTest {
     assertNotNull("movieIdList is NULL", averageRating.getMovieIdList());
     System.out.println("passed test getMovieIdList");
 
-    assertNotNull("ratingList is NULL", averageRating.getRatingList());
-    System.out.println("passed test getRatingList");
   }
 
   @Test
@@ -35,7 +33,7 @@ public class AverageRatingTest {
     Load data = new Load("comedy", "unemployed");
     AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
 
-    averageRating.setRequiredLists();
+    averageRating.setIdLists();
 
     assertNotNull("userIdList is NULL", averageRating.getUserIdList());
     System.out.println("passed test setUserIdList");
@@ -43,14 +41,11 @@ public class AverageRatingTest {
     assertNotNull("movieIdList is NULL", averageRating.getMovieIdList());
     System.out.println("passed test setMovieIdList");
 
-    assertNotNull("ratingList is NULL", averageRating.getRatingList());
-    System.out.println("passed test setRatingList");
 
     ArrayList<String> userIdList = averageRating.getUserIdList();
     ArrayList<String> movieIdList = averageRating.getMovieIdList();
-    ArrayList<String> ratingList = averageRating.getRatingList();
 
-    averageRating.setRequiredLists();
+    averageRating.setIdLists();
 
     assertTrue("userIdList changed", userIdList.equals(averageRating.getUserIdList()));
     System.out.println("passed test repeat setUserIdList");
@@ -58,15 +53,13 @@ public class AverageRatingTest {
     assertTrue("movieList changed", movieIdList.equals(averageRating.getMovieIdList()));
     System.out.println("passed test repeat setMovieIdList");
 
-    assertTrue("ratingList changed", ratingList.equals(averageRating.getRatingList()));
-    System.out.println("passed test repeat setRatingList");
   }
 
   @Test
   public void testGetAllMovieListSize() {
     Load data = new Load("comedy", "unemployed");
     AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
-    int movieListSize = averageRating.getAllMovieListSize();
+    int movieListSize = averageRating.handleList.getFileListSize("./data/movies.dat");
 
     assertNotNull("All movieList size is NULL", movieListSize);
     System.out
