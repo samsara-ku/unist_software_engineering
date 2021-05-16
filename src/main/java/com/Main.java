@@ -2,14 +2,10 @@ package com;
 
 import data.LoadLink;
 import data.LoadUser;
-<<<<<<< HEAD
-import handlelist.BestMovie;
-=======
 import handlelist.SimilarUserRecommend;
-import handlelist.AverageRating;
->>>>>>> origin
 import java.io.IOException;
 import java.util.ArrayList;
+import state.ThreeArgs;
 import state.TwoArgs;
 
 public class Main {
@@ -36,61 +32,9 @@ public class Main {
 
     // Milestone2 Part1 - 3 arguments : "gender", "age", "occupation"
     else if (args.length == 3) {
+      ThreeArgs state = new ThreeArgs(args[0], args[1], args[2]);
 
-      // Gender input error handling
-      if (!(args[0].equals("F") || (args[0].equals("M")) || (args[0].isEmpty()))) {
-        System.out.println(
-            "Wrong gender input. Please try again with F for female or M for male.");
-        return;
-      }
-
-      // Age input error handling
-      if (!args[1].isEmpty()) {
-        try {
-          int age = Integer.parseInt(args[1]);
-          if (age <= 0) {
-            System.out.println(
-                "Wrong age input. (Non-positive age) Please try again with appropriate age.");
-            return;
-          }
-        } catch (Exception e) {
-          System.out.println(
-              "Wrong age input. (Not an integer) Please try again with appropriate age.");
-          return;
-        }
-      }
-
-      LoadUser data = new LoadUser(args[0], args[1], args[2]);
-
-      // Occupation input error handling
-      boolean hasProperOccupation = data.hasContained(occupation_list, data.getOccupation());
-
-      if (!(hasProperOccupation || args[2].isEmpty())) {
-        System.out.println(String.format(
-            "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.",
-            data.getOccupation()));
-        return;
-      }
-
-      SimilarUserRecommend best = new SimilarUserRecommend(data.getUserList());
-
-      LoadLink result = new LoadLink(best.getTop10());
-
-      ArrayList<String> top10 = result.getLinkList();
-
-      int idx = 0;
-
-      for (String line : top10) {
-        String name = line.split("/")[0];
-        String link = line.split("/")[1];
-        int number = best.getTop10_num().get(idx);
-        double rating = best.getTop10_rat().get(idx);
-        idx = idx + 1;
-        System.out.println(String
-            .format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.",
-                idx, name, link, number, rating));
-      }
-
+      state.getResult();
     }
 
     // Milestone2 Part2 - 4 arguments : "gender", "age", "occupation", "genre"
