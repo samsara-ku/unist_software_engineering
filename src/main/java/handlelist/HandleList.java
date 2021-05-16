@@ -79,7 +79,7 @@ public class HandleList {
     return genre.contains("|") ? genre.split("\\|") : new String[]{genre};
   }
 
-  public HashMap<String, String>[] getMovieIdIndexList(){
+  public HashMap<String, String>[] getMovieIdIndexList() {
     int movieIndexSize = getFileListSize("./data/movies.dat");
     int intMovieIdIndex;
     /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */

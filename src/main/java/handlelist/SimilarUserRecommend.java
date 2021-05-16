@@ -49,7 +49,7 @@ public class SimilarUserRecommend {
       double sum = sumOfRating.get(movieID);
       int num = numberOfMovie.get(movieID);
       double avg_rating = sum / (double) num;
-      double avg_weight = sumOfWeight / (double) numOfWeight;
+      double avg_weight = this.sumOfWeight / (double) this.numOfWeight;
 
       avgRating.put(movieID, avg_rating / avg_weight);
     }
@@ -70,8 +70,9 @@ public class SimilarUserRecommend {
     }
   }
 
-  public HashMap<Integer, Integer> numberOfMovie(HashMap<String, Double> userList){
-    HashMap<Integer, Integer> numberOfMovie = new HashMap<>(handleList.getFileListSize("./data/movies.dat"));
+  public HashMap<Integer, Integer> numberOfMovie(HashMap<String, Double> userList) {
+    HashMap<Integer, Integer> numberOfMovie = new HashMap<>(
+        handleList.getFileListSize("./data/movies.dat"));
     for (HashMap.Entry<String, Double> user : userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
       for (HashMap.Entry<String, Integer> entry : this.userIdIndexList[index].entrySet()) {
@@ -86,8 +87,9 @@ public class SimilarUserRecommend {
     return numberOfMovie;
   }
 
-  public HashMap<Integer, Double> sumOfRating(HashMap<String, Double> userList){
-    HashMap<Integer, Double> sumOfRating = new HashMap<>(handleList.getFileListSize("./data/movies.dat"));
+  public HashMap<Integer, Double> sumOfRating(HashMap<String, Double> userList) {
+    HashMap<Integer, Double> sumOfRating = new HashMap<>(
+        handleList.getFileListSize("./data/movies.dat"));
     for (HashMap.Entry<String, Double> user : userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
 
@@ -98,12 +100,12 @@ public class SimilarUserRecommend {
         if (sumOfRating.get(movieID) == null) {
           double sum = rating * user.getValue();
           this.sumOfWeight += user.getValue();
-          numOfWeight++;
+          this.numOfWeight++;
           sumOfRating.put(movieID, sum);
         } else {
           double sum = sumOfRating.get(movieID) + rating * user.getValue();
-          sumOfWeight += user.getValue();
-          numOfWeight++;
+          this.sumOfWeight += user.getValue();
+          this.numOfWeight++;
           sumOfRating.put(movieID, sum);
         }
       }
@@ -111,7 +113,7 @@ public class SimilarUserRecommend {
     return sumOfRating;
   }
 
-  public ArrayList<Integer> sortGetTop30(HashMap<Integer, Integer> numberOfMovie){
+  public ArrayList<Integer> sortGetTop30(HashMap<Integer, Integer> numberOfMovie) {
     // Sorting number_list (descending order)
     List<Entry<Integer, Integer>> number_list = new ArrayList<Entry<Integer, Integer>>(
         numberOfMovie.entrySet());
@@ -135,7 +137,7 @@ public class SimilarUserRecommend {
     return top30;
   }
 
-  public List<Entry<Integer, Double>> sortWithRating(HashMap<Integer, Double> avgRating){
+  public List<Entry<Integer, Double>> sortWithRating(HashMap<Integer, Double> avgRating) {
     // Sorting avgRating (descending order)
     List<Entry<Integer, Double>> sortedRating = new ArrayList<Entry<Integer, Double>>(
         avgRating.entrySet());

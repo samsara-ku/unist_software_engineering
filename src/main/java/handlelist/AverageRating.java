@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AverageRating {
+
   private final HandleList handleList;
   private final ArrayList<String> movieList;
   private final ArrayList<String> userList;
@@ -31,9 +32,9 @@ public class AverageRating {
 
     /* filtered된 movieId와 userId를 이용하여 해당 movieIndex의
        userId 포함 여부를 확인후 평균 계산 */
-    for (String movieId : movieIdList) {
+    for (String movieId : this.movieIdList) {
       intMovieIdIndex = Integer.parseInt(movieId) - 1;
-      for (String userId : userIdList) {
+      for (String userId : this.userIdList) {
         if (movieIdIndexList[intMovieIdIndex].containsKey(userId)) {
           averageSum += Integer.parseInt(movieIdIndexList[intMovieIdIndex].get(userId));
           ratingCount++;
