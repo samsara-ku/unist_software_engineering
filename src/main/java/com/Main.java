@@ -3,8 +3,8 @@ package com;
 import data.Load;
 import data.LoadLink;
 import data.LoadUser;
-import handlelist.BestMovie;
-import handlelist.HandleList;
+import handlelist.SimilarUserRecommend;
+import handlelist.AverageRating;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class Main {
 
       // Safe for number of argument parsing
       Load data = new Load(args[0], args[1]);
-      HandleList process = new HandleList(data.getMovieList(), data.getUserList());
+      AverageRating process = new AverageRating(data.getMovieList(), data.getUserList());
 
       int movieCount = data.movieListLength();
       double result = process.getAverageRating();
@@ -110,7 +110,7 @@ public class Main {
         return;
       }
 
-      BestMovie best = new BestMovie(data.getUserList());
+      SimilarUserRecommend best = new SimilarUserRecommend(data.getUserList());
 
       LoadLink result = new LoadLink(best.getTop10());
 
@@ -192,11 +192,11 @@ public class Main {
         return;
       }
 
-      BestMovie best;
+      SimilarUserRecommend best;
       if (genrePass == true) {
-        best = new BestMovie(data.getUserList());
+        best = new SimilarUserRecommend(data.getUserList());
       } else {
-        best = new BestMovie(data.getUserList(), args[3]);
+        best = new SimilarUserRecommend(data.getUserList(), args[3]);
       }
 
       LoadLink result = new LoadLink(best.getTop10());
