@@ -24,7 +24,7 @@ public class AverageRating {
     int intMovieIdIndex;
     int ratingCount = 0;
     double averageSum = 0;
-    HashMap<String, String>[] movieIdIndexList = handleList.getMoiveIdIndexList();
+    HashMap<String, String>[] movieIdIndexList = handleList.getMovieIdIndexList();
 
     /* movieIdList, userIdList 생성*/
     setIdLists();

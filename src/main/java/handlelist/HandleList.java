@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class HandleList {
 
-  /* Set ArrayList that only has movieId */
+  /* Set ArrayList that only has Id */
   public ArrayList<String> getIdList(ArrayList<String> list) {
     ArrayList<String> newIdList = new ArrayList<String>();
     for (String listLine : list) {
@@ -37,7 +37,7 @@ public class HandleList {
   }
 
 
-  /* get original movie list size from file */
+  /* get original list size from file */
   public int getFileListSize(String path) {
     File file = new File(path);
     String line;
@@ -79,7 +79,7 @@ public class HandleList {
     return genre.contains("|") ? genre.split("\\|") : new String[]{genre};
   }
 
-  public HashMap<String, String>[] getMoiveIdIndexList(){
+  public HashMap<String, String>[] getMovieIdIndexList(){
     int movieIndexSize = getFileListSize("./data/movies.dat");
     int intMovieIdIndex;
     /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
