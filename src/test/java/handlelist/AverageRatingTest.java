@@ -14,11 +14,6 @@ public class AverageRatingTest {
     Load data = new Load("comedy", "unemployed");
     AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
 
-    assertNotNull("movieList is NULL", averageRating.getMovieList());
-    System.out.println("passed test get movieList");
-
-    assertNotNull("userList is NULL", averageRating.getUserList());
-    System.out.println("passed test get userList");
 
     assertNotNull("userIdList is NULL", averageRating.getUserIdList());
     System.out.println("passed test getUserIdList");
@@ -55,16 +50,6 @@ public class AverageRatingTest {
 
   }
 
-  @Test
-  public void testGetAllMovieListSize() {
-    Load data = new Load("comedy", "unemployed");
-    AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
-    int movieListSize = averageRating.handleList.getFileListSize("./data/movies.dat");
-
-    assertNotNull("All movieList size is NULL", movieListSize);
-    System.out
-        .println(String.format("All movieList size is \"%d\"", movieListSize));
-  }
 
   @Test
   public void testGetAverageRating() {

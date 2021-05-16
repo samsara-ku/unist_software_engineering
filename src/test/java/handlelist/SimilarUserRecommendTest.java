@@ -16,6 +16,7 @@ public class SimilarUserRecommendTest {
   public void testSetUserIdIndexList() {
     LoadUser data = new LoadUser("", "", "");
     SimilarUserRecommend similarUserRecommend = new SimilarUserRecommend(data.getUserList());
+    similarUserRecommend.setTop10(data.getUserList());
     HashMap<String, Integer>[] userIdIndexList = similarUserRecommend.getUserIdIndexList();
     int size = 0;
     int printSize = 0;
@@ -127,7 +128,7 @@ public class SimilarUserRecommendTest {
     Random rand = new Random();
 
     //randomly select 10 movies and check correct
-    /*for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       String index = Integer.toString(rand.nextInt(similarUserRecommend.handleList.getFileListSize("./data/movies.dat")));
       if (similarUserRecommend.handleList.getMovieGenreList().get(index) != null) {
         System.out.print(index + " ");
@@ -136,7 +137,7 @@ public class SimilarUserRecommendTest {
         }
         System.out.println();
       }
-    }*/
+    }
   }
 
   //Test setUserIdIndexList method if it set different data according to genre
@@ -144,6 +145,7 @@ public class SimilarUserRecommendTest {
   public void testSetUserIdIndexListGenre() {
     LoadUser data = new LoadUser("", "", "");
     SimilarUserRecommend similarUserRecommend = new SimilarUserRecommend(data.getUserList(), "romance");
+    similarUserRecommend.setTop10(data.getUserList());
     HashMap<String, Integer>[] userIdIndexList = similarUserRecommend.getUserIdIndexList();
     int size = 0;
     int printSize = 0;
@@ -165,6 +167,7 @@ public class SimilarUserRecommendTest {
     System.out.println();
 
     SimilarUserRecommend similarUserRecommend2 = new SimilarUserRecommend(data.getUserList(), "comedy|romance");
+    similarUserRecommend2.setTop10(data.getUserList());
 
     userIdIndexList = similarUserRecommend2.getUserIdIndexList();
     size = 0;
@@ -184,6 +187,7 @@ public class SimilarUserRecommendTest {
     System.out.println();
 
     SimilarUserRecommend similarUserRecommend3 = new SimilarUserRecommend(data.getUserList(), "comedy|romance|adventure");
+    similarUserRecommend3.setTop10(data.getUserList());
 
     userIdIndexList = similarUserRecommend3.getUserIdIndexList();
     size = 0;
