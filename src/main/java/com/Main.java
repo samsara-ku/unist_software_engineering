@@ -3,7 +3,7 @@ package com;
 import data.Load;
 import data.LoadLink;
 import data.LoadUser;
-import handlelist.BestMovie;
+import handlelist.SimilarUserRecommend;
 import handlelist.AverageRating;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +110,7 @@ public class Main {
         return;
       }
 
-      BestMovie best = new BestMovie(data.getUserList());
+      SimilarUserRecommend best = new SimilarUserRecommend(data.getUserList());
 
       LoadLink result = new LoadLink(best.getTop10());
 
@@ -192,11 +192,11 @@ public class Main {
         return;
       }
 
-      BestMovie best;
+      SimilarUserRecommend best;
       if (genrePass == true) {
-        best = new BestMovie(data.getUserList());
+        best = new SimilarUserRecommend(data.getUserList());
       } else {
-        best = new BestMovie(data.getUserList(), args[3]);
+        best = new SimilarUserRecommend(data.getUserList(), args[3]);
       }
 
       LoadLink result = new LoadLink(best.getTop10());

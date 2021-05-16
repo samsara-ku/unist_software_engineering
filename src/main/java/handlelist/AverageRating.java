@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AverageRating {
-  HandleList handleList;
+  private final HandleList handleList;
   private final ArrayList<String> movieList;
   private final ArrayList<String> userList;
 
@@ -56,14 +56,6 @@ public class AverageRating {
     if (userIdList == null) {
       this.userIdList = handleList.getIdList(this.userList);
     }
-  }
-
-  public ArrayList<String> getMovieList() {
-    return movieList;
-  }
-
-  public ArrayList<String> getUserList() {
-    return userList;
   }
 
   public ArrayList<String> getMovieIdList() {
