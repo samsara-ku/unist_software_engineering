@@ -9,84 +9,19 @@ import java.util.HashMap;
 
 public class HandleList {
 
-  private final ArrayList<String> movieList;
-  private final ArrayList<String> userList;
-
-  /* We use movie id and user id to filtering ratingList*/
-  private ArrayList<String> movieIdList;
-  private ArrayList<String> userIdList;
-  private ArrayList<String> ratingList;
-
-  public HandleList(ArrayList<String> movieList,
-      ArrayList<String> userList) {
-    this.movieList = movieList;
-    this.userList = userList;
-  }
-
-  public double getAverageRating() {
-    int movieIndexSize = getAllMovieListSize();
-    int intMovieIdIndex;
-
-    /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
-    HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
-    for (int i = 0; i < movieIndexSize; i++) {
-      movieIdIndexList[i] = new HashMap<String, String>();
+  /* Set ArrayList that only has Id */
+  public ArrayList<String> getIdList(ArrayList<String> list) {
+    ArrayList<String> newIdList = new ArrayList<String>();
+    for (String listLine : list) {
+      String temp = listLine.split("::")[0];
+      newIdList.add(temp);
     }
-
-    /* movieIdList, userIdList, ratingList 생성 */
-    setRequiredLists();
-
-    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
-    for (String rateLine : ratingList) {
-      String[] parseLine = rateLine.split("::");
-      intMovieIdIndex = Integer.parseInt(parseLine[1]) - 1;
-      movieIdIndexList[intMovieIdIndex].put(parseLine[0], parseLine[2]);
-    }
-
-    int ratingCount = 0;
-    double averageSum = 0;
-
-        /* filterd된 movieId와 userId를 이용하여 해당 movieIndex의
-            userId 포함 여부를 확인후 평균 계산 */
-    for (String movieId : movieIdList) {
-      intMovieIdIndex = Integer.parseInt(movieId) - 1;
-      for (String userId : userIdList) {
-        if (movieIdIndexList[intMovieIdIndex].containsKey(userId)) {
-          averageSum += Integer.parseInt(movieIdIndexList[intMovieIdIndex].get(userId));
-          ratingCount++;
-        }
-      }
-    }
-
-    if (ratingCount == 0) {
-      return 0;
-    }
-    averageSum /= ratingCount;
-    return averageSum;
-  }
-
-
-  /* Set ArrayList that only has movieId */
-  public void setMovieIdList() {
-    this.movieIdList = new ArrayList<String>();
-    for (String movie : this.movieList) {
-      String temp = movie.split("::")[0];
-      this.movieIdList.add(temp);
-    }
-  }
-
-  /* Set ArrayList that only has userId */
-  public void setUserIdList() {
-    this.userIdList = new ArrayList<String>();
-    for (String user : this.userList) {
-      String temp = user.split("::")[0];
-      this.userIdList.add(temp);
-    }
+    return newIdList;
   }
 
   /* Set RatingList from file */
-  public void setRatingList() {
-    this.ratingList = new ArrayList<String>();
+  public ArrayList<String> getRatingList() {
+    ArrayList<String> ratingList = new ArrayList<String>();
     File file = new File("./data/ratings.dat");
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -98,23 +33,13 @@ public class HandleList {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return ratingList;
   }
 
-  public void setRequiredLists() {
-    if (movieIdList == null) {
-      setMovieIdList();
-    }
-    if (userIdList == null) {
-      setUserIdList();
-    }
-    if (ratingList == null) {
-      setRatingList();
-    }
-  }
 
-  /* get original movie list size from file */
-  public int getAllMovieListSize() {
-    File file = new File("./data/movies.dat");
+  /* get original list size from file */
+  public int getFileListSize(String path) {
+    File file = new File(path);
     String line;
     String lastLine = null;
     try {
@@ -130,33 +55,114 @@ public class HandleList {
     return 0;
   }
 
-  public ArrayList<String> getMovieList() {
-    return movieList;
-  }
+  public HashMap<String, String[]> getMovieGenreList() {
+    File file = new File("./data/movies.dat");
+    HashMap<String, String[]> movieGenreList = new HashMap<String, String[]>();
 
-  public ArrayList<String> getUserList() {
-    return userList;
-  }
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
 
-  public ArrayList<String> getMovieIdList() {
-    if (movieIdList == null) {
-      setMovieIdList();
+      while ((line = br.readLine()) != null) {
+        String[] parseLine = line.split("::");
+        movieGenreList.put(parseLine[0], parseGenre(parseLine[2]));
+      }
+      br.close();
+
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    return movieIdList;
+    return movieGenreList;
   }
 
-  public ArrayList<String> getUserIdList() {
-    if (userIdList == null) {
-      setUserIdList();
+  public String[] parseGenre(String genre) {
+    return genre.contains("|") ? genre.split("\\|") : new String[]{genre};
+  }
+
+  public HashMap<String, String>[] getMovieIdIndexList() {
+    int movieIndexSize = getFileListSize("./data/movies.dat");
+    int intMovieIdIndex;
+    /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
+    HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
+    for (int i = 0; i < movieIndexSize; i++) {
+      movieIdIndexList[i] = new HashMap<String, String>();
     }
-    return userIdList;
-  }
 
-  public ArrayList<String> getRatingList() {
-    if (ratingList == null) {
-      setRatingList();
+    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
+    for (String rateLine : getRatingList()) {
+      String[] parseLine = rateLine.split("::");
+      intMovieIdIndex = Integer.parseInt(parseLine[1]) - 1;
+      movieIdIndexList[intMovieIdIndex].put(parseLine[0], parseLine[2]);
     }
-    return userIdList;
+    return movieIdIndexList;
   }
 
+  public HashMap<String, Integer>[] setUserIdIndexList() {
+    int intUserIdIndex;
+    int userSize = getFileListSize("./data/users.dat");
+
+    HashMap<String, Integer>[] userIdIndexList = new HashMap[userSize];
+
+    for (int i = 0; i < userSize; i++) {
+      userIdIndexList[i] = new HashMap<String, Integer>();
+    }
+
+    File file = new File("./data/ratings.dat");
+
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+
+      while ((line = br.readLine()) != null) {
+        String[] parseLine = line.split("::");
+        intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
+        userIdIndexList[intUserIdIndex].put(parseLine[1], Integer.parseInt(parseLine[2]));
+      }
+
+      br.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return userIdIndexList;
+  }
+
+  public HashMap<String, Integer>[] setUserIdIndexList(String[] genreList) {
+    int userSize = getFileListSize("./data/users.dat");
+    int intUserIdIndex;
+    HashMap<String, String[]> movieGenreList = getMovieGenreList();
+
+    HashMap<String, Integer>[] userIdIndexList = new HashMap[userSize];
+    for (int i = 0; i < userSize; i++) {
+      userIdIndexList[i] = new HashMap<String, Integer>();
+    }
+    File file = new File("./data/ratings.dat");
+
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(file));
+      String line;
+      while ((line = br.readLine()) != null) {
+        String[] parseLine = line.split("::");
+        intUserIdIndex = Integer.parseInt(parseLine[0]) - 1;
+
+        for (String genreListValue : genreList) {
+          boolean isPut = false;
+          for (String genreValue : movieGenreList.get(parseLine[1])) {
+            if (genreListValue.equalsIgnoreCase(genreValue)) {
+              userIdIndexList[intUserIdIndex]
+                  .put(parseLine[1], Integer.parseInt(parseLine[2]));
+              isPut = true;
+              break;
+            }
+          }
+          if (isPut) {
+            break;
+          }
+        }
+      }
+      br.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return userIdIndexList;
+  }
 }
