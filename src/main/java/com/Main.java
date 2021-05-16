@@ -4,7 +4,7 @@ import data.Load;
 import data.LoadLink;
 import data.LoadUser;
 import handlelist.BestMovie;
-import handlelist.HandleList;
+import handlelist.AverageRating;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class Main {
 
       // Safe for number of argument parsing
       Load data = new Load(args[0], args[1]);
-      HandleList process = new HandleList(data.getMovieList(), data.getUserList());
+      AverageRating process = new AverageRating(data.getMovieList(), data.getUserList());
 
       int movieCount = data.movieListLength();
       double result = process.getAverageRating();

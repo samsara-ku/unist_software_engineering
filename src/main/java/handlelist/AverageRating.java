@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HandleList {
-
+public class AverageRating {
   private final ArrayList<String> movieList;
   private final ArrayList<String> userList;
 
@@ -17,7 +16,7 @@ public class HandleList {
   private ArrayList<String> userIdList;
   private ArrayList<String> ratingList;
 
-  public HandleList(ArrayList<String> movieList,
+  public AverageRating(ArrayList<String> movieList,
       ArrayList<String> userList) {
     this.movieList = movieList;
     this.userList = userList;
@@ -26,28 +25,13 @@ public class HandleList {
   public double getAverageRating() {
     int movieIndexSize = getAllMovieListSize();
     int intMovieIdIndex;
-
-    /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
-    HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
-    for (int i = 0; i < movieIndexSize; i++) {
-      movieIdIndexList[i] = new HashMap<String, String>();
-    }
-
-    /* movieIdList, userIdList, ratingList 생성 */
-    setRequiredLists();
-
-    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
-    for (String rateLine : ratingList) {
-      String[] parseLine = rateLine.split("::");
-      intMovieIdIndex = Integer.parseInt(parseLine[1]) - 1;
-      movieIdIndexList[intMovieIdIndex].put(parseLine[0], parseLine[2]);
-    }
-
     int ratingCount = 0;
     double averageSum = 0;
+    HashMap<String, String>[] movieIdIndexList = setMoiveIdIndexList();
 
-        /* filterd된 movieId와 userId를 이용하여 해당 movieIndex의
-            userId 포함 여부를 확인후 평균 계산 */
+
+    /* filterd된 movieId와 userId를 이용하여 해당 movieIndex의
+       userId 포함 여부를 확인후 평균 계산 */
     for (String movieId : movieIdList) {
       intMovieIdIndex = Integer.parseInt(movieId) - 1;
       for (String userId : userIdList) {
@@ -65,24 +49,38 @@ public class HandleList {
     return averageSum;
   }
 
+  public HashMap<String, String>[] setMoiveIdIndexList(){
+    int movieIndexSize = getAllMovieListSize();
+    int intMovieIdIndex;
+    /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
+    HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
+    for (int i = 0; i < movieIndexSize; i++) {
+      movieIdIndexList[i] = new HashMap<String, String>();
+    }
+
+    /* movieIdList, userIdList, ratingList 생성 */
+    setRequiredLists();
+
+    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
+    for (String rateLine : ratingList) {
+      String[] parseLine = rateLine.split("::");
+      intMovieIdIndex = Integer.parseInt(parseLine[1]) - 1;
+      movieIdIndexList[intMovieIdIndex].put(parseLine[0], parseLine[2]);
+    }
+    return movieIdIndexList;
+  }
+
 
   /* Set ArrayList that only has movieId */
-  public void setMovieIdList() {
-    this.movieIdList = new ArrayList<String>();
-    for (String movie : this.movieList) {
-      String temp = movie.split("::")[0];
-      this.movieIdList.add(temp);
+  public ArrayList<String> setIdList(ArrayList<String> list) {
+    ArrayList<String> newIdList = new ArrayList<String>();
+    for (String listLine : list) {
+      String temp = listLine.split("::")[0];
+      newIdList.add(temp);
     }
+    return newIdList;
   }
 
-  /* Set ArrayList that only has userId */
-  public void setUserIdList() {
-    this.userIdList = new ArrayList<String>();
-    for (String user : this.userList) {
-      String temp = user.split("::")[0];
-      this.userIdList.add(temp);
-    }
-  }
 
   /* Set RatingList from file */
   public void setRatingList() {
@@ -102,10 +100,10 @@ public class HandleList {
 
   public void setRequiredLists() {
     if (movieIdList == null) {
-      setMovieIdList();
+      this.movieIdList = setIdList(this.movieList);
     }
     if (userIdList == null) {
-      setUserIdList();
+      this.userIdList = setIdList(this.userList);
     }
     if (ratingList == null) {
       setRatingList();
@@ -140,14 +138,14 @@ public class HandleList {
 
   public ArrayList<String> getMovieIdList() {
     if (movieIdList == null) {
-      setMovieIdList();
+      this.movieIdList = setIdList(this.movieList);
     }
     return movieIdList;
   }
 
   public ArrayList<String> getUserIdList() {
     if (userIdList == null) {
-      setUserIdList();
+      this.userIdList = setIdList(this.userList);
     }
     return userIdList;
   }

@@ -7,66 +7,66 @@ import data.Load;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class HandleLIstTest {
+public class AverageRatingTest {
 
   @Test
   public void testListGetters() {
     Load data = new Load("comedy", "unemployed");
-    HandleList handleList = new HandleList(data.getMovieList(), data.getUserList());
+    AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
 
-    assertNotNull("movieList is NULL", handleList.getMovieList());
+    assertNotNull("movieList is NULL", averageRating.getMovieList());
     System.out.println("passed test get movieList");
 
-    assertNotNull("userList is NULL", handleList.getUserList());
+    assertNotNull("userList is NULL", averageRating.getUserList());
     System.out.println("passed test get userList");
 
-    assertNotNull("userIdList is NULL", handleList.getUserIdList());
+    assertNotNull("userIdList is NULL", averageRating.getUserIdList());
     System.out.println("passed test getUserIdList");
 
-    assertNotNull("movieIdList is NULL", handleList.getMovieIdList());
+    assertNotNull("movieIdList is NULL", averageRating.getMovieIdList());
     System.out.println("passed test getMovieIdList");
 
-    assertNotNull("ratingList is NULL", handleList.getRatingList());
+    assertNotNull("ratingList is NULL", averageRating.getRatingList());
     System.out.println("passed test getRatingList");
   }
 
   @Test
   public void testListSetters() {
     Load data = new Load("comedy", "unemployed");
-    HandleList handleList = new HandleList(data.getMovieList(), data.getUserList());
+    AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
 
-    handleList.setRequiredLists();
+    averageRating.setRequiredLists();
 
-    assertNotNull("userIdList is NULL", handleList.getUserIdList());
+    assertNotNull("userIdList is NULL", averageRating.getUserIdList());
     System.out.println("passed test setUserIdList");
 
-    assertNotNull("movieIdList is NULL", handleList.getMovieIdList());
+    assertNotNull("movieIdList is NULL", averageRating.getMovieIdList());
     System.out.println("passed test setMovieIdList");
 
-    assertNotNull("ratingList is NULL", handleList.getRatingList());
+    assertNotNull("ratingList is NULL", averageRating.getRatingList());
     System.out.println("passed test setRatingList");
 
-    ArrayList<String> userIdList = handleList.getUserIdList();
-    ArrayList<String> movieIdList = handleList.getMovieIdList();
-    ArrayList<String> ratingList = handleList.getRatingList();
+    ArrayList<String> userIdList = averageRating.getUserIdList();
+    ArrayList<String> movieIdList = averageRating.getMovieIdList();
+    ArrayList<String> ratingList = averageRating.getRatingList();
 
-    handleList.setRequiredLists();
+    averageRating.setRequiredLists();
 
-    assertTrue("userIdList changed", userIdList.equals(handleList.getUserIdList()));
+    assertTrue("userIdList changed", userIdList.equals(averageRating.getUserIdList()));
     System.out.println("passed test repeat setUserIdList");
 
-    assertTrue("movieList changed", movieIdList.equals(handleList.getMovieIdList()));
+    assertTrue("movieList changed", movieIdList.equals(averageRating.getMovieIdList()));
     System.out.println("passed test repeat setMovieIdList");
 
-    assertTrue("ratingList changed", ratingList.equals(handleList.getRatingList()));
+    assertTrue("ratingList changed", ratingList.equals(averageRating.getRatingList()));
     System.out.println("passed test repeat setRatingList");
   }
 
   @Test
   public void testGetAllMovieListSize() {
     Load data = new Load("comedy", "unemployed");
-    HandleList handleList = new HandleList(data.getMovieList(), data.getUserList());
-    int movieListSize = handleList.getAllMovieListSize();
+    AverageRating averageRating = new AverageRating(data.getMovieList(), data.getUserList());
+    int movieListSize = averageRating.getAllMovieListSize();
 
     assertNotNull("All movieList size is NULL", movieListSize);
     System.out
@@ -76,7 +76,7 @@ public class HandleLIstTest {
   @Test
   public void testGetAverageRating() {
     Load data = new Load("comedy", "unemployed");
-    HandleList handleList = new HandleList(data.getMovieList(), data.getUserList());
+    AverageRating handleList = new AverageRating(data.getMovieList(), data.getUserList());
     double averageRating = handleList.getAverageRating();
 
     assertNotNull("AverageRating is NULL", averageRating);
@@ -89,28 +89,28 @@ public class HandleLIstTest {
     double averageRating;
 
     Load data = new Load("comedy", "unemployed");
-    HandleList handleList = new HandleList(data.getMovieList(), data.getUserList());
+    AverageRating handleList = new AverageRating(data.getMovieList(), data.getUserList());
     averageRating = handleList.getAverageRating();
 
     System.out
         .println(String.format("The average rating is \"%.2f\"", averageRating));
 
     data = new Load("comedy|romance", "artist");
-    handleList = new HandleList(data.getMovieList(), data.getUserList());
+    handleList = new AverageRating(data.getMovieList(), data.getUserList());
     averageRating = handleList.getAverageRating();
 
     System.out
         .println(String.format("The average rating is \"%.2f\"", averageRating));
 
     data = new Load("comedy|romance|adventure", "lawyer");
-    handleList = new HandleList(data.getMovieList(), data.getUserList());
+    handleList = new AverageRating(data.getMovieList(), data.getUserList());
     averageRating = handleList.getAverageRating();
 
     System.out
         .println(String.format("The average rating is \"%.2f\"", averageRating));
 
     data = new Load("comedy|romance|adventure|sci-fi|horror", "farmer");
-    handleList = new HandleList(data.getMovieList(), data.getUserList());
+    handleList = new AverageRating(data.getMovieList(), data.getUserList());
     averageRating = handleList.getAverageRating();
 
     System.out
