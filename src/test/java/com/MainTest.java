@@ -152,7 +152,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "", "InvalidOccupation"};
       Main.main(userInput);
-      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\n";
+      String expectedOutput = "Can't search inappropriate occupation, \"InvalidOccupation\". Please try again with appropriate occupation.\n";
       assertEquals("fail to check invalid occupation", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid occupation input");
     } catch (IOException e) {
@@ -166,7 +166,7 @@ public class MainTest {
     try {
       String[] userInput = {"", "", "InvalidOccupation", "adventure"};
       Main.main(userInput);
-      String expectedOutput = "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.\n";
+      String expectedOutput = "Can't search inappropriate occupation, \"InvalidOccupation\". Please try again with appropriate occupation.\n";
       assertEquals("fail to check invalid occupation", expectedOutput, this.outContent.toString());
       System.out.print("passed test invalid occupation input (include genre)");
     } catch (IOException e) {

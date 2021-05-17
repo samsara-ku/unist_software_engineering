@@ -7,61 +7,69 @@ import java.util.ArrayList;
 
 public class FourArgsFactory extends Factory {
 
-  private final LoadMoreThanTwoArgs userInfo;
-  private final String categories;
+  private LoadMoreThanTwoArgs userInfo;
+  private String categories;
   private RatingMoreThanTwoArgs resultMaker;
+
+  public FourArgsFactory() {
+  }
 
   public FourArgsFactory(String args1, String args2, String args3, String args4) {
     this.userInfo = new LoadMoreThanTwoArgs(args1, args2, args3);
     this.categories = args4;
   }
 
-  public void getResult() {
+  public boolean checkValidity(String[] input) {
+    String gender = input[0];
+    String age = input[1];
+    String occupation = input[2];
+    String categories = input[3];
+
     // Gender input error handling
-    if (!(this.userInfo.getGender().equals("F") || (this.userInfo.getGender().equals("M"))
-        || (this.userInfo.getGender().isEmpty()))) {
+    if (!(gender.equals("F") || (gender.equals("M"))
+        || (gender.isEmpty()))) {
       System.out.println(
           "Wrong gender input. Please try again with F for female or M for male.");
-      return;
+      return false;
     }
 
     // Age input error handling
-    if (!this.userInfo.getAge().isEmpty()) {
+    if (!age.isEmpty()) {
       try {
-        int age = Integer.parseInt(this.userInfo.getAge());
-        if (age <= 0) {
+        int age_parse = Integer.parseInt(age);
+        if (age_parse <= 0) {
           System.out.println(
               "Wrong age input. (Non-positive age) Please try again with appropriate age.");
-          return;
+          return false;
         }
       } catch (Exception e) {
         System.out.println(
             "Wrong age input. (Not an integer) Please try again with appropriate age.");
-        return;
+        return false;
       }
     }
 
-    boolean genrePass = this.categories.equals("");
+    boolean genrePass = categories.equals("");
 
     // Occupation input error handling
-    boolean hasProperOccupation = this.userInfo
-        .hasContained(this.occupation_list, this.userInfo.getOccupation());
+    boolean hasProperOccupation = new LoadMoreThanTwoArgs(gender, age, occupation)
+        .hasContained(this.occupation_list, occupation);
 
-    if (!(hasProperOccupation || this.userInfo.getOccupation().isEmpty())) {
+    if (!(hasProperOccupation || occupation.isEmpty())) {
       System.out.printf(
           "Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n",
-          this.userInfo.getOccupation());
-      return;
+          occupation);
+      return false;
     }
 
     // Genre input error handling
-    String[] inputCategory = this.categories.split("\\|");
+    String[] inputCategory = categories.split("\\|");
 
     int count = 0;
 
-    for (String input : inputCategory) {
+    for (String element : inputCategory) {
       for (String truthValue : category_list) {
-        if (input.equalsIgnoreCase(truthValue)) {
+        if (element.equalsIgnoreCase(truthValue)) {
           count++;
         }
       }
@@ -73,13 +81,16 @@ public class FourArgsFactory extends Factory {
       System.out
           .println(
               "Can't search because there is inappropriate category. Please try again with appropriate category.");
-      return;
+      return false;
     }
+    return true;
+  }
 
-    if (genrePass) {
+  public void getResult() {
+    if (this.categories.equals("")) {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
     } else {
-      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), categories);
     }
 
     LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());

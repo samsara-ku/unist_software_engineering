@@ -18,4 +18,6 @@ abstract class Factory {
       "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"));
 
   public abstract void getResult();
+
+  public abstract boolean checkValidity(String[] input);
 }

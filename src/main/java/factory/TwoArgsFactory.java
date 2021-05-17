@@ -5,13 +5,20 @@ import factory.user.LoadTwoArgs;
 
 public class TwoArgsFactory extends Factory {
 
-  private final LoadTwoArgs userInfo;
-  private final RatingWithTwoArgs resultMaker;
+  private LoadTwoArgs userInfo;
+  private RatingWithTwoArgs resultMaker;
+
+  public TwoArgsFactory() {
+  }
 
   public TwoArgsFactory(String args1, String args2) {
     this.userInfo = new LoadTwoArgs(args1, args2);
     this.resultMaker = new RatingWithTwoArgs(this.userInfo.getMovieList(),
         this.userInfo.getUserList());
+  }
+
+  public boolean checkValidity(String[] input) {
+    return true;
   }
 
   public void getResult() {
