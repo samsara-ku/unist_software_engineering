@@ -6,22 +6,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class HandleList {
 
   /* Set ArrayList that only has Id */
   public ArrayList<String> getIdList(ArrayList<String> list) {
-    ArrayList<String> newIdList = new ArrayList<String>();
-    for (String listLine : list) {
-      String temp = listLine.split("::")[0];
-      newIdList.add(temp);
-    }
-    return newIdList;
+    return new ArrayList<String>(list.stream().map(e -> e.split("::")[0])
+        .collect(Collectors.toList()));
   }
 
   /* Set RatingList from file */
   public ArrayList<String> getRatingList() {
-    ArrayList<String> ratingList = new ArrayList<String>();
+    ArrayList<String> ratingList = new ArrayList<>();
     File file = new File("./data/ratings.dat");
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -57,7 +54,7 @@ public class HandleList {
 
   public HashMap<String, String[]> getMovieGenreList() {
     File file = new File("./data/movies.dat");
-    HashMap<String, String[]> movieGenreList = new HashMap<String, String[]>();
+    HashMap<String, String[]> movieGenreList = new HashMap<>();
 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -76,19 +73,19 @@ public class HandleList {
   }
 
   public String[] parseGenre(String genre) {
-    return genre.contains("|") ? genre.split("\\|") : new String[]{genre};
+    return genre.split("\\|");
   }
 
   public HashMap<String, String>[] getMovieIdIndexList() {
     int movieIndexSize = getFileListSize("./data/movies.dat");
     int intMovieIdIndex;
-    /* 모든 movieId를 포함할 수 있는 크기의 map Array 생성 */
+    /* Generate map array which can include every movieId */
     HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
     for (int i = 0; i < movieIndexSize; i++) {
-      movieIdIndexList[i] = new HashMap<String, String>();
+      movieIdIndexList[i] = new HashMap<>();
     }
 
-    /* movieIdIndexList의 movieId에 해당하는 곳에 userid와 rating을 저장 */
+    /* Store userId and rating corresponding to movieId of movieIdIndexList */
     for (String rateLine : getRatingList()) {
       String[] parseLine = rateLine.split("::");
       intMovieIdIndex = Integer.parseInt(parseLine[1]) - 1;
@@ -104,7 +101,7 @@ public class HandleList {
     HashMap<String, Integer>[] userIdIndexList = new HashMap[userSize];
 
     for (int i = 0; i < userSize; i++) {
-      userIdIndexList[i] = new HashMap<String, Integer>();
+      userIdIndexList[i] = new HashMap<>();
     }
 
     File file = new File("./data/ratings.dat");
@@ -133,7 +130,7 @@ public class HandleList {
 
     HashMap<String, Integer>[] userIdIndexList = new HashMap[userSize];
     for (int i = 0; i < userSize; i++) {
-      userIdIndexList[i] = new HashMap<String, Integer>();
+      userIdIndexList[i] = new HashMap<>();
     }
     File file = new File("./data/ratings.dat");
 

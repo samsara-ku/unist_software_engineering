@@ -76,7 +76,7 @@ public class MainTest {
     }
   }
 
-  //check with invalid gender input include gen:wqre
+  //check with invalid gender input include genre
   @Test
   public void testInvalidGenderWithGenre() {
     try {

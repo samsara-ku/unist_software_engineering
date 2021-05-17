@@ -10,7 +10,7 @@ public class TwoArgsFactory {
   private final ArrayList<String> movieList;
   private final ArrayList<String> userList;
 
-  /* We use movie id and user id to filtering ratingList*/
+  /* We use movie id and user id to filtering ratingList */
   private ArrayList<String> movieIdList;
   private ArrayList<String> userIdList;
 
@@ -21,15 +21,15 @@ public class TwoArgsFactory {
   }
 
   public double getAverageRating() {
-    int intMovieIdIndex = 0;
+    int intMovieIdIndex;
     int ratingCount = 0;
     double averageSum = 0;
     HashMap<String, String>[] movieIdIndexList = handleList.getMovieIdIndexList();
 
-    /* movieIdList, userIdList 생성*/
+    /* Generate movieIdList, userIdList */
     setIdLists();
 
-    /* filtered된 movieId와 userId를 이용하여 해당 movieIndex의 userId 포함 여부를 확인후 평균 계산 */
+    /* Using filtered movieId and userId, make avg. score with checking userId corresponding movieIndex */
     for (String movieId : this.movieIdList) {
       intMovieIdIndex = Integer.parseInt(movieId) - 1;
 

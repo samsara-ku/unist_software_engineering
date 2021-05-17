@@ -1,19 +1,16 @@
 package state.result;
 
-import handlelist.HandleList;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
 public class MoreThanTwoArgsFactory {
 
-  final HandleList handleList;
-  private final ArrayList<Integer> top10 = new ArrayList<Integer>();
-  private final ArrayList<Integer> top10_num = new ArrayList<Integer>();
-  private final ArrayList<Double> top10_rat = new ArrayList<Double>();
+  private final HandleList handleList;
+  private final ArrayList<Integer> top10 = new ArrayList<>();
+  private final ArrayList<Integer> top10_num = new ArrayList<>();
+  private final ArrayList<Double> top10_rat = new ArrayList<>();
   private final HashMap<String, Double> userList;
   private HashMap<String, Integer>[] userIdIndexList;
   private double sumOfWeight = 0;
@@ -59,18 +56,11 @@ public class MoreThanTwoArgsFactory {
       for (HashMap.Entry<String, Integer> entry : this.userIdIndexList[index].entrySet()) {
         int movieID = Integer.parseInt(entry.getKey());
         int rating = entry.getValue();
-
-        if (sumOfRating.get(movieID) == null) {
-          double sum = rating * user.getValue();
-          this.sumOfWeight += user.getValue();
-          this.numOfWeight++;
-          sumOfRating.put(movieID, sum);
-        } else {
-          double sum = sumOfRating.get(movieID) + rating * user.getValue();
-          this.sumOfWeight += user.getValue();
-          this.numOfWeight++;
-          sumOfRating.put(movieID, sum);
-        }
+        double sum = sumOfRating.get(movieID) == null ? rating * user.getValue()
+            : sumOfRating.get(movieID) + rating * user.getValue();
+        this.sumOfWeight += user.getValue();
+        this.numOfWeight += 1;
+        sumOfRating.put(movieID, sum);
       }
     }
     return sumOfRating;
@@ -78,17 +68,13 @@ public class MoreThanTwoArgsFactory {
 
   public ArrayList<Integer> sortGetTop30(HashMap<Integer, Integer> numberOfMovie) {
     // Sorting number_list (descending order)
-    List<Entry<Integer, Integer>> number_list = new ArrayList<Entry<Integer, Integer>>(
+    List<Entry<Integer, Integer>> number_list = new ArrayList<>(
         numberOfMovie.entrySet());
 
-    Collections.sort(number_list, new Comparator<Entry<Integer, Integer>>() {
-      public int compare(Entry<Integer, Integer> obj1, Entry<Integer, Integer> obj2) {
-        return obj2.getValue().compareTo(obj1.getValue());
-      }
-    });
+    number_list.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
     // Top 30 most viewed movie
-    ArrayList<Integer> top30 = new ArrayList<Integer>();
+    ArrayList<Integer> top30 = new ArrayList<>();
     int ck = 1;
 
     for (Entry<Integer, Integer> entry : number_list) {
@@ -102,14 +88,10 @@ public class MoreThanTwoArgsFactory {
 
   public List<Entry<Integer, Double>> sortWithRating(HashMap<Integer, Double> avgRating) {
     // Sorting avgRating (descending order)
-    List<Entry<Integer, Double>> sortedRating = new ArrayList<Entry<Integer, Double>>(
+    List<Entry<Integer, Double>> sortedRating = new ArrayList<>(
         avgRating.entrySet());
 
-    Collections.sort(sortedRating, new Comparator<Entry<Integer, Double>>() {
-      public int compare(Entry<Integer, Double> obj1, Entry<Integer, Double> obj2) {
-        return obj2.getValue().compareTo(obj1.getValue());
-      }
-    });
+    sortedRating.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
     return sortedRating;
   }
@@ -135,9 +117,7 @@ public class MoreThanTwoArgsFactory {
 
     // Calculate average rating
     for (int movieID : top30) {
-      double sum = sumOfRating.get(movieID);
-      int num = numberOfMovie.get(movieID);
-      double avg_rating = sum / (double) num;
+      double avg_rating = sumOfRating.get(movieID) / (double) numberOfMovie.get(movieID);
       double avg_weight = this.sumOfWeight / (double) this.numOfWeight;
 
       avgRating.put(movieID, avg_rating / avg_weight);
