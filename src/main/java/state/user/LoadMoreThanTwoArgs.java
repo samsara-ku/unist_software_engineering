@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LoadMoreThanTwoArgs extends Load implements LoadAction {
@@ -51,105 +50,76 @@ public class LoadMoreThanTwoArgs extends Load implements LoadAction {
   }
 
   public void setUserList() {
-    String occupationNumber = "";
-
-    if (!this.occupation.isBlank()) {
-      File file_o = new File("./data/occupation.dat");
-
-      try {
-        // In this step, we read "occupation.dat" and transform member variable "occupation" to corresponding String number.
-        BufferedReader br = new BufferedReader(new FileReader(file_o));
-        String line;
-
-        while ((line = br.readLine()) != null) {
-          ArrayList<String> fileOccupation = new ArrayList<>();
-
-          try {
-            String fileOccupation_1 = line.split("::")[1].split("/")[0].replaceAll(" ", "");
-            String fileOccupation_2 = line.split("::")[1].split("/")[1].replaceAll(" ", "");
-            fileOccupation.add(fileOccupation_1);
-            fileOccupation.add(fileOccupation_2);
-          } catch (Exception e) {
-            fileOccupation.add(line.split("::")[1].split("/")[0].replaceAll(" ", ""));
-          }
-
-          if (this.hasContained(fileOccupation, this.getOccupation())) {
-            occupationNumber = line.split("::")[0];
-          }
-        }
-
-        br.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    // user detection
-    File file = new File("./data/users.dat");
+    String occupationNumber =
+        !this.occupation.isBlank() ? this.findOccupationNumber(this.getOccupation()) : "";
+    File user_file = new File("./data/users.dat");
 
     try {
       // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
-      BufferedReader br = new BufferedReader(new FileReader(file));
+      BufferedReader br = new BufferedReader(new FileReader(user_file));
       String line;
 
       while ((line = br.readLine()) != null) {
         double weight = 1;
-        boolean isSameGender = line.split("::")[1].equals(gender);
-        boolean isSameOccupation = line.split("::")[3].equals(occupationNumber);
+        boolean isProperGender = line.split("::")[1].equals(gender) || this.gender
+            .isBlank(); // check whether gender is equal with gender of data or it is blank.
+        boolean isProperOccupation =
+            line.split("::")[3].equals(occupationNumber) || this.occupation
+                .isBlank(); // check whether occupation is equal with occupation of data or it is blank.
 
-        if (!((isSameGender || this.gender.isBlank()) && (isSameOccupation || this.occupation.isBlank()))) {
+        if (!(isProperGender && isProperOccupation)) {
+          // For randomly select user
           if (Math.random() >= 0.25) {
             continue;
           }
 
-          if (!isSameOccupation && !this.occupation.isBlank()) {
-            weight *= 0.75;
-          }
-          if (!isSameGender && !this.gender.isBlank()) {
-            weight *= 0.5;
-          }
+          weight = !isProperOccupation ? weight * 0.75 : weight;
+          weight = !isProperGender ? weight * 0.5 : weight;
         }
-
-        String userId = line.split("::")[0];
-        String num = line.split("::")[2];
-        int Age = (this.age.isBlank()) ? 0 : Integer.parseInt(this.age);
-
-        if (this.age.isBlank()) {
-          this.getUserList().put(userId, weight);
-        } else if (Age < 18) {
-          if (num.equals("1")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else if (Age < 25) {
-          if (num.equals("18")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else if (Age < 35) {
-          if (num.equals("25")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else if (Age < 45) {
-          if (num.equals("35")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else if (Age < 50) {
-          if (num.equals("45")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else if (Age < 56) {
-          if (num.equals("50")) {
-            this.getUserList().put(userId, weight);
-          }
-        } else {
-          if (num.equals("56")) {
-            this.getUserList().put(userId, weight);
-          }
-        }
+        findUserWithProperAge(line, weight);
       }
 
       br.close();
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  public void findUserWithProperAge(String line, double weight) {
+    String userId_data = line.split("::")[0];
+    String age_data = line.split("::")[2];
+    int age_input = (this.age.isBlank()) ? 0 : Integer.parseInt(this.age);
+
+    if (age_input == 0) {
+      this.getUserList().put(userId_data, weight);
+    } else if (age_input < 18) {
+      if (age_data.equals("1")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else if (age_input < 25) {
+      if (age_data.equals("18")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else if (age_input < 35) {
+      if (age_data.equals("25")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else if (age_input < 45) {
+      if (age_data.equals("35")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else if (age_input < 50) {
+      if (age_data.equals("45")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else if (age_input < 56) {
+      if (age_data.equals("50")) {
+        this.getUserList().put(userId_data, weight);
+      }
+    } else {
+      if (age_data.equals("56")) {
+        this.getUserList().put(userId_data, weight);
+      }
     }
   }
 }

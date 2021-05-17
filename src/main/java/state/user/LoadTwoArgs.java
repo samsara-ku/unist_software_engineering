@@ -47,41 +47,21 @@ public class LoadTwoArgs extends Load implements LoadAction {
   }
 
   public void setUserList() {
-    String occupationNumber = "";
-    File occu_file = new File("./data/occupation.dat");
+    String occupationNumber = this.findOccupationNumber(this.getOccupation());
     File user_file = new File("./data/users.dat");
 
     try {
-      // In this step, we read "occupation.dat" and transform member variable "occupation" to corresponding String number.
-      BufferedReader br = new BufferedReader(new FileReader(occu_file));
+      // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
+      BufferedReader br = new BufferedReader(new FileReader(user_file));
       String line;
 
       while ((line = br.readLine()) != null) {
-        ArrayList<String> fileOccupation = new ArrayList<>();
-
-        try {
-          Arrays.stream(line.split("::")[1].split("/")).forEach(i -> fileOccupation.add(i));
-        } catch (Exception e) {
-          fileOccupation.add(line.split("::")[1].split("/")[0].replaceAll(" ", ""));
-        }
-
-        if (this.hasContained(fileOccupation, this.getOccupation())) {
-          occupationNumber = line.split("::")[0];
-        }
-      }
-
-      // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
-      BufferedReader br2 = new BufferedReader(new FileReader(user_file));
-      String line2;
-
-      while ((line2 = br2.readLine()) != null) {
-        if (line2.split("::")[3].equals(occupationNumber)) {
-          this.getUserList().add(line2);
+        if (line.split("::")[3].equals(occupationNumber)) {
+          this.getUserList().add(line);
         }
       }
 
       br.close();
-      br2.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
