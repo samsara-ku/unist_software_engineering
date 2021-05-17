@@ -1,12 +1,11 @@
 package factory.rating;
 
-import handlelist.HandleList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RatingWithTwoArgs {
 
-  private final HandleList handleList;
+  private final RatingUtils ratingUtils;
   private final ArrayList<String> movieList;
   private final ArrayList<String> userList;
 
@@ -15,7 +14,7 @@ public class RatingWithTwoArgs {
   private ArrayList<String> userIdList;
 
   public RatingWithTwoArgs(ArrayList<String> movieList, ArrayList<String> userList) {
-    this.handleList = new HandleList();
+    this.ratingUtils = new RatingUtils();
     this.movieList = movieList;
     this.userList = userList;
   }
@@ -24,7 +23,7 @@ public class RatingWithTwoArgs {
     int intMovieIdIndex;
     int ratingCount = 0;
     double averageSum = 0;
-    HashMap<String, String>[] movieIdIndexList = handleList.getMovieIdIndexList();
+    HashMap<String, String>[] movieIdIndexList = ratingUtils.getMovieIdIndexList();
 
     /* Generate movieIdList, userIdList */
     setIdLists();
@@ -50,23 +49,23 @@ public class RatingWithTwoArgs {
 
   public void setIdLists() {
     if (movieIdList == null) {
-      this.movieIdList = handleList.getIdList(this.movieList);
+      this.movieIdList = ratingUtils.getIdList(this.movieList);
     }
     if (userIdList == null) {
-      this.userIdList = handleList.getIdList(this.userList);
+      this.userIdList = ratingUtils.getIdList(this.userList);
     }
   }
 
   public ArrayList<String> getMovieIdList() {
     if (movieIdList == null) {
-      this.movieIdList = handleList.getIdList(this.movieList);
+      this.movieIdList = ratingUtils.getIdList(this.movieList);
     }
     return movieIdList;
   }
 
   public ArrayList<String> getUserIdList() {
     if (userIdList == null) {
-      this.userIdList = handleList.getIdList(this.userList);
+      this.userIdList = ratingUtils.getIdList(this.userList);
     }
     return userIdList;
   }
