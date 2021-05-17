@@ -1,25 +1,11 @@
 package state;
 
 import data.LoadLink;
-import handlelist.SimilarUserRecommend;
 import java.util.ArrayList;
-import java.util.Arrays;
 import state.result.MoreThanTwoArgsFactory;
 import state.user.LoadMoreThanTwoArgs;
 
-public class FourArgs {
-
-  private final ArrayList<String> occupation_list = new ArrayList<>(Arrays.asList(
-      "Academic", "Educator", "Artist", "Clerical",
-      "Admin", "College", "Gradstudent", "Custormerservice", "Doctor", "Healthcare", "Executive",
-      "Managerial", "Farmer", "Homemaker", "K-12student", "Lawyer", "Programmer", "Retired",
-      "Sales", "Marketing", "Scientist", "Self-employed", "Technician", "Engineer", "Tradesman",
-      "Craftsman", "Unemployed", "Writer"));
-
-  private final ArrayList<String> category_list = new ArrayList<>(Arrays.asList(
-      "Action", "Adventure", "Animation", "Children's",
-      "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-noir", "Horror", "Musical",
-      "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"));
+public class FourArgs implements FactoryOutput {
 
   private final LoadMoreThanTwoArgs userInfo;
   private final String categories;
@@ -62,9 +48,9 @@ public class FourArgs {
         .hasContained(occupation_list, this.userInfo.getOccupation());
 
     if (!(hasProperOccupation || this.userInfo.getOccupation().isEmpty())) {
-      System.out.println(String.format(
-          "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation.",
-          this.userInfo.getOccupation()));
+      System.out.printf(
+          "Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n",
+          this.userInfo.getOccupation());
       return;
     }
 
@@ -90,8 +76,7 @@ public class FourArgs {
       return;
     }
 
-    SimilarUserRecommend best;
-    if (genrePass == true) {
+    if (genrePass) {
       this.resultMaker = new MoreThanTwoArgsFactory(this.userInfo.getUserList());
     } else {
       this.resultMaker = new MoreThanTwoArgsFactory(this.userInfo.getUserList(), this.categories);
@@ -109,9 +94,9 @@ public class FourArgs {
       int number = this.resultMaker.getTop10_num().get(idx);
       double rating = this.resultMaker.getTop10_rat().get(idx);
       idx = idx + 1;
-      System.out.println(String
-          .format("%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.",
-              idx, name, link, number, rating));
+      System.out.printf(
+          "%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.%n",
+          idx, name, link, number, rating);
     }
   }
 }
