@@ -1,4 +1,4 @@
-package state.result;
+package factory.rating;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class HandleList {
+public class RatingUtils {
 
   /* Set ArrayList that only has Id */
   public ArrayList<String> getIdList(ArrayList<String> list) {

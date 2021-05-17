@@ -1,18 +1,18 @@
-package state;
+package factory;
 
-import data.LoadLink;
+import factory.link.LinkUserAndRating;
 import java.util.ArrayList;
-import state.result.MoreThanTwoArgsFactory;
-import state.user.LoadMoreThanTwoArgs;
+import factory.rating.RatingMoreThanTwoArgs;
+import factory.user.LoadMoreThanTwoArgs;
 
-public class ThreeArgs implements FactoryOutput {
+public class ThreeArgsFactory extends Factory {
 
   private final LoadMoreThanTwoArgs userInfo;
-  private final MoreThanTwoArgsFactory resultMaker;
+  private final RatingMoreThanTwoArgs resultMaker;
 
-  public ThreeArgs(String args1, String args2, String args3) {
+  public ThreeArgsFactory(String args1, String args2, String args3) {
     this.userInfo = new LoadMoreThanTwoArgs(args1, args2, args3);
-    this.resultMaker = new MoreThanTwoArgsFactory(this.userInfo.getUserList());
+    this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
   }
 
   public void getResult() {
@@ -50,7 +50,7 @@ public class ThreeArgs implements FactoryOutput {
       return;
     }
 
-    LoadLink result = new LoadLink(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
 
     ArrayList<String> top10 = result.getLinkList();
 

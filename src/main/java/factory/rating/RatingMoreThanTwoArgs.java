@@ -1,13 +1,13 @@
-package state.result;
+package factory.rating;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class MoreThanTwoArgsFactory {
+public class RatingMoreThanTwoArgs {
 
-  private final HandleList handleList;
+  private final RatingUtils ratingUtils;
   private final ArrayList<Integer> top10 = new ArrayList<>();
   private final ArrayList<Integer> top10_num = new ArrayList<>();
   private final ArrayList<Double> top10_rat = new ArrayList<>();
@@ -17,20 +17,20 @@ public class MoreThanTwoArgsFactory {
   private int numOfWeight = 0;
   private String genre = "";
 
-  public MoreThanTwoArgsFactory(HashMap<String, Double> userList) {
-    this.handleList = new HandleList();
+  public RatingMoreThanTwoArgs(HashMap<String, Double> userList) {
+    this.ratingUtils = new RatingUtils();
     this.userList = userList;
   }
 
-  public MoreThanTwoArgsFactory(HashMap<String, Double> userList, String genre) {
-    this.handleList = new HandleList();
+  public RatingMoreThanTwoArgs(HashMap<String, Double> userList, String genre) {
+    this.ratingUtils = new RatingUtils();
     this.userList = userList;
     this.genre = genre;
   }
 
   public HashMap<Integer, Integer> numberOfMovie(HashMap<String, Double> userList) {
     HashMap<Integer, Integer> numberOfMovie = new HashMap<>(
-        handleList.getFileListSize("./data/movies.dat"));
+        ratingUtils.getFileListSize("./data/movies.dat"));
 
     for (HashMap.Entry<String, Double> user : userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
@@ -48,7 +48,7 @@ public class MoreThanTwoArgsFactory {
 
   public HashMap<Integer, Double> sumOfRating(HashMap<String, Double> userList) {
     HashMap<Integer, Double> sumOfRating = new HashMap<>(
-        handleList.getFileListSize("./data/movies.dat"));
+        ratingUtils.getFileListSize("./data/movies.dat"));
 
     for (HashMap.Entry<String, Double> user : userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
@@ -103,8 +103,8 @@ public class MoreThanTwoArgsFactory {
 
   // Find the best 10 movies to recommend
   public void setTop10(HashMap<String, Double> userList) {
-    this.userIdIndexList = this.genre.isEmpty() ? handleList.setUserIdIndexList()
-        : handleList.setUserIdIndexList(handleList.parseGenre(this.genre));
+    this.userIdIndexList = this.genre.isEmpty() ? ratingUtils.setUserIdIndexList()
+        : ratingUtils.setUserIdIndexList(ratingUtils.parseGenre(this.genre));
 
     // Create MovieList about number of rating and sum of rating
     HashMap<Integer, Integer> numberOfMovie = numberOfMovie(userList);

@@ -1,17 +1,17 @@
-package state;
+package factory;
 
-import data.LoadLink;
+import factory.link.LinkUserAndRating;
+import factory.rating.RatingMoreThanTwoArgs;
+import factory.user.LoadMoreThanTwoArgs;
 import java.util.ArrayList;
-import state.result.MoreThanTwoArgsFactory;
-import state.user.LoadMoreThanTwoArgs;
 
-public class FourArgs implements FactoryOutput {
+public class FourArgsFactory extends Factory {
 
   private final LoadMoreThanTwoArgs userInfo;
   private final String categories;
-  private MoreThanTwoArgsFactory resultMaker;
+  private RatingMoreThanTwoArgs resultMaker;
 
-  public FourArgs(String args1, String args2, String args3, String args4) {
+  public FourArgsFactory(String args1, String args2, String args3, String args4) {
     this.userInfo = new LoadMoreThanTwoArgs(args1, args2, args3);
     this.categories = args4;
   }
@@ -45,7 +45,7 @@ public class FourArgs implements FactoryOutput {
 
     // Occupation input error handling
     boolean hasProperOccupation = this.userInfo
-        .hasContained(occupation_list, this.userInfo.getOccupation());
+        .hasContained(this.occupation_list, this.userInfo.getOccupation());
 
     if (!(hasProperOccupation || this.userInfo.getOccupation().isEmpty())) {
       System.out.printf(
@@ -77,12 +77,12 @@ public class FourArgs implements FactoryOutput {
     }
 
     if (genrePass) {
-      this.resultMaker = new MoreThanTwoArgsFactory(this.userInfo.getUserList());
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
     } else {
-      this.resultMaker = new MoreThanTwoArgsFactory(this.userInfo.getUserList(), this.categories);
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    LoadLink result = new LoadLink(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
 
     ArrayList<String> top10 = result.getLinkList();
 

@@ -1,4 +1,4 @@
-package state.user;
+package factory.user;
 
 import java.io.BufferedReader;
 import java.io.File;

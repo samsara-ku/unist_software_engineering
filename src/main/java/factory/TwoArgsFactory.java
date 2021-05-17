@@ -1,16 +1,16 @@
-package state;
+package factory;
 
-import state.result.TwoArgsFactory;
-import state.user.LoadTwoArgs;
+import factory.rating.RatingWithTwoArgs;
+import factory.user.LoadTwoArgs;
 
-public class TwoArgs implements FactoryOutput {
+public class TwoArgsFactory extends Factory {
 
   private final LoadTwoArgs userInfo;
-  private final TwoArgsFactory resultMaker;
+  private final RatingWithTwoArgs resultMaker;
 
-  public TwoArgs(String args1, String args2) {
+  public TwoArgsFactory(String args1, String args2) {
     this.userInfo = new LoadTwoArgs(args1, args2);
-    this.resultMaker = new TwoArgsFactory(this.userInfo.getMovieList(),
+    this.resultMaker = new RatingWithTwoArgs(this.userInfo.getMovieList(),
         this.userInfo.getUserList());
   }
 

@@ -1,4 +1,4 @@
-package state.user;
+package factory.user;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class Load {
+abstract class Load {
 
   public boolean hasContained(ArrayList<String> truthArr, ArrayList<String> target) {
     return truthArr.stream().filter(i -> target.stream().anyMatch(e -> e.equalsIgnoreCase(i)))

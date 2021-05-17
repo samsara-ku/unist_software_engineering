@@ -1,10 +1,10 @@
-package state.result;
+package factory.rating;
 
 import handlelist.HandleList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TwoArgsFactory {
+public class RatingWithTwoArgs {
 
   private final HandleList handleList;
   private final ArrayList<String> movieList;
@@ -14,7 +14,7 @@ public class TwoArgsFactory {
   private ArrayList<String> movieIdList;
   private ArrayList<String> userIdList;
 
-  public TwoArgsFactory(ArrayList<String> movieList, ArrayList<String> userList) {
+  public RatingWithTwoArgs(ArrayList<String> movieList, ArrayList<String> userList) {
     this.handleList = new HandleList();
     this.movieList = movieList;
     this.userList = userList;
