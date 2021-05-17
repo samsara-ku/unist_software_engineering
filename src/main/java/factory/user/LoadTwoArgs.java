@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class LoadTwoArgs extends Load implements LoadAction {
+public class LoadTwoArgs extends Load {
 
   private final ArrayList<String> userList = new ArrayList<>();
   private final ArrayList<String> movieList = new ArrayList<>();

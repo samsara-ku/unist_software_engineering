@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class LoadMoreThanTwoArgs extends Load implements LoadAction {
+public class LoadMoreThanTwoArgs extends Load {
 
   private final HashMap<String, Double> userList = new HashMap<>();
   private String gender;
