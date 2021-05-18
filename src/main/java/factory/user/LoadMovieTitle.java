@@ -14,7 +14,7 @@ public class LoadMovieTitle {
   private String movieId = "";
   private String movieGenre = "";
 
-  LoadMovieTitle(String movieTitle){
+  public LoadMovieTitle(String movieTitle){
     this.userList = new ArrayList<>();
     this.movieTitle = movieTitle;
   }
@@ -56,7 +56,7 @@ public class LoadMovieTitle {
         String movieTitleInput = this.parseMovieTitle(this.movieTitle);
 
         if (movieTitleInput.equals(movieTitleData)) {
-          this.movieId = line.split("::")[1];
+          this.movieId = line.split("::")[0];
           this.movieGenre = line.split("::")[2];
         }
       }
