@@ -48,10 +48,11 @@ public class LinkUserAndRating {
         while ((line2 = br2.readLine()) != null) {
           int ID = Integer.parseInt(line2.split("::")[0]);
           String name = line2.split("::")[1];
+          String genre = line2.split("::")[2];
 
           if (movieID == ID) {
             String link = this.getLinkList().get(idx);
-            String add = name + "/" + link;
+            String add = name + "/" + link + "/" + genre;
             this.getLinkList().set(idx, add);
 
             if (idx == 9) {

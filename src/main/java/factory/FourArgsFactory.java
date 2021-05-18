@@ -86,11 +86,23 @@ public class FourArgsFactory extends Factory {
     return true;
   }
 
-  public void getResult() {
+  public ArrayList<String> getResult() {
     if (this.categories.equals("")) {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
     } else {
-      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), categories);
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
+    }
+
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+
+    return result.getLinkList();
+  }
+
+  public void printResult() {
+    if (this.categories.equals("")) {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
+    } else {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
     LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
@@ -106,7 +118,7 @@ public class FourArgsFactory extends Factory {
       double rating = this.resultMaker.getTop10_rat().get(idx);
       idx = idx + 1;
       System.out.printf(
-          "%d. %s (http://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.%n",
+          "%d. %s (https://www.imdb.com/title/tt%s) : %d watched and got %.2f ratings.%n",
           idx, name, link, number, rating);
     }
   }
