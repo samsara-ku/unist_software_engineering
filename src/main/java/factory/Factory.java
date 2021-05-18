@@ -17,7 +17,7 @@ abstract class Factory {
       "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-noir", "Horror", "Musical",
       "Mystery", "Romance", "Sci-fi", "Thriller", "War", "Western"));
 
-  public abstract void getResult();
+  public abstract void printResult();
 
   public abstract boolean checkValidity(String[] input);
 }

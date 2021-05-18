@@ -21,7 +21,7 @@ public class TwoArgsFactory extends Factory {
     return true;
   }
 
-  public void getResult() {
+  public void printResult() {
     int movieCount = this.userInfo.getMovieList().size();
     double rating = this.resultMaker.getAverageRating();
     boolean hasProperCategories = this.userInfo
