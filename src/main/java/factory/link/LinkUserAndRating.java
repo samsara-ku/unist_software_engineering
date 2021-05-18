@@ -10,15 +10,15 @@ public class LinkUserAndRating {
 
   private final ArrayList<String> LinkList = new ArrayList<>();
 
-  public LinkUserAndRating(ArrayList<Integer> top10) {
-    this.setLinkList(top10);
+  public LinkUserAndRating(ArrayList<Integer> top10, int limit) {
+    this.setLinkList(top10, limit);
   }
 
   public ArrayList<String> getLinkList() {
     return this.LinkList;
   }
 
-  public void setLinkList(ArrayList<Integer> top10) {
+  public void setLinkList(ArrayList<Integer> top10, int limit) {
     int idx = 0;
 
     // Find movie name and link from .dat file with movieID
@@ -39,7 +39,7 @@ public class LinkUserAndRating {
 
           if (movieID == ID) {
             this.getLinkList().add(link);
-            if (idx == 9) {
+            if (idx == limit-1) {
               break;
             }
           }
@@ -55,7 +55,7 @@ public class LinkUserAndRating {
             String add = name + "/" + link + "/" + genre;
             this.getLinkList().set(idx, add);
 
-            if (idx == 9) {
+            if (idx == limit-1) {
               break;
             }
 

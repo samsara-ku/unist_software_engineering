@@ -61,7 +61,7 @@ public class ThreeArgsFactory extends Factory {
   }
 
   public void printResult() {
-    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     ArrayList<String> top10 = result.getLinkList();
 

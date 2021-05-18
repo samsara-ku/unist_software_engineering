@@ -93,7 +93,7 @@ public class FourArgsFactory extends Factory {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     return result.getLinkList();
   }
@@ -105,7 +105,7 @@ public class FourArgsFactory extends Factory {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     ArrayList<String> top10 = result.getLinkList();
 
