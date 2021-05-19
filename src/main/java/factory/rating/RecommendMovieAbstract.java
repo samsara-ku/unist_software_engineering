@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 public abstract class RecommendMovieAbstract {
 
   public abstract HashMap<Integer, Double> sumOfRating();
+
   public abstract HashMap<Integer, Integer> numberOfMovie();
 
   public List<Entry<Integer, Double>> sortWithRating(HashMap<Integer, Double> avgRating) {

@@ -3,6 +3,7 @@ package com;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import factory.MovieRecommendFactory;
 import factory.link.LinkUserAndRating;
 import factory.rating.MovieTitleRecommend;
 import factory.user.LoadMovieTitle;
@@ -22,13 +23,11 @@ public class MovieRecommendController {
   @ResponseBody
   @GetMapping("/recommend")
   public Object recommend(@RequestBody final MovieRecommend mediator) {
-    LoadMovieTitle aa = new LoadMovieTitle(mediator.getTitle());
-    MovieTitleRecommend bb  = new MovieTitleRecommend(aa.getUserList(), Integer.parseInt(mediator.getLimit()), aa.getMovieId(),aa.getMovieGenre());
-    LinkUserAndRating result = new LinkUserAndRating(bb.getTopRecommendMovies(),Integer.parseInt(mediator.getLimit()));
-    ArrayList<String> topMovies = result.getLinkList();
+    MovieRecommendFactory movieRecommendFactory = new MovieRecommendFactory(mediator.getTitle(), mediator.getLimit());
+
     ArrayList<String> object = new ArrayList<>();
 
-    topMovies.forEach(i -> {
+    movieRecommendFactory.getResult().forEach(i -> {
       Map<String, String> temp = new HashMap<>();
       temp.put("imdb", String.format("https://www.imdb.com/title/tt%s", i.split("/")[1]));
       temp.put("genre", i.split("/")[2]);

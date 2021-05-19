@@ -5,16 +5,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class LoadMovieTitle {
+
   private final ArrayList<String> userList;
   private String movieTitle;
   private String movieId = "";
   private String movieGenre = "";
 
-  public LoadMovieTitle(String movieTitle){
+  public LoadMovieTitle(String movieTitle) {
     this.userList = new ArrayList<>();
     this.movieTitle = movieTitle;
   }
@@ -22,7 +22,7 @@ public class LoadMovieTitle {
   public void setUserWatchedMovie() {
     File file = new File("./data/ratings.dat");
     this.setMovieIdAndGenre();
-    if(this.movieId != "0")
+    if (this.movieId != "0") {
       try {
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
@@ -42,6 +42,7 @@ public class LoadMovieTitle {
       } catch (IOException e) {
         e.printStackTrace();
       }
+    }
   }
 
   public void setMovieIdAndGenre() {
@@ -66,25 +67,27 @@ public class LoadMovieTitle {
     }
   }
 
-  public ArrayList<String> getUserList(){
+  public ArrayList<String> getUserList() {
     setUserWatchedMovie();
     return this.userList;
   }
 
-  public String getMovieId(){
-    if(this.movieId.isEmpty())
+  public String getMovieId() {
+    if (this.movieId.isEmpty()) {
       setMovieIdAndGenre();
+    }
     return this.movieId;
   }
 
-  public String getMovieGenre(){
-    if(this.movieGenre.isEmpty())
+  public String getMovieGenre() {
+    if (this.movieGenre.isEmpty()) {
       setMovieIdAndGenre();
+    }
     return this.movieGenre;
   }
 
-  public String parseMovieTitle(String title){
-    return title.toLowerCase(Locale.ROOT).replaceAll("\\s+","");
+  public String parseMovieTitle(String title) {
+    return title.toLowerCase(Locale.ROOT).replaceAll("\\s+", "");
   }
 
 }
