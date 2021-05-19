@@ -47,6 +47,7 @@ public class LoadMovieTitle {
 
   public void setMovieIdAndGenre() {
     File file = new File("./data/movies.dat");
+    this.movieId = "0";
 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));

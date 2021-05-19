@@ -6,15 +6,22 @@ import factory.user.LoadMovieTitle;
 import java.util.ArrayList;
 
 public class MovieRecommendFactory {
-  private final String title;
-  private final String limit;
 
-  public MovieRecommendFactory(String title, String limit){
+  private final String title;
+  private String limit;
+  private String errorMessage;
+
+  public MovieRecommendFactory(String title, String limit) {
     this.title = title;
     this.limit = limit;
+    this.errorMessage = "";
   }
 
-  public ArrayList<String> getResult(){
+  public ArrayList<String> getResult() {
+    if (this.limit.isEmpty()) {
+      this.limit = "10";
+    }
+
     LoadMovieTitle loadMovieTitle = new LoadMovieTitle(this.title);
 
     MovieTitleRecommend movieTitleRecommend = new MovieTitleRecommend(loadMovieTitle.getUserList(),
@@ -23,8 +30,39 @@ public class MovieRecommendFactory {
     LinkUserAndRating result = new LinkUserAndRating(movieTitleRecommend.getTopRecommendMovies(),
         Integer.parseInt(this.limit));
 
-
     return result.getLinkList();
+  }
+
+  public boolean titleIsValid() {
+    LoadMovieTitle loadMovieTitle = new LoadMovieTitle(this.title);
+    if (this.title.isEmpty()) {
+      this.errorMessage += "Please input title.\n";
+      return false;
+    } else if (loadMovieTitle.getMovieId() == "0") {
+      this.errorMessage += "Wrong title input. Please try again with accurate movie title.\n";
+      return false;
+    }
+    return true;
+  }
+
+  public boolean limitIsValid() {
+    if (!this.limit.isEmpty()) {
+      try {
+        int limitParse = Integer.parseInt(limit);
+        if (limitParse <= 0 || limitParse > 100) {
+          this.errorMessage += "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 100.\n";
+          return false;
+        }
+      } catch (Exception e) {
+        this.errorMessage += "Wrong limit input. (Not an integer) Please try again with appropriate limit.\n";
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public String getErrorMessage() {
+    return this.errorMessage;
   }
 
 }

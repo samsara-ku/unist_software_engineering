@@ -33,13 +33,17 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
     HashMap<Integer, Double> sumOfRating = sumOfRating();
     this.topRecommendMovies = new ArrayList<>();
 
-    ArrayList<Integer> top30 = this.sortGetTopN(numberOfMovie, 2 * this.limit);
+    //user들이 남긴 movie rating의 개수로 정렬 후 limit의 두배 크기의 리스트 생성
+    ArrayList<Integer> topDoubleLimit = this.sortGetTopN(numberOfMovie, 2 * this.limit);
+
+    //topDoubleLimit list 영화들의 평균 rating을 계산
     HashMap<Integer, Double> ratingList = new HashMap<>();
-    for (Integer top30MovieId : top30) {
+    for (Integer top30MovieId : topDoubleLimit) {
       ratingList
           .put(top30MovieId, sumOfRating.get(top30MovieId) / this.numOfRating.get(top30MovieId));
     }
 
+    //평균 rating으로 최종 정렬 후 리스트 생성
     List<Entry<Integer, Double>> sortedRating = sortWithRating(ratingList);
 
     int idx = 0;
@@ -59,13 +63,19 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
     for (String userId : this.userList) {
       int index = Integer.parseInt(userId) - 1;
       for (String movieIdString : this.userIdIndexList[index].keySet()) {
+
+        //장르 유사도가 높을수록 가중치를 부여함
         int weight = this.genreSimilarity(ratingUtils.parseGenre(this.genre),
             this.movieGenreList.get(movieIdString));
         int movieId = Integer.parseInt(movieIdString);
+
+        //동일 영화 제외
         if (movieId == Integer.parseInt(this.movieId)) {
           weight = 0;
         }
         if (weight != 0) {
+
+          //3점 이상의 rating만 인정하여 영화 시청수에 추가
           if (this.userIdIndexList[index].get(movieIdString) >= 3) {
             if (numberOfMovie.get(movieId) == null) {
               numberOfMovie.put(movieId, weight);
@@ -82,12 +92,15 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
   public HashMap<Integer, Double> sumOfRating() {
     HashMap<Integer, Double> sumOfRating = new HashMap<>();
     this.numOfRating = new HashMap<>();
+
     for (String userId : this.userList) {
       int index = Integer.parseInt(userId) - 1;
+
       for (String movieIdString : this.userIdIndexList[index].keySet()) {
         int weight = this.genreSimilarity(ratingUtils.parseGenre(this.genre),
             this.movieGenreList.get(movieIdString));
         int movieId = Integer.parseInt(movieIdString);
+
         if (movieId == Integer.parseInt(this.movieId)) {
           weight = 0;
         }
@@ -112,6 +125,8 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
 
     for (String inputGenre : inputGenreList) {
       for (String targetGenre : targetGenreList) {
+
+        //장르가 많이 겹칠수록 유사도 증가
         if (inputGenre.equals(targetGenre)) {
           if (similarity == 0) {
             similarity = 1;
