@@ -18,7 +18,7 @@ public class ThreeArgsFactory extends Factory {
     this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
   }
 
-  public boolean checkValidity(String[] input) {
+  public String checkValidity(String[] input) {
     String gender = input[0];
     String age = input[1];
     String occupation = input[2];
@@ -26,9 +26,8 @@ public class ThreeArgsFactory extends Factory {
     // Gender input error handling
     if (!(gender.equals("F") || (gender.equals("M"))
         || (gender.isEmpty()))) {
-      System.out.println(
-          "Wrong gender input. Please try again with F for female or M for male.");
-      return false;
+      return "Wrong gender input. Please try again with F for female or M for male.";
+
     }
 
     // Age input error handling
@@ -36,14 +35,10 @@ public class ThreeArgsFactory extends Factory {
       try {
         int age_parse = Integer.parseInt(age);
         if (age_parse <= 0) {
-          System.out.println(
-              "Wrong age input. (Non-positive age) Please try again with appropriate age.");
-          return false;
+          return "Wrong age input. (Non-positive age) Please try again with appropriate age.";
         }
       } catch (Exception e) {
-        System.out.println(
-            "Wrong age input. (Not an integer) Please try again with appropriate age.");
-        return false;
+        return "Wrong age input. (Not an integer) Please try again with appropriate age.";
       }
     }
 
@@ -51,13 +46,12 @@ public class ThreeArgsFactory extends Factory {
         .hasContained(occupation_list, occupation);
 
     if (!(hasProperOccupation || occupation.isEmpty())) {
-      System.out.printf(
+      return String.format(
           "Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n",
           occupation);
-      return false;
     }
 
-    return true;
+    return "";
   }
 
   public void printResult() {

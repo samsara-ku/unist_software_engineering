@@ -19,6 +19,12 @@ public class UserRecommendController {
     FourArgsFactory state = new FourArgsFactory(mediator.getGender(), mediator.getAge(),
         mediator.getOccupation(), mediator.getGenre());
 
+    if (!state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
+        mediator.getOccupation(), mediator.getGenre()}).equals("")) {
+      return state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
+          mediator.getOccupation(), mediator.getGenre()});
+    }
+
     ArrayList<HashMap<String, String>> result = new ArrayList<>();
 
     state.getResult().forEach(i -> {

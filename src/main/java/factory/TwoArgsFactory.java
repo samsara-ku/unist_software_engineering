@@ -17,8 +17,8 @@ public class TwoArgsFactory extends Factory {
         this.userInfo.getUserList());
   }
 
-  public boolean checkValidity(String[] input) {
-    return true;
+  public String checkValidity(String[] input) {
+    return "";
   }
 
   public void printResult() {
