@@ -3,19 +3,27 @@ package com;
 public class MovieRecommend {
 
   private String title;
-  private String limit;
 
+  private Integer limit;
 
-  public MovieRecommend(String title, String limit) {
-    this.title = title;
-    this.limit = limit;
+  public MovieRecommend(String title, Integer limit) {
+    if(title == null)
+      this.title = "";
+    else
+      this.title = title;
+    if(limit == null)
+      this.limit = 10;
+    else
+      this.limit = limit;
   }
+
+
 
   public String getTitle() {
     return this.title;
   }
 
-  public String getLimit() {
+  public int getLimit() {
     return this.limit;
   }
 

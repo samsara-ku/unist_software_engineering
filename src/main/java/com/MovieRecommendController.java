@@ -19,7 +19,8 @@ public class MovieRecommendController {
 
   @ResponseBody
   @GetMapping("/recommend")
-  public Object recommend(@RequestBody final MovieRecommend mediator) {
+    public Object recommend(@RequestBody(required = false) MovieRecommend mediator) {
+
     MovieRecommendFactory movieRecommendFactory = new MovieRecommendFactory(mediator.getTitle(), mediator.getLimit());
     boolean titleIsValid = movieRecommendFactory.titleIsValid();
     boolean limitIsValid = movieRecommendFactory.limitIsValid();

@@ -18,11 +18,11 @@ public class LinkUserAndRating {
     return this.LinkList;
   }
 
-  public void setLinkList(ArrayList<Integer> top10, int limit) {
+  public void setLinkList(ArrayList<Integer> topMovies, int limit) {
     int idx = 0;
 
     // Find movie name and link from .dat file with movieID
-    for (Integer movieID : top10) {
+    for (Integer movieID : topMovies) {
       File file = new File("./data/links.dat");
       File file2 = new File("./data/movies.dat");
 
