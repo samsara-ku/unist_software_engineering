@@ -19,5 +19,5 @@ abstract class Factory {
 
   public abstract void printResult();
 
-  public abstract boolean checkValidity(String[] input);
+  public abstract String checkValidity(String[] input);
 }

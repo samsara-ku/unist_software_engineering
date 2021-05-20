@@ -19,7 +19,7 @@ public class FourArgsFactory extends Factory {
     this.categories = args4;
   }
 
-  public boolean checkValidity(String[] input) {
+  public String checkValidity(String[] input) {
     String gender = input[0];
     String age = input[1];
     String occupation = input[2];
@@ -28,9 +28,7 @@ public class FourArgsFactory extends Factory {
     // Gender input error handling
     if (!(gender.equals("F") || (gender.equals("M"))
         || (gender.isEmpty()))) {
-      System.out.println(
-          "Wrong gender input. Please try again with F for female or M for male.");
-      return false;
+      return "Wrong gender input. Please try again with F for female or M for male.";
     }
 
     // Age input error handling
@@ -38,14 +36,10 @@ public class FourArgsFactory extends Factory {
       try {
         int age_parse = Integer.parseInt(age);
         if (age_parse <= 0) {
-          System.out.println(
-              "Wrong age input. (Non-positive age) Please try again with appropriate age.");
-          return false;
+          return "Wrong age input. (Non-positive age) Please try again with appropriate age.";
         }
       } catch (Exception e) {
-        System.out.println(
-            "Wrong age input. (Not an integer) Please try again with appropriate age.");
-        return false;
+        return "Wrong age input. (Not an integer) Please try again with appropriate age.";
       }
     }
 
@@ -56,15 +50,13 @@ public class FourArgsFactory extends Factory {
         .hasContained(this.occupation_list, occupation);
 
     if (!(hasProperOccupation || occupation.isEmpty())) {
-      System.out.printf(
+      return String.format(
           "Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n",
           occupation);
-      return false;
     }
 
     // Genre input error handling
     String[] inputCategory = categories.split("\\|");
-
     int count = 0;
 
     for (String element : inputCategory) {
@@ -78,12 +70,10 @@ public class FourArgsFactory extends Factory {
     boolean valid_category = (inputCategory.length == count);
 
     if (!(genrePass || valid_category)) {
-      System.out
-          .println(
-              "Can't search because there is inappropriate category. Please try again with appropriate category.");
-      return false;
+      return "Can't search because there is inappropriate category. Please try again with appropriate category.";
     }
-    return true;
+
+    return "";
   }
 
   public ArrayList<String> getResult() {
@@ -93,7 +83,7 @@ public class FourArgsFactory extends Factory {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     return result.getLinkList();
   }
@@ -105,7 +95,7 @@ public class FourArgsFactory extends Factory {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10());
+    LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     ArrayList<String> top10 = result.getLinkList();
 

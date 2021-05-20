@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class RatingMoreThanTwoArgs {
+public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
 
   private final RatingUtils ratingUtils;
   private final ArrayList<Integer> top10 = new ArrayList<>();
@@ -28,11 +28,11 @@ public class RatingMoreThanTwoArgs {
     this.genre = genre;
   }
 
-  public HashMap<Integer, Integer> numberOfMovie(HashMap<String, Double> userList) {
+  public HashMap<Integer, Integer> numberOfMovie() {
     HashMap<Integer, Integer> numberOfMovie = new HashMap<>(
         ratingUtils.getFileListSize("./data/movies.dat"));
 
-    for (HashMap.Entry<String, Double> user : userList.entrySet()) {
+    for (HashMap.Entry<String, Double> user : this.userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
       for (HashMap.Entry<String, Integer> entry : this.userIdIndexList[index].entrySet()) {
         int movieID = Integer.parseInt(entry.getKey());
@@ -46,11 +46,11 @@ public class RatingMoreThanTwoArgs {
     return numberOfMovie;
   }
 
-  public HashMap<Integer, Double> sumOfRating(HashMap<String, Double> userList) {
+  public HashMap<Integer, Double> sumOfRating() {
     HashMap<Integer, Double> sumOfRating = new HashMap<>(
         ratingUtils.getFileListSize("./data/movies.dat"));
 
-    for (HashMap.Entry<String, Double> user : userList.entrySet()) {
+    for (HashMap.Entry<String, Double> user : this.userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
 
       for (HashMap.Entry<String, Integer> entry : this.userIdIndexList[index].entrySet()) {
@@ -66,35 +66,6 @@ public class RatingMoreThanTwoArgs {
     return sumOfRating;
   }
 
-  public ArrayList<Integer> sortGetTop30(HashMap<Integer, Integer> numberOfMovie) {
-    // Sorting number_list (descending order)
-    List<Entry<Integer, Integer>> number_list = new ArrayList<>(
-        numberOfMovie.entrySet());
-
-    number_list.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
-
-    // Top 30 most viewed movie
-    ArrayList<Integer> top30 = new ArrayList<>();
-    int ck = 1;
-
-    for (Entry<Integer, Integer> entry : number_list) {
-      if (ck <= 30) {
-        top30.add(entry.getKey());
-        ck = ck + 1;
-      }
-    }
-    return top30;
-  }
-
-  public List<Entry<Integer, Double>> sortWithRating(HashMap<Integer, Double> avgRating) {
-    // Sorting avgRating (descending order)
-    List<Entry<Integer, Double>> sortedRating = new ArrayList<>(
-        avgRating.entrySet());
-
-    sortedRating.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
-
-    return sortedRating;
-  }
 
   public ArrayList<Integer> getTop10() {
     setTop10(this.userList);
@@ -107,11 +78,11 @@ public class RatingMoreThanTwoArgs {
         : ratingUtils.setUserIdIndexList(ratingUtils.parseGenre(this.genre));
 
     // Create MovieList about number of rating and sum of rating
-    HashMap<Integer, Integer> numberOfMovie = numberOfMovie(userList);
-    HashMap<Integer, Double> sumOfRating = sumOfRating(userList);
+    HashMap<Integer, Integer> numberOfMovie = numberOfMovie();
+    HashMap<Integer, Double> sumOfRating = sumOfRating();
 
     // Get Top30 watched movie list
-    ArrayList<Integer> top30 = sortGetTop30(numberOfMovie);
+    ArrayList<Integer> top30 = sortGetTopN(numberOfMovie, 30);
 
     HashMap<Integer, Double> avgRating = new HashMap<>(30);
 
