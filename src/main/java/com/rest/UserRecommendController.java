@@ -1,4 +1,4 @@
-package com;
+package com.rest;
 
 import factory.FourArgsFactory;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRecommendController {
 
   @ResponseBody
-  @GetMapping("/recommend")
+  @GetMapping("/recommendations")
   public Object recommend(@RequestBody final UserRecommend mediator) {
     FourArgsFactory state = new FourArgsFactory(mediator.getGender(), mediator.getAge(),
         mediator.getOccupation(), mediator.getGenre());

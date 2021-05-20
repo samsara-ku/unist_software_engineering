@@ -1,4 +1,4 @@
-package com;
+package com.rest;
 
 public class UserRecommend {
 

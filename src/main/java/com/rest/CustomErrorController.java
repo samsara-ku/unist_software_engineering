@@ -1,4 +1,4 @@
-package com;
+package com.rest;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
