@@ -3,18 +3,18 @@ package com.rest;
 public class MovieRecommend {
 
   private final String title;
-  private final Integer limit;
+  private final String limit;
 
-  public MovieRecommend(String title, Integer limit) {
+  public MovieRecommend(String title, String limit) {
     this.title = title == null ? "" : title;
-    this.limit = limit == null ? Integer.valueOf(10) : limit;
+    this.limit = limit == null ? "10" : limit;
   }
 
   public String getTitle() {
     return this.title;
   }
 
-  public int getLimit() {
+  public String getLimit() {
     return this.limit;
   }
 }

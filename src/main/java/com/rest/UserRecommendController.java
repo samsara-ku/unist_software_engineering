@@ -16,14 +16,16 @@ public class UserRecommendController {
   @ResponseBody
   @GetMapping("/recommendations")
   public Object recommend(@RequestBody final UserRecommend mediator) {
-    FourArgsFactory state = new FourArgsFactory(mediator.getGender(), mediator.getAge(),
-        mediator.getOccupation(), mediator.getGenre());
+    FourArgsFactory state = new FourArgsFactory();
 
     if (!state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
         mediator.getOccupation(), mediator.getGenre()}).equals("")) {
       return state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
           mediator.getOccupation(), mediator.getGenre()});
     }
+
+    state = new FourArgsFactory(mediator.getGender(), mediator.getAge(),
+        mediator.getOccupation(), mediator.getGenre());
 
     ArrayList<HashMap<String, String>> result = new ArrayList<>();
 
