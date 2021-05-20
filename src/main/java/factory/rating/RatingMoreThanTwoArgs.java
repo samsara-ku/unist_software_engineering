@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class RatingMoreThanTwoArgs extends RecommendMovieAbstract{
+public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
 
   private final RatingUtils ratingUtils;
   private final ArrayList<Integer> top10 = new ArrayList<>();

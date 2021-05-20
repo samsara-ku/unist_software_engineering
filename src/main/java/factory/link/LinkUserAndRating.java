@@ -39,7 +39,7 @@ public class LinkUserAndRating {
 
           if (movieID == ID) {
             this.getLinkList().add(link);
-            if (idx == limit-1) {
+            if (idx == limit - 1) {
               break;
             }
           }
@@ -55,7 +55,7 @@ public class LinkUserAndRating {
             String add = name + "/" + link + "/" + genre;
             this.getLinkList().set(idx, add);
 
-            if (idx == limit-1) {
+            if (idx == limit - 1) {
               break;
             }
 

@@ -10,7 +10,7 @@ import java.util.Locale;
 public class LoadMovieTitle {
 
   private final ArrayList<String> userList;
-  private String movieTitle;
+  private final String movieTitle;
   private String movieId = "";
   private String movieGenre = "";
 

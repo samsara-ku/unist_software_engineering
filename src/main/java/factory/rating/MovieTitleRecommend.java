@@ -9,13 +9,13 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
 
   private final RatingUtils ratingUtils;
   private final ArrayList<String> userList;
+  private final int limit;
+  private final String genre;
+  private final String movieId;
   private ArrayList<Integer> topRecommendMovies;
   private HashMap<String, Integer>[] userIdIndexList;
   private HashMap<String, String[]> movieGenreList;
   private HashMap<Integer, Integer> numOfRating;
-  private final int limit;
-  private final String genre;
-  private final String movieId;
 
   public MovieTitleRecommend(ArrayList<String> userList, int limit, String movieId, String genre) {
     this.ratingUtils = new RatingUtils();

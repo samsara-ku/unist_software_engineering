@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class MovieRecommendFactory {
 
   private final String title;
-  private int limit;
+  private final int limit;
   private String errorMessage;
 
   public MovieRecommendFactory(String title, int limit) {
@@ -34,7 +34,7 @@ public class MovieRecommendFactory {
     if (this.title.isEmpty()) {
       this.errorMessage += "Please input title.\n";
       return false;
-    } else if (loadMovieTitle.getMovieId() == "0") {
+    } else if (loadMovieTitle.getMovieId().equals("0")) {
       this.errorMessage += "Wrong title input. Please try again with accurate movie title.\n";
       return false;
     }
@@ -52,5 +52,4 @@ public class MovieRecommendFactory {
   public String getErrorMessage() {
     return this.errorMessage;
   }
-
 }
