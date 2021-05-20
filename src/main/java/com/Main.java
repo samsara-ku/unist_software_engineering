@@ -1,45 +1,13 @@
 package com;
 
-import factory.FourArgsFactory;
-import factory.ThreeArgsFactory;
-import factory.TwoArgsFactory;
 import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Main {
+
   public static void main(String[] args) throws IOException {
     SpringApplication.run(Main.class, args);
-    
-//    if (args.length == 2) {
-//      // Milestone1 - 2 arguments : "category", "occupation"
-//      TwoArgsFactory state = new TwoArgsFactory();
-//
-//      if (state.checkValidity(new String[]{args[0], args[1]})) {
-//        state = new TwoArgsFactory(args[0], args[1]);
-//        state.getResult();
-//      }
-//    } else if (args.length == 3) {
-//      // Milestone2 Part1 - 3 arguments : "gender", "age", "occupation"
-//      ThreeArgsFactory state = new ThreeArgsFactory();
-//
-//      if (state.checkValidity(new String[]{args[0], args[1], args[2]})) {
-//        state = new ThreeArgsFactory(args[0], args[1], args[2]);
-//        state.getResult();
-//      }
-//    } else if (args.length == 4) {
-//      // Milestone2 Part2 - 4 arguments : "gender", "age", "occupation", "genre"
-//      FourArgsFactory state = new FourArgsFactory();
-//
-//      if (state.checkValidity(new String[]{args[0], args[1], args[2], args[3]})) {
-//        state = new FourArgsFactory(args[0], args[1], args[2], args[3]);
-//        state.getResult();
-//      }
-//    } else {
-//      System.out.println(
-//          "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)");
-//      return;
-//    }
   }
 }
