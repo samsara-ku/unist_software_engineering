@@ -2,7 +2,8 @@ package handlelist;
 
 import static org.junit.Assert.assertEquals;
 
-import data.LoadUser;
+import factory.user.LoadMoreThanTwoArgs;
+import com.rest.UserRecommand;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -14,10 +15,10 @@ public class SimilarUserRecommendTest {
   //Test setUserIdIndexList method if it set all of rating data and work correctly
   @Test
   public void testSetUserIdIndexList() {
-    LoadUser data = new LoadUser("", "", "");
-    SimilarUserRecommend similarUserRecommend = new SimilarUserRecommend(data.getUserList());
+    LoadMoreThanTwoArgs data = new LoadMoreThanTwoArgs("", "", "");
+    UserRecommend UserRecommend = new UserRecommend(data.getUserList());
     similarUserRecommend.setTop10(data.getUserList());
-    HashMap<String, Integer>[] userIdIndexList = similarUserRecommend.getUserIdIndexList();
+    HashMap<String, Integer>[] userIdIndexList = UserRecommend.getUserIdIndexList();
     int size = 0;
     int printSize = 0;
 
@@ -31,7 +32,7 @@ public class SimilarUserRecommendTest {
     //randomly choose 3 elements and check
     Random rand = new Random();
     for (int i = 0; i < 3; i++) {
-      int index = rand.nextInt(rand.nextInt(similarUserRecommend.handleList.getFileListSize("./data/movies.dat")));
+      int index = rand.nextInt(rand.nextInt(UserRecommend.handleList.getFileListSize("./data/movies.dat")));
       for (HashMap.Entry<String, Integer> userRating : userIdIndexList[index].entrySet()) {
         System.out.printf("%s %d ", userRating.getKey(), userRating.getValue());
         printSize++;
