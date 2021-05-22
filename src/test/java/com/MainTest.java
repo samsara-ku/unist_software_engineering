@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class MainTest {
 
-  private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+  /*private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private final PrintStream originalOut = System.out;
 
   //get printed strings
@@ -258,6 +258,6 @@ public class MainTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
+  }*/
 }
 
