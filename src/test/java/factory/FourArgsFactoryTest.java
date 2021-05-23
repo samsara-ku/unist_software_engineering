@@ -1,7 +1,7 @@
 package factory;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEqaul;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
 
@@ -65,7 +65,7 @@ public class FourArgsFactoryTest {
 
 
         assertTrue(actualInput.checkValidity(input).equals("Can't search because there is inappropriate category. Please try again with appropriate category."));
-        assertEqual(cnt, )
+        //assertEqual(cnt, );
 
         System.out.println("passed FourArgsFactory_OccupationCheckValidity");
     }
@@ -83,7 +83,7 @@ public class FourArgsFactoryTest {
 
     @Test
     public void testGetResult(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudent", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudent", "comedy");
 
         assertNotNull(actualInput.getResult());
 
@@ -92,10 +92,10 @@ public class FourArgsFactoryTest {
 
     @Test
     public void testPrintResult(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudent", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudent", "comedy");
 
         try {
-            actualInput.printResult;
+            actualInput.printResult();
             System.out.println("passed FourArgsFactory_printResult");
         } catch (Exception e) {
             System.out.println("printResult doesn't work");

@@ -11,8 +11,7 @@ public class MovieRecommendFactoryTest {
   @Test
   public void testTitleIsValid() {
 
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "5");
-
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "5");
     assertTrue("titleIsValid doesn't work", actualInput.titleIsValid() == true);
 
     System.out.println("passed MovieRecommendFactory_testTitleIsValid");
@@ -21,7 +20,7 @@ public class MovieRecommendFactoryTest {
   @Test
   public void testWrongTitle() {
 
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Stroy", "5");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Stroy (1995)", "5");
 
     assertTrue("titleIsValid doesn't work", actualInput.titleIsValid() == false);
 
@@ -41,7 +40,7 @@ public class MovieRecommendFactoryTest {
   @Test
   public void testLimitIsValid() {
 
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "3");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "3");
 
     assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == true);
 
@@ -51,7 +50,7 @@ public class MovieRecommendFactoryTest {
   @Test
   public void testOutLimit() {
 
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "-1");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "-1");
 
     assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
 
@@ -61,7 +60,7 @@ public class MovieRecommendFactoryTest {
   @Test
   public void testNotIntLimit() {
 
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "s");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "s");
 
     assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
 
@@ -72,7 +71,7 @@ public class MovieRecommendFactoryTest {
   public void testgetErrorMessage() {
 
     // w/o invalid input
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "5");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "5");
 
     assertEquals("", actualInput.getErrorMessage());
 
@@ -83,7 +82,7 @@ public class MovieRecommendFactoryTest {
   public void testgetResult() {
 
     // w/o invalid input
-    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "5");
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "5");
 
     assertNotNull(actualInput.getResult());
     

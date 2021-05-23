@@ -68,7 +68,7 @@ public class ThreeArgsFactoryTest {
         ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudent");
 
         try {
-            actualInput.printResult;
+            actualInput.printResult();
             System.out.println("passed ThreeArgsFactory_printResult");
         } catch (Exception e) {
             System.out.println("printResult doesn't work");

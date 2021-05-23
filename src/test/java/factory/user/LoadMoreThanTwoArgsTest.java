@@ -30,7 +30,10 @@ public class LoadMoreThanTwoArgsTest {
     @Test
     public void TestGet() {
         LoadMoreThanTwoArgs actualInput = new LoadMoreThanTwoArgs("F", "25", "artist");
-        
+        LoadMoreThanTwoArgs test1_no_sex = new LoadMoreThanTwoArgs("", "25", "artist");
+        LoadMoreThanTwoArgs test1_no_age = new LoadMoreThanTwoArgs("F", "", "artist");
+        LoadMoreThanTwoArgs test1_no_occu = new LoadMoreThanTwoArgs("F", "", "");
+
         assertEquals(actualInput.getAge(), "25");
         System.out.println("passed LoadMoreThanTwoArgs_getAge");
 
@@ -39,6 +42,10 @@ public class LoadMoreThanTwoArgsTest {
         
         assertEquals(actualInput.getOccupation(), "artist");
         System.out.println("passed LoadMoreThanTwoArgs_getOccupation");
+
+        assertTrue(actualInput.getUserList().size() <= test1_no_sex.getUserList().size());
+        assertTrue(actualInput.getUserList().size() <= test1_no_age.getUserList().size());
+        assertTrue(actualInput.getUserList().size() <= test1_no_occu.getUserList().size());
     }
     @Test
     public void TestFindUserWithProperAge() {
