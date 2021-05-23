@@ -95,8 +95,9 @@ public class FourArgsFactoryTest {
     @Test
     public void testGetResult(){
         FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudent", "comedy");
-
+        FourArgsFactory emptyInput = new FourArgsFactory("", "", "", "");
         assertNotNull(actualInput.getResult());
+        assertNotNull(emptyInput.getResult());
 
         System.out.println("passed FourArgsFactory_GetResult");
     }
@@ -104,9 +105,11 @@ public class FourArgsFactoryTest {
     @Test
     public void testPrintResult(){
         FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudent", "comedy");
+        FourArgsFactory emptyInput = new FourArgsFactory("", "", "", "");
 
         try {
             actualInput.printResult();
+            emptyInput.printResult();
             System.out.println("passed FourArgsFactory_printResult");
         } catch (Exception e) {
             System.out.println("printResult doesn't work");

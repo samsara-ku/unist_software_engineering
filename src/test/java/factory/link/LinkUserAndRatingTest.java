@@ -1,5 +1,7 @@
 package factory.link;
 
+import factory.user.LoadMoreThanTwoArgs;
+import factory.rating.RatingMoreThanTwoArgs;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -14,12 +16,11 @@ import factory.link.LinkUserAndRating;
 public class LinkUserAndRatingTest {
 
     @Test
-    public void TestGetLinkList() {
-        System.out.println("passed LinkUserAndRating_GetLinkList");
-    }
-
-    @Test
-    public void TestSetLinkList() {
-        System.out.println("passed LinkUserAndRating_GetLinkList");
+    public void LinkUserAndRatingTest() {
+        LoadMoreThanTwoArgs actualLoad = new LoadMoreThanTwoArgs("F", "25", "artist");
+        RatingMoreThanTwoArgs actualRating = new RatingMoreThanTwoArgs(actualLoad.getUserList(), "action");
+        LinkUserAndRating actualInput = new LinkUserAndRating(actualRating.getTop10(), 10);
+        assertNotNull(actualInput.getLinkList());
+        System.out.println("passed LinkUserAndRating_setLinkList");
     }
 }   

@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+//import org.springframework.test.context.ContextConfiguration;
+//import org.springframework.boot.test.context.SpringBootTest;
 
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = {"./pom.xml"})
+//@SpringBootTest
 public class LoadTwoArgsTest {
 
     private ArrayList<String> testArrayList = new ArrayList<String>(Arrays.asList("action", "drama"));
@@ -47,6 +54,7 @@ public class LoadTwoArgsTest {
         assertTrue(test2_no_cate.getCategories().equals(emptyList));
         System.out.println("passed LoadTwoArgs_setMovieList");
     }
+
     @Test
     public void TestParseCategory() {
         

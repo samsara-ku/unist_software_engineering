@@ -52,16 +52,23 @@ public class TwoArgsFactoryTest {
 
     @Test
     public void testPrintResult5(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("comedy|romance|drama|animation|action|thriller|sci-fi|musical|mystery", "unemployed");
+        TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemploye");
         actualInput.printResult();
         System.out.println("passed TwoArgsFactory_printResult5");
     }
 
     @Test
     public void testPrintResult6(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy|romance|drama|animation|action|thriller|sci-fi|musical|mystery", "unemployed");
         actualInput.printResult();
         System.out.println("passed TwoArgsFactory_printResult6");
+    }
+
+    @Test
+    public void testPrintResult7(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult7");
     }
 
     
