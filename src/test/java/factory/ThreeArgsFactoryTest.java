@@ -9,7 +9,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testNegativeAgeCheckValidity(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "-1", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
 
         // invalid age input (non-positive)
         String[] input = {"F", "-1", "gradstudent"};
@@ -20,7 +20,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testNonIntegerAgeCheckValidity(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "5", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
 
         // invalid age input (not an integer)
         String[] input = {"F", "s", "gradstudent"};
@@ -31,7 +31,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testGenderCheckValidity(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("D", "32", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
 
         // invalid gender input
         String[] input = {"D", "32", "gradstudent"};
@@ -42,7 +42,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testOccupationCheckValidity(){
-        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudents");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
 
         // invalid occupation input
         String[] input = {"F", "32", "gradstudents"};
@@ -50,5 +50,28 @@ public class ThreeArgsFactoryTest {
         assertTrue(actualInput.checkValidity(input).equals(String.format("Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n", testOccupation)));
 
         System.out.println("passed ThreeArgsFactory_OccupationCheckValidity");
+    }
+
+    @Test
+    public void testCheckValidity(){
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
+
+        // valid input
+        String[] input = {"F", "32", "gradstudent"};
+        assertTrue(actualInput.checkValidity(input).equals(""));
+
+        System.out.println("passed ThreeArgsFactory_CheckValidity");
+    }
+
+    @Test
+    public void testPrintResult(){
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudent");
+
+        try {
+            actualInput.printResult;
+            System.out.println("passed ThreeArgsFactory_printResult");
+        } catch (Exception e) {
+            System.out.println("printResult doesn't work");
+        }
     }
 }

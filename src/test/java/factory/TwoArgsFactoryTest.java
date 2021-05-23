@@ -23,10 +23,47 @@ public class TwoArgsFactoryTest {
     }
 
     @Test
-    public void testPrintResult(){
+    public void testPrintResult1(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult1");
+    }
+
+    @Test
+    public void testPrintResult2(){
         TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemployed");
         actualInput.printResult();
-        System.out.println("passed TwoArgsFactory_printResult");
+        System.out.println("passed TwoArgsFactory_printResult2");
     }
+
+    @Test
+    public void testPrintResult3(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult3");
+    }
+
+    @Test
+    public void testPrintResult4(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemploye");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult"4);
+    }
+
+    @Test
+    public void testPrintResult5(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy|romance|drama|animation|action|thriller|sci-fi|musical|mystery", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult5");
+    }
+
+    @Test
+    public void testPrintResult6(){
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult6");
+    }
+
+    
 
 }
