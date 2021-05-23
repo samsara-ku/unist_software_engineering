@@ -3,12 +3,13 @@ package factory;
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
+import org.junit.Test;
 // cover branch of milestone2
 public class ThreeArgsFactoryTest {
 
     @Test
     public void testNegativeAgeCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "-1", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "-1", "gradstudent");
 
         // invalid age input (non-positive)
         String[] input = {"F", "-1", "gradstudent"};
@@ -19,7 +20,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testNonIntegerAgeCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "s", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "5", "gradstudent");
 
         // invalid age input (not an integer)
         String[] input = {"F", "s", "gradstudent"};
@@ -30,7 +31,7 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testGenderCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("D", "32", "gradstudent");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("D", "32", "gradstudent");
 
         // invalid gender input
         String[] input = {"D", "32", "gradstudent"};
@@ -41,11 +42,12 @@ public class ThreeArgsFactoryTest {
 
     @Test
     public void testOccupationCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "32", "gradstudents");
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("F", "32", "gradstudents");
 
         // invalid occupation input
         String[] input = {"F", "32", "gradstudents"};
-        assertTrue(actualInput.checkValidity(input).equals("Can't search inappropriate occupation, gradstudents. Please try again with appropriate occupation.%n"));
+        String testOccupation = "gradstudents";
+        assertTrue(actualInput.checkValidity(input).equals(String.format("Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n", testOccupation)));
 
         System.out.println("passed ThreeArgsFactory_OccupationCheckValidity");
     }

@@ -1,13 +1,12 @@
 package factory;
 
-import factory.rating.RatingWithTwoArgs;
-import factroy.user.LoadTwoArgs;
-
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
 import static org.junit.Assert.assertNotNull;
+
+import org.junit.Test;
 
 // cover branch of milestone1
 public class TwoArgsFactoryTest {
@@ -17,7 +16,7 @@ public class TwoArgsFactoryTest {
         TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemployed");
 
         // do nothing in this class
-        String[] input = "";
+        String[] input = {};
         assertTrue(actualInput.checkValidity(input).equals(""));
 
         System.out.println("passed TwoArgsFactory_checkValidity");
@@ -25,12 +24,9 @@ public class TwoArgsFactoryTest {
 
     @Test
     public void testPrintResult(){
-        try {
-            TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemployed");
-            actualInput.printResult();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemployed");
+        actualInput.printResult();
+        System.out.println("passed TwoArgsFactory_printResult");
     }
 
 }

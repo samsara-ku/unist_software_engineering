@@ -3,12 +3,13 @@ package factory;
 import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
+import org.junit.Test;
 // cover branch of milestone2
 public class FourArgsFactoryTest {
 
     @Test
     public void testNegativeAgeCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "-1", "gradstudent", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "-1", "gradstudent", "comedy");
 
         // invalid age input (non-positive)
         String[] input = {"F", "-1", "gradstudent", "comedy"};
@@ -19,7 +20,7 @@ public class FourArgsFactoryTest {
 
     @Test
     public void testNonIntegerAgeCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "s", "gradstudent", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "5", "gradstudent", "comedy");
 
         // invalid age input (not an integer)
         String[] input = {"F", "s", "gradstudent", "comedy"};
@@ -30,7 +31,7 @@ public class FourArgsFactoryTest {
 
     @Test
     public void testGenderCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("D", "32", "gradstudent", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("D", "32", "gradstudent", "comedy");
 
         // invalid gender input
         String[] input = {"D", "32", "gradstudent", "comedy"};
@@ -41,21 +42,22 @@ public class FourArgsFactoryTest {
 
     @Test
     public void testOccupationCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "32", "gradstudents", "comedy");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudents", "comedy");
 
         // invalid occupation input
         String[] input = {"F", "32", "gradstudents", "comedy"};
-        assertTrue(actualInput.checkValidity(input).equals("Can't search inappropriate occupation, gradstudents. Please try again with appropriate occupation.%n"));
+        String testOccupation = "gradstudents";
+        assertTrue(actualInput.checkValidity(input).equals(String.format("Can't search inappropriate occupation, \"%s\". Please try again with appropriate occupation.%n", testOccupation)));
 
         System.out.println("passed FourArgsFactory_OccupationCheckValidity");
     }
 
     @Test
     public void testGenreCheckValidity(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("F", "32", "gradstudents", "comed");
+        FourArgsFactory actualInput = new FourArgsFactory("F", "32", "gradstudent", "comed");
 
         // invalid occupation input
-        String[] input = {"F", "32", "gradstudents", "comed"};
+        String[] input = {"F", "32", "gradstudent", "comed"};
         assertTrue(actualInput.checkValidity(input).equals("Can't search because there is inappropriate category. Please try again with appropriate category."));
 
         System.out.println("passed FourArgsFactory_OccupationCheckValidity");

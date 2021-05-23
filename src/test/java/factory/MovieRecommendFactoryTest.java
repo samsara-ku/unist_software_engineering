@@ -1,6 +1,9 @@
 package factory;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 public class MovieRecommendFactoryTest {
 
@@ -30,7 +33,7 @@ public class MovieRecommendFactoryTest {
     // w/o invalid input
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story", "5");
 
-    assertEqual("", actualInput.getErrorMessage());
+    assertEquals("", actualInput.getErrorMessage());
 
     System.out.println("passed MovieRecommendFactory_getErrorMessage");
   }

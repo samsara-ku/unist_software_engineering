@@ -1,53 +1,45 @@
-package user;
+package factory.user;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Test;
 
 public class LoadMoreThanTwoArgsTest {
 
     @Test
-    public void TestGetAge() {
-        System.out.println("passed LoadMoreThanTwoArgs_getAge");
-    }
-
-    @Test
-    public void TestSetAge() {
+    public void LoadMoreThanTwoArgsTest() {
+        LoadMoreThanTwoArgs actualInput = new LoadMoreThanTwoArgs("F", "25", "artist");
+        
+        assertNotNull(actualInput.getAge());
         System.out.println("passed LoadMoreThanTwoArgs_setAge");
-    }
-
-    @Test
-    public void TestGetGender() {
-        System.out.println("passed LoadMoreThanTwoArgs_getGender");
-    }
-
-    @Test
-    public void TestSetGender() {
+        
+        assertNotNull(actualInput.getGender());
         System.out.println("passed LoadMoreThanTwoArgs_setGender");
-    }
-
-    @Test
-    public void TestGetOccupation() {
-        System.out.println("passed LoadMoreThanTwoArgs_getOccupation");
-    }
-
-    @Test
-    public void TestSetOccupation() {
+        
+        assertNotNull(actualInput.getOccupation());
         System.out.println("passed LoadMoreThanTwoArgs_setOccupation");
-    }
-
-    @Test
-    public void TestGetUserList() {
-        System.out.println("passed LoadMoreThanTwoArgs_getUserList");
-    }
-
-    @Test
-    public void TestSetUserList() {
+        
+        assertNotNull(actualInput.getUserList());
         System.out.println("passed LoadMoreThanTwoArgs_setUserList");
     }
 
+    @Test
+    public void TestGet() {
+        LoadMoreThanTwoArgs actualInput = new LoadMoreThanTwoArgs("F", "25", "artist");
+        
+        assertEquals(actualInput.getAge(), "25");
+        System.out.println("passed LoadMoreThanTwoArgs_getAge");
+
+        assertEquals(actualInput.getGender(), "F");
+        System.out.println("passed LoadMoreThanTwoArgs_getGender");
+        
+        assertEquals(actualInput.getOccupation(), "artist");
+        System.out.println("passed LoadMoreThanTwoArgs_getOccupation");
+    }
     @Test
     public void TestFindUserWithProperAge() {
         System.out.println("passed LoadMoreThanTwoArgs_findUserWithProperAge");

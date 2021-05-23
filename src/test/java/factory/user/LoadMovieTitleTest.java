@@ -9,28 +9,13 @@ import org.junit.Test;
 public class LoadMovieTitleTest {
 
     @Test
-    public void TestSetUserWatchedMovie() {
-        System.out.println("passed LoadMovieTitle_setUserWatchedMovie");
+    public void LoadMovieTitleTest() {
+
     }
 
     @Test
-    public void TestSetMovieIdAndGenre() {
-        System.out.println("passed LoadMovieTitle_setMovieIdAndGenre");
-    }
-
-    @Test
-    public void TestGetUserList() {
-        System.out.println("passed LoadMovieTitle_getUserList");
-    }
-
-    @Test
-    public void TestGetMovieId() {
-        System.out.println("passed LoadMovieTitle_getMovieId");
-    }
-
-    @Test
-    public void TestGetMovieGenre() {
-        System.out.println("passed LoadMovieTitle_getMovieGenre");
+    public void TestGet() {
+        
     }
 
     @Test

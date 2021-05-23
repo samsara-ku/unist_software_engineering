@@ -1,8 +1,6 @@
 package factory.user;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
@@ -12,58 +10,49 @@ import org.junit.Test;
 
 public class LoadTwoArgsTest {
 
-    private LoadTwoArgs testLoadTwoArgs = new LoadTwoArgs("action|drama", "artist");
     private ArrayList<String> testArrayList = new ArrayList<String>(Arrays.asList("action", "drama"));
 
     @Test
-    public void TestParseCategory() {
-        assertEquals(testLoadTwoArgs.parseCategory("action|drama"), testArrayList);
-        assertNotNull(testLoadTwoArgs.parseCategory("action|drama"));
-        System.out.println("passed LoadTwoArgs_parseCategory");
-    }
-
-    @Test
-    public void TestGetCategories() {
-        assertEquals(testLoadTwoArgs.getCategories(), testArrayList);
-        System.out.println("passed LoadTwoArgs_getCategories");
-    }
-
-    @Test
-    public void TestSetCategories() {
-        assertNotNull(testLoadTwoArgs.getCategories());
-        System.out.println("passed LoadTwoArgs_setCategories");
-    }
-
-    @Test
-    public void TestGetOccupation() {
-        assertEquals(testLoadTwoArgs.getOccupation(), "artist");
-        System.out.println("passed LoadTwoArgs_getOccupation");
-    }
-
-    @Test
-    public void TestSetOccupation() {
-        assertNotNull(testLoadTwoArgs.getOccupation());
-        System.out.println("passed LoadTwoArgs_setOccupation");
-    }
-
-    @Test
-    public void TestGetUserList() {
+    public void LoadTwoArgsTest() {
+        LoadTwoArgs actualInput = new LoadTwoArgs("action|drama", "artist");
         
-        System.out.println("passed LoadTwoArgs_getUserList");
-    }
-
-    @Test
-    public void TestSetUserList() {
+        assertNotNull(actualInput.getCategories());
+        System.out.println("passed LoadTwoArgs_setCategories");
+        
+        assertNotNull(actualInput.getOccupation());
+        System.out.println("passed LoadTwoArgs_setOccupation");
+        
+        assertNotNull(actualInput.getUserList());
         System.out.println("passed LoadTwoArgs_setUserList");
-    }
-
-    @Test
-    public void TestGetMovieList() {
-        System.out.println("passed LoadTwoArgs_getMovieList");
-    }
-
-    @Test
-    public void TestSetMovieList() {
+        
+        assertNotNull(actualInput.getMovieList());
         System.out.println("passed LoadTwoArgs_setMovieList");
+    }
+
+    @Test
+    public void TestGet() {
+        LoadTwoArgs actualInput = new LoadTwoArgs("action|drama", "artist");
+        LoadTwoArgs test1_no_occu = new LoadTwoArgs("action|drama", "");
+        LoadTwoArgs test2_no_cate = new LoadTwoArgs("", "artist");
+        ArrayList<String> emptyList = new ArrayList<String>(Arrays.asList(""));
+        assertEquals(testArrayList, actualInput.getCategories());
+        System.out.println("passed LoadTwoArgs_setCategories");
+        
+        assertEquals("artist", actualInput.getOccupation());
+        System.out.println("passed LoadTwoArgs_setOccupation");
+        
+        assertTrue(test1_no_occu.getUserList().size() >= actualInput.getUserList().size());
+        System.out.println("passed LoadTwoArgs_setUserList");
+        
+        assertTrue(test2_no_cate.getCategories().equals(emptyList));
+        System.out.println("passed LoadTwoArgs_setMovieList");
+    }
+    @Test
+    public void TestParseCategory() {
+        
+        LoadTwoArgs actualInput = new LoadTwoArgs("action|drama", "artist");
+        assertEquals(actualInput.parseCategory("action|drama"), testArrayList);
+        assertNotNull(actualInput.parseCategory("action|drama"));
+        System.out.println("passed LoadTwoArgs_parseCategory");
     }
 }
