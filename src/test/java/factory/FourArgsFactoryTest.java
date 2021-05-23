@@ -71,14 +71,25 @@ public class FourArgsFactoryTest {
     }
 
     @Test
-    public void testCheckValidity(){
+    public void testCheckValidity1(){
         FourArgsFactory actualInput = new FourArgsFactory("", "", "", "");
 
         // valid input
         String[] input = {"F", "32", "gradstudent", "comedy"};
         assertTrue(actualInput.checkValidity(input).equals(""));
 
-        System.out.println("passed FourArgsFactory_CheckValidity");
+        System.out.println("passed FourArgsFactory_CheckValidity1");
+    }
+
+    @Test
+    public void testCheckValidity2(){
+        FourArgsFactory actualInput = new FourArgsFactory("", "", "", "");
+
+        // valid input
+        String[] input = {"", "", "", ""};
+        assertTrue(actualInput.checkValidity(input).equals(""));
+
+        System.out.println("passed FourArgsFactory_CheckValidity2");
     }
 
     @Test

@@ -2,18 +2,19 @@ package com.rest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 public class MovieRecommendTest {
 
   @Test
   public void allTest() {
-    MovieRecommend actualInput = new MovieRecommend("test_title", "3");
+    MovieRecommend actualInput = new MovieRecommend("", "");
 
-    assertEquals("test_title", actualInput.getTitle());
+    assertEquals("", actualInput.getTitle());
     System.out.println("passed MovieRecommend_title");
 
-    assertEquals("3", actualInput.getLimit());
+    assertEquals("10", actualInput.getLimit());
     System.out.println("passed MovieRecommend_litle");
   }
 

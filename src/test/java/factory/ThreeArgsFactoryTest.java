@@ -53,14 +53,25 @@ public class ThreeArgsFactoryTest {
     }
 
     @Test
-    public void testCheckValidity(){
+    public void testCheckValidity1(){
         ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
 
         // valid input
         String[] input = {"F", "32", "gradstudent"};
         assertTrue(actualInput.checkValidity(input).equals(""));
 
-        System.out.println("passed ThreeArgsFactory_CheckValidity");
+        System.out.println("passed ThreeArgsFactory_CheckValidity1");
+    }
+
+    @Test
+    public void testCheckValidity2(){
+        ThreeArgsFactory actualInput = new ThreeArgsFactory("", "", "");
+
+        // valid input
+        String[] input = {"", "", ""};
+        assertTrue(actualInput.checkValidity(input).equals(""));
+
+        System.out.println("passed ThreeArgsFactory_CheckValidity2");
     }
 
     @Test

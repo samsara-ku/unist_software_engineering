@@ -45,7 +45,7 @@ public class TwoArgsFactoryTest {
 
     @Test
     public void testPrintResult4(){
-        TwoArgsFactory actualInput = new TwoArgsFactory("comed", "unemploye");
+        TwoArgsFactory actualInput = new TwoArgsFactory("comedy", "unemploye");
         actualInput.printResult();
         System.out.println("passed TwoArgsFactory_printResult4");
     }

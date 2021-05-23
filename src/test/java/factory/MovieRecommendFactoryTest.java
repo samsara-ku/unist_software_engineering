@@ -48,13 +48,23 @@ public class MovieRecommendFactoryTest {
   }
 
   @Test
-  public void testOutLimit() {
+  public void testOutLimit1() {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "-1");
 
     assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
 
-    System.out.println("passed MovieRecommendFactory_testOutLimit");
+    System.out.println("passed MovieRecommendFactory_testOutLimit1");
+  }
+
+  @Test
+  public void testOutLimit2() {
+
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "200");
+
+    assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
+
+    System.out.println("passed MovieRecommendFactory_testOutLimit2");
   }
 
   @Test
