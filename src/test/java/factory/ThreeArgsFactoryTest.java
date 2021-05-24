@@ -1,9 +1,9 @@
 package factory;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 // cover branch of milestone2
 public class ThreeArgsFactoryTest {
 

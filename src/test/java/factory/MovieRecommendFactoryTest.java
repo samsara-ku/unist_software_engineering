@@ -1,10 +1,10 @@
 package factory;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MovieRecommendFactoryTest {
 
@@ -12,7 +12,7 @@ public class MovieRecommendFactoryTest {
   public void testTitleIsValid() {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "5");
-    assertTrue("titleIsValid doesn't work", actualInput.titleIsValid() == true);
+    assertTrue(actualInput.titleIsValid() == true, "titleIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testTitleIsValid");
   }
@@ -22,7 +22,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Stroy (1995)", "5");
 
-    assertTrue("titleIsValid doesn't work", actualInput.titleIsValid() == false);
+    assertTrue(actualInput.titleIsValid() == false, "titleIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testWrongTitle");
   }
@@ -32,7 +32,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("", "5");
 
-    assertTrue("titleIsValid doesn't work", actualInput.titleIsValid() == false);
+    assertTrue(actualInput.titleIsValid() == false, "titleIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testEmptyTitle");
   }
@@ -42,7 +42,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "3");
 
-    assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == true);
+    assertTrue(actualInput.limitIsValid() == true, "limitIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_limitIsValid");
   }
@@ -52,7 +52,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "-1");
 
-    assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
+    assertTrue(actualInput.limitIsValid() == false, "limitIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testOutLimit1");
   }
@@ -62,7 +62,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "200");
 
-    assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
+    assertTrue(actualInput.limitIsValid() == false, "limitIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testOutLimit2");
   }
@@ -72,7 +72,7 @@ public class MovieRecommendFactoryTest {
 
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "s");
 
-    assertTrue("limitIsValid doesn't work", actualInput.limitIsValid() == false);
+    assertTrue(actualInput.limitIsValid() == false, "limitIsValid doesn't work");
 
     System.out.println("passed MovieRecommendFactory_testNotIntLimit");
   }

@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap.*;
 import java.util.stream.Collectors;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RatingUtilsTest {
     
@@ -48,7 +49,7 @@ public class RatingUtilsTest {
 
         String[] testArr = {"drama", "action"};
         assertNotNull(actualInput.parseGenre("drama|action"));
-        assertEquals(testArr, actualInput.parseGenre("drama|action"));
+        assertArrayEquals(testArr, actualInput.parseGenre("drama|action"));
         System.out.println("passed RatingUtils_getRatingList");
         
         assertNotNull(actualInput.getMovieIdIndexList());
