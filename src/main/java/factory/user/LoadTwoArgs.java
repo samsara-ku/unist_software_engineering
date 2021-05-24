@@ -56,7 +56,7 @@ public class LoadTwoArgs extends Load {
       String line;
 
       while ((line = br.readLine()) != null) {
-        if (line.split("::")[3].equals(occupationNumber)) {
+        if (line.split("::")[3].equals(occupationNumber) || occupationNumber == null) {
           this.getUserList().add(line);
         }
       }
@@ -82,7 +82,7 @@ public class LoadTwoArgs extends Load {
       while ((line = br.readLine()) != null) {
         ArrayList<String> fileCategories = this.parseCategory(line.split("::")[2]);
 
-        if (hasContained(fileCategories, this.getCategories())) {
+        if (hasContained(fileCategories, this.getCategories()) || this.getCategories().size() == 0) {
           this.getMovieList().add(line);
         }
       }

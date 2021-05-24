@@ -61,7 +61,7 @@ public class LoadMoreThanTwoArgs extends Load {
 
       while ((line = br.readLine()) != null) {
         double weight = 1;
-        boolean isProperGender = line.split("::")[1].equals(gender) || this.gender
+        boolean isProperGender = line.split("::")[1].equalsIgnoreCase(this.gender) || this.gender
             .isBlank(); // check whether gender is equal with gender of data or it is blank.
         boolean isProperOccupation =
             line.split("::")[3].equals(occupationNumber) || this.occupation

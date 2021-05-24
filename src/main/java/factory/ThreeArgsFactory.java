@@ -24,7 +24,7 @@ public class ThreeArgsFactory extends Factory {
     String occupation = input[2];
 
     // Gender input error handling
-    if (!(gender.equals("F") || (gender.equals("M"))
+    if (!(gender.equalsIgnoreCase("F") || (gender.equalsIgnoreCase("M"))
         || (gender.isEmpty()))) {
       return "Wrong gender input. Please try again with F for female or M for male.";
 
