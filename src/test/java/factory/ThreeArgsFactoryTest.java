@@ -58,7 +58,7 @@ public class ThreeArgsFactoryTest {
 
         // valid input
         String[] input = {"F", "32", "gradstudent"};
-        assertTrue(actualInput.checkValidity(input).equals(""));
+        assertTrue(actualInput.checkValidity(input).isBlank());
 
         System.out.println("passed ThreeArgsFactory_CheckValidity1");
     }
@@ -69,7 +69,7 @@ public class ThreeArgsFactoryTest {
 
         // valid input
         String[] input = {"", "", ""};
-        assertTrue(actualInput.checkValidity(input).equals(""));
+        assertTrue(actualInput.checkValidity(input).isBlank());
 
         System.out.println("passed ThreeArgsFactory_CheckValidity2");
     }

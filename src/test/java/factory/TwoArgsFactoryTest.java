@@ -17,7 +17,7 @@ public class TwoArgsFactoryTest {
 
         // do nothing in this class
         String[] input = {};
-        assertTrue(actualInput.checkValidity(input).equals(""));
+        assertTrue(actualInput.checkValidity(input).isBlank());
 
         System.out.println("passed TwoArgsFactory_checkValidity");
     }

@@ -26,7 +26,7 @@ public class FourArgsFactory extends Factory {
     String categories = input[3];
 
     // Gender input error handling
-    if (!(gender.equals("F") || (gender.equals("M"))
+    if (!(gender.equalsIgnoreCase("F") || (gender.equalsIgnoreCase("M"))
         || (gender.isEmpty()))) {
       return "Wrong gender input. Please try again with F for female or M for male.";
     }
@@ -43,7 +43,7 @@ public class FourArgsFactory extends Factory {
       }
     }
 
-    boolean genrePass = categories.equals("");
+    boolean genrePass = categories.isBlank();
 
     // Occupation input error handling
     boolean hasProperOccupation = new LoadMoreThanTwoArgs(gender, age, occupation)
@@ -77,7 +77,7 @@ public class FourArgsFactory extends Factory {
   }
 
   public ArrayList<String> getResult() {
-    if (this.categories.equals("")) {
+    if (this.categories.isBlank()) {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
     } else {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
@@ -89,7 +89,7 @@ public class FourArgsFactory extends Factory {
   }
 
   public void printResult() {
-    if (this.categories.equals("")) {
+    if (this.categories.isBlank()) {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
     } else {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);

@@ -75,7 +75,7 @@ public class FourArgsFactoryTest {
 
         // valid input
         String[] input = {"F", "32", "gradstudent", "comedy"};
-        assertTrue(actualInput.checkValidity(input).equals(""));
+        assertTrue(actualInput.checkValidity(input).isBlank());
 
         System.out.println("passed FourArgsFactory_CheckValidity1");
     }
@@ -86,7 +86,7 @@ public class FourArgsFactoryTest {
 
         // valid input
         String[] input = {"", "", "", ""};
-        assertTrue(actualInput.checkValidity(input).equals(""));
+        assertTrue(actualInput.checkValidity(input).isBlank());
 
         System.out.println("passed FourArgsFactory_CheckValidity2");
     }
