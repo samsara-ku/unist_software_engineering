@@ -59,12 +59,8 @@ public class FourArgsFactoryTest {
 
         // invalid occupation input
         String[] input = {"F", "32", "gradstudent", "comed"};
-        int cnt = 0;
-
-
 
         assertTrue(actualInput.checkValidity(input).equals("Can't search because there is inappropriate category. Please try again with appropriate category."));
-        //assertEqual(cnt, );
 
         System.out.println("passed FourArgsFactory_OccupationCheckValidity");
     }
