@@ -21,12 +21,16 @@ public class MovieRecommendController {
         mediator.getLimit());
     boolean titleIsValid = movieRecommendFactory.titleIsValid();
     boolean limitIsValid = movieRecommendFactory.limitIsValid();
+    ArrayList<HashMap<String, String>> object = new ArrayList<>();
 
     if (!titleIsValid || !limitIsValid) {
-      return movieRecommendFactory.getErrorMessage();
-    }
+      String error = movieRecommendFactory.getErrorMessage();
 
-    ArrayList<HashMap<String, String>> object = new ArrayList<>();
+      HashMap<String, String> temp = new HashMap<>();
+      temp.put("error", error);
+
+      return temp;
+    }
 
     movieRecommendFactory.getResult().forEach(i -> {
       HashMap<String, String> temp = new HashMap<>();

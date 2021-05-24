@@ -17,17 +17,21 @@ public class UserRecommendController {
   @GetMapping("/recommendations")
   public Object recommend(@RequestBody final UserRecommend mediator) {
     FourArgsFactory state = new FourArgsFactory();
+    ArrayList<HashMap<String, String>> result = new ArrayList<>();
 
     if (!state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
         mediator.getOccupation(), mediator.getGenre()}).equals("")) {
-      return state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
+      String error = state.checkValidity(new String[]{mediator.getGender(), mediator.getAge(),
           mediator.getOccupation(), mediator.getGenre()});
+
+      HashMap<String, String> temp = new HashMap<>();
+      temp.put("error", error);
+
+      return temp;
     }
 
     state = new FourArgsFactory(mediator.getGender(), mediator.getAge(),
         mediator.getOccupation(), mediator.getGenre());
-
-    ArrayList<HashMap<String, String>> result = new ArrayList<>();
 
     state.getResult().forEach(i -> {
       HashMap<String, String> temp = new HashMap<>();

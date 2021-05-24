@@ -6,8 +6,8 @@ public class MovieRecommend {
   private final String limit;
 
   public MovieRecommend(String title, String limit) {
-    this.title = title == "" ? "" : title;
-    this.limit = limit == "" ? "10" : limit;
+    this.title = title.isBlank() ? "" : title;
+    this.limit = limit.isBlank() ? "10" : limit;
   }
 
   public String getTitle() {

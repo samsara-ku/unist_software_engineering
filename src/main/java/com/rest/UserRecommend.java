@@ -19,7 +19,7 @@ public class UserRecommend {
   }
 
   public void setGenre(String genre) {
-    this.genre = genre;
+    this.genre = genre.isBlank() ? "" : genre;
   }
 
   public String getOccupation() {
@@ -27,7 +27,7 @@ public class UserRecommend {
   }
 
   public void setOccupation(String occupation) {
-    this.occupation = occupation;
+    this.occupation = occupation.isBlank() ? "" : occupation;
   }
 
   public String getAge() {
@@ -35,7 +35,7 @@ public class UserRecommend {
   }
 
   public void setAge(String age) {
-    this.age = age;
+    this.age = age.isBlank() ? "" : age;
   }
 
   public String getGender() {
@@ -43,6 +43,6 @@ public class UserRecommend {
   }
 
   public void setGender(String gender) {
-    this.gender = gender;
+    this.gender = gender.isBlank() ? "" : gender;
   }
 }
