@@ -23,7 +23,7 @@ public class RatingWithTwoArgsTest {
 
         assertEquals(testMovieIdList, actualRating.getMovieIdList());
         assertEquals(testUserIdList, actualRating.getUserIdList());
-        System.out.println("passed RatingWithTwoArgs_setIdLIsts");
+        System.out.println("passed RatingWithTwoArgs_setIdLists");
     }
 
     @Test

@@ -15,7 +15,7 @@ public class MovieRecommendTest {
     System.out.println("passed MovieRecommend_title");
 
     assertEquals("10", actualInput.getLimit());
-    System.out.println("passed MovieRecommend_litle");
+    System.out.println("passed MovieRecommend_limit");
   }
 
   @Test
