@@ -1,5 +1,7 @@
 package com.rest;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class MovieRecommend {
 
   private final String title;
@@ -7,7 +9,7 @@ public class MovieRecommend {
 
   public MovieRecommend(String title, String limit) {
     this.title = title.isBlank() ? "" : title;
-    this.limit = limit.isBlank() ? "10" : limit;
+    this.limit = StringUtils.isBlank(limit) ? "10" : limit;
   }
 
   public String getTitle() {

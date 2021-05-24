@@ -1,5 +1,7 @@
 package com.rest;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class UserRecommend {
 
   private String gender;
@@ -19,7 +21,7 @@ public class UserRecommend {
   }
 
   public void setGenre(String genre) {
-    this.genre = genre.isBlank() ? "" : genre;
+    this.genre = StringUtils.isBlank(genre) ? "" : genre;
   }
 
   public String getOccupation() {
