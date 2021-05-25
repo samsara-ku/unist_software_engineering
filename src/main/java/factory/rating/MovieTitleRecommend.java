@@ -54,19 +54,8 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
         idx++;
       }
     }
-    if (this.topRecommendMovies.size() < this.limit) {
 
-      for (Entry<String, Double> movieId : ratingUtils.getMovieRankingList()) {
-        if (numberOfMovie.get(Integer.parseInt(movieId.getKey())) == null) {
-          this.topRecommendMovies.add(Integer.parseInt(movieId.getKey()));
-          if (this.topRecommendMovies.size() >= this.limit) {
-            break;
-          }
-        }
-      }
-    }
   }
-
 
   public HashMap<Integer, Integer> numberOfMovie() {
     HashMap<Integer, Integer> numberOfMovie = new HashMap<>();

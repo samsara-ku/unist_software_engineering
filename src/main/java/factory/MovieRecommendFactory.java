@@ -42,17 +42,15 @@ public class MovieRecommendFactory {
   }
 
   public boolean limitIsValid() {
-    if (!this.limit.isEmpty()) {
-      try {
-        int limitParse = Integer.parseInt(limit);
-        if (limitParse <= 0 || limitParse > 700) {
-          this.errorMessage += "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 700.\n";
-          return false;
-        }
-      } catch (Exception e) {
-        this.errorMessage += "Wrong limit input. (Not an integer) Please try again with appropriate limit.\n";
+    try {
+      int limitParse = Integer.parseInt(limit);
+      if (limitParse <= 0 || limitParse > 100) {
+        this.errorMessage += "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 100.\n";
         return false;
       }
+    } catch (Exception e) {
+      this.errorMessage += "Wrong limit input. (Not an integer) Please try again with appropriate limit.\n";
+      return false;
     }
     return true;
   }
