@@ -162,17 +162,39 @@ Sequentially execute above commands makes result like below:
 
 ### Input error handling
 
-This explains only milestone2 error handling. Error handling of milestone 1 is also contained in the code.
 
-1. If the number of arguments are wrong, print "The number of arguments is not appropriate. Please use 2, 3, or 4 parameters. (Categories, Occupation | Gender, Age, Occupation | Gender, Age, Occupation, Genre)".
-   `ex.) com.Main "adventure"`
-2. If input gender is wrong, print "Wrong gender input. Please try again with F for female or M for male."
-   `ex.) com.Main "Female" "25" "Gradstudent"`
-3. If the input age is non-positive, print "Wrong age input. (Non-positive age) Please try again with appropriate age."
-   `ex.) com.Main "F" "0" "Gradstudent"`
-4. If the input age is not integer, print "Wrong age input. (Not an integer) Please try again with appropriate age."
-   `ex.) com.Main "F" "Ten" "Gradstudent"`
-5. If the input occupation is not in the occupation list, print "Can't search because it's an inappropriate occupation. Please try again with appropriate occupation."
-   `ex.) com.Main "F" "25" "Gradstu"`
-6. If the input genre is not in the genre list, print "Can't search because there is inappropriate category. Please try again with appropriate category."
-   `ex.) com.Main "F" "25" "Gradstudent" "com"`
+The error messages are returned as JSON type.
+```
+ex.) 
+{    
+   "error" : "Error Message"    
+}
+```
+Part 1.
+1. If the input format is not JSON type or incorrect data type, return "Please input the appropriate JSON format and data.".    
+   `ex.) '{  : "F", "age": "25", "occupation": "Gradstudent", "genre": "Action|War"}'`    
+   `'{"gender" : , "age": "25", "occupation": "Gradstudent", "genre": "Action|War"}'`
+2. If input gender is wrong, return "Wrong gender input. Please try again with F for female or M for male."    
+   `ex.) '{"gender": "Female", ""age"": "25", "occupation": "Gradstudent", "genre": "Action|War"}'`
+3. If the input age is non-positive, return "Wrong age input. (Non-positive age) Please try again with appropriate age."    
+   `ex.) '{"gender": "F", ""age"": "-1", "occupation": "Gradstudent", "genre": "Action|War"}'`
+4. If the input age is not integer, return "Wrong age input. (Not an integer) Please try again with appropriate age."    
+   `ex.) '{"gender": "F", ""age"": "Ten", "occupation": "Gradstudent", "genre": "Action|War"}'`
+5. If the input occupation is not in the occupation list, return "Can't search because it's an inappropriate occupation, "wrong occupation input". Please try again with appropriate occupation."    
+   `ex.) '{"gender": "F", ""age"": "25", "occupation": "Gradstu", "genre": "Action|War"}'`
+6. If the input genre is not in the genre list, return "Can't search because there is inappropriate category. Please try again with appropriate category."    
+   `ex.) '{"gender": "F", ""age"": "25", "occupation": "Gradstudent", "genre": "com"}'`
+
+Part 2.
+1. If the input format is not JSON type or incorrect data type, return "Please input the appropriate JSON format and data.".    
+   `ex.) '{ : "Toy Story (1995)", "limit": 10}'`    
+   `'{"title": , "limit": 10}'`
+2. If the input title is wrong, return "Cannot find movies with your title input. Please try again with accurate movie title."    
+   `ex.) '{"title": "Toy St (1995)", "limit": 10}'`
+3. If the input limit is out of range, return "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 700."    
+   `ex.) '{"title": "Toy Story (1995)", "limit": -1}'`    
+   `'{"title": "Toy Story (1995)", "limit": 701}'`
+4. If the input age is not integer, return "Wrong limit input. (Not an integer) Please try again with appropriate limit."    
+   `ex.) '{"title": "Toy Story (1995)", "limit": "ten"}`
+5. If both title and limit is wrong, both error messages are returned.    
+   `ex.) '{"title": "Toy St (1995)", "limit": -1}'`
