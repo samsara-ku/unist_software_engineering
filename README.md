@@ -63,8 +63,8 @@ Each teams reviews other teams' outcomes.
 The basic concept is, finds the users who rated high score for the entered movie, then
 recommends the movies that the selected users watched a lot and rated well.    
 
-In `LoadMovieTitle.java`, creates a userList of users who rated the movie at least 3 points. 
-With that userList, in `MovieTitleRecommend.java`, find movies that the selected users rated more than
+In `LoadMovieTitle.java`, creates a userList of users who rated the input movie at least 3 points. 
+With that userList, in `MovieTitleRecommend.java`, find movies what the selected users rated more than
 3 points and record the number of rating for each movie. At this point, weights are applied using 
 similarities in genres, the more genres that match, the more weights. Then rank the records to generate movieList
 of limit*2 sizes(`ArrayList<Integer> topDoubleLimit`).    
