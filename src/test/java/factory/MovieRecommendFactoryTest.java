@@ -1,8 +1,8 @@
 package factory;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -96,12 +96,8 @@ public class MovieRecommendFactoryTest {
 
     assertNotNull(actualInput.getResult());
 
-    MovieRecommendFactory actualInput2 = new MovieRecommendFactory("Brazil (1985)", "300");
-
-    assertNotNull(actualInput2.getResult());
-    
     System.out.println("passed MovieRecommendFactory_getResult");
   }
 
-  
+
 }
