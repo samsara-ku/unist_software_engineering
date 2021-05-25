@@ -70,7 +70,7 @@ similarities in genres, the more genres that match, the more weights. Then rank 
 of limit\*2 sizes(`ArrayList<Integer> topDoubleLimit`).  
 After that, rank the selected movies by average rating to create a final movieList that size of limit.  
 If the size of final movieList is smaller than limit(when movie has very rare genre), it adds other movies with high
-views and ratings to the back until limit.
+views and ratings to the back of list until limit.
 
 ## 2. How to run program?
 
