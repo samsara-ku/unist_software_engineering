@@ -6,16 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-// @RequestMapping("movies")
 public class MovieRecommendController {
 
   @ResponseBody
-  @GetMapping("/recommendations/movie")
+  @GetMapping("/movies/recommendations")
   public Object recommend(@RequestBody(required = false) MovieRecommend mediator) {
     MovieRecommendFactory movieRecommendFactory = new MovieRecommendFactory(mediator.getTitle(),
         mediator.getLimit());

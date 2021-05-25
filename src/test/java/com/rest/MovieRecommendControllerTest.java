@@ -1,53 +1,64 @@
 package com.rest;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import org.springframework.test.web.servlet.ResultActions;
-import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-
-import java.nio.charset.*;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
 @WebMvcTest(MovieRecommendController.class)
 public class MovieRecommendControllerTest {
 
-	  @Autowired
-    private MockMvc mvc;
+  private final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(),
+      StandardCharsets.UTF_8);
+  @Autowired
+  private MockMvc mvc;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
-            Charset.forName("utf8"));
+  @Test
+  public void TestMovieRecommend() throws Exception {
 
+    String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "10"));
 
-    //MovieRecommendController
-    @Test
-	public void TestMovieRecommend() throws Exception {
+    mvc.perform(get("/movies/recommendations")
+        .content(content)
+        .contentType(contentType))
+        .andExpect((res) -> assertNotNull(status().isOk()));
 
-        String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "10"));
+    System.out.println("passed MovieRecommend with good arguments");
+  }
 
-        mvc.perform(get("/recommendations/movie")
-                .content(content)
-                .contentType(contentType))
-                // .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        System.out.println("passed MovieRecommendController_recommend");
-	}
+  @Test
+  public void TestWrongTitleMovieRecommend() throws Exception {
+    String content = objectMapper.writeValueAsString(new MovieRecommend("", "10"));
+
+    mvc.perform(get("/movies/recommendations")
+        .content(content)
+        .contentType(contentType))
+        .andExpect((res) -> assertNotNull(status().isOk()));
+
+    System.out.println("passed MovieRecommend with wrong title");
+  }
+
+  @Test
+  public void TestWrongLimitMovieRecommend() throws Exception {
+    String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "-1"));
+
+    mvc.perform(get("/movies/recommendations")
+        .content(content)
+        .contentType(contentType))
+        .andExpect((res) -> assertNotNull(status().isOk()));
+
+    System.out.println("passed MovieRecommend with wrong limit");
+  }
 }

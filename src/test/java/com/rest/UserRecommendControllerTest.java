@@ -1,47 +1,56 @@
 package com.rest;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import org.springframework.test.web.servlet.ResultActions;
-import org.junit.jupiter.api.Test;
-import java.io.IOException;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-// import com.fasterxml.jackson.databind.ObjectMapper;
-// import org.springframework.http.MediaType;
 
 @ResponseBody
 @WebMvcTest(UserRecommendController.class)
 public class UserRecommendControllerTest {
-	  @Autowired
-    private MockMvc mvc;
 
-    // @Autowired
-    // private ObjectMapper objectMapper;
+  private final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+      MediaType.APPLICATION_JSON.getSubtype(),
+      StandardCharsets.UTF_8);
+  @Autowired
+  private MockMvc mvc;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-    //UserRecommendController
-    @Test
-	public void TestUserRecommend() throws Exception {
+  @Test
+  public void TestUserRecommend() throws Exception {
 
-        // String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "10"));
+    String content = objectMapper
+        .writeValueAsString(new UserRecommend("F", "15", "Educator", "Adventure"));
 
-        // MovieRecommend actualMovie = new MovieRecommend("Toy Story (1995)", "10");
-        // mvc.perform(get("/recommendations/movie")
-        //         .content(content))
-        //         // .contentType(MediaType.APPLICATION_JSON)
-        //         // .accept(MediaType.APPLICATION_JSON))
-        //         .andExpect(status().isOk());
-        // System.out.println("passed MovieRecommendController_recommend");
-	}
+    mvc.perform(get("/users/recommendations")
+        .content(content)
+        .contentType(contentType))
+        .andExpect((res) -> assertNotNull(status().isOk()));
+
+    System.out.println("passed UserRecommend with good arguments");
+  }
+
+  @Test
+  public void TestWrongGenderUserRecommend() throws Exception {
+
+    String content = objectMapper
+        .writeValueAsString(new UserRecommend("G", "15", "Educator", "Adventure"));
+
+    mvc.perform(get("/users/recommendations")
+        .content(content)
+        .contentType(contentType))
+        .andExpect((res) -> assertNotNull(status().isOk()));
+
+    System.out.println("passed UserRecommend with wrong arguments");
+  }
 }

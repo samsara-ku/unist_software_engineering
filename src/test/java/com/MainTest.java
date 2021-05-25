@@ -1,7 +1,5 @@
 package com;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -15,7 +13,6 @@ public class MainTest {
   private static final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
   private static final PrintStream originalOut = System.out;
 
-  //get printed strings
   @BeforeAll
   public static void setUpStreams() {
     System.setOut(new PrintStream(outContent));
