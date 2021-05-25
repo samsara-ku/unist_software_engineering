@@ -10,6 +10,11 @@ public class CustomErrorController implements ErrorController {
 
   //Print custom error message if there is an exception
   @GetMapping("/error")
+  public Object handleError() {
+    return "Please input the appropriate json format and data type.";
+  }
+
+  @GetMapping("/errorWithReq")
   public Object handleError(HttpServletRequest request) {
     return "Please input the appropriate json format and data type.";
   }

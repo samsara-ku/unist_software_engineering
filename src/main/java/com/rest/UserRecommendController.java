@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserRecommendController {
 
   @ResponseBody
-  @GetMapping("/recommendations")
+  @GetMapping("/recommendations/user")
   public Object recommend(@RequestBody final UserRecommend mediator) {
     FourArgsFactory state = new FourArgsFactory();
 

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("movies")
+// @RequestMapping("movies")
 public class MovieRecommendController {
 
   @ResponseBody
-  @GetMapping("/recommendations")
+  @GetMapping("/recommendations/movie")
   public Object recommend(@RequestBody(required = false) MovieRecommend mediator) {
     MovieRecommendFactory movieRecommendFactory = new MovieRecommendFactory(mediator.getTitle(),
         mediator.getLimit());
