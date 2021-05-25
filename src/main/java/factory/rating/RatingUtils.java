@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class RatingUtils {
@@ -161,5 +163,47 @@ public class RatingUtils {
       e.printStackTrace();
     }
     return userIdIndexList;
+  }
+
+  public List<Entry<String, Double>> getMovieRankingList() {
+    int movieIndexSize = getFileListSize("./data/movies.dat");
+    int intMovieIdIndex;
+    HashMap<String, Double> movieRankingList = new HashMap();
+    HashMap<String, Double> numOfRating = new HashMap();
+
+    for (String rateLine : getRatingList()) {
+      String[] parseLine = rateLine.split("::");
+      String movieId = parseLine[1];
+      if (movieRankingList.get(movieId) == null) {
+        movieRankingList.put(movieId, Double.valueOf(parseLine[2]));
+        numOfRating.put(movieId, 1.0);
+      } else {
+        movieRankingList.put(movieId,
+            movieRankingList.get(movieId) + Double.valueOf(parseLine[2]));
+        numOfRating.put(movieId, numOfRating.get(movieId) + 1);
+      }
+    }
+
+    List<Entry<String, Double>> sortedViewers = new ArrayList<>(
+        numOfRating.entrySet());
+    sortedViewers.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
+
+    //Sort list with number of viewers
+    List<Entry<String, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, 1000));
+
+    HashMap<String, Double> avgRating = new HashMap<>();
+
+    //Get average rating
+    for (Entry<String, Double> movieId : sortedViewersTop) {
+      avgRating
+          .put(movieId.getKey(), movieRankingList.get(movieId.getKey()) / numOfRating.get(movieId.getKey()));
+    }
+
+    //Sort list with rating
+    List<Entry<String, Double>> sortedRating = new ArrayList<>(
+        avgRating.entrySet());
+    sortedRating.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
+
+    return sortedRating;
   }
 }
