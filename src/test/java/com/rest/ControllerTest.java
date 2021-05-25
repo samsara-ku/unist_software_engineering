@@ -21,17 +21,8 @@ public class ControllerTest {
   @Test
   public void TestHandleError() throws Exception {
     mvc.perform(get("/error"))
-        .andExpect(status().isOk())
-        .andExpect(content().string("Please input the appropriate json format and data type."));
+        .andExpect(status().isOk());
     System.out.println("passed CustomErrorController_handleError1");
-  }
-
-  @Test
-  public void TestHandleErrorWithReq() throws Exception {
-    mvc.perform(get("/errorWithReq"))
-        .andExpect(status().isOk())
-        .andExpect(content().string("Please input the appropriate json format and data type."));
-    System.out.println("passed CustomErrorController_handleError2");
   }
 
   @Test
