@@ -180,7 +180,7 @@ Part 1.
    `ex.) '{"gender": "F", ""age"": "-1", "occupation": "Gradstudent", "genre": "Action|War"}'`
 4. If the input age is not integer, return "Wrong age input. (Not an integer) Please try again with appropriate age."    
    `ex.) '{"gender": "F", ""age"": "Ten", "occupation": "Gradstudent", "genre": "Action|War"}'`
-5. If the input occupation is not in the occupation list, return "Can't search because it's an inappropriate occupation, "wrong occupation input". Please try again with appropriate occupation."    
+5. If the input occupation is not in the occupation list, return "Can't search inappropriate occupation, "(wrong occupation input)". Please try again with appropriate occupation."    
    `ex.) '{"gender": "F", ""age"": "25", "occupation": "Gradstu", "genre": "Action|War"}'`
 6. If the input genre is not in the genre list, return "Can't search because there is inappropriate category. Please try again with appropriate category."    
    `ex.) '{"gender": "F", ""age"": "25", "occupation": "Gradstudent", "genre": "com"}'`
