@@ -6,11 +6,11 @@ For group project CSE 364, Software Programming
 
 ### Workflow
 
-The way of using github is same as milestone1. we make issues and branches of some topics and
-Pull Requests to repository before merge it. We seperate the project to two teams;team1 for
-algorithm of part1 & part2 and team2 for unit test. After making the algorithm of part1 and
-part2, team2 reviews that and edit to proper way. Then, team2 makes unit test and team1 write
-input error handling and README.md file. each teams reviews other teams' outcomes.
+The way of using github is same as prior milestones. We made issues and branches of some topics and 
+Pull Requests to repository before merge it. We separated the project to two teams;team1 for part1 & 
+part2 and team2 for unit test. After making the part1 and part2, team2 reviews that and edit to proper way.
+Then, team2 makes unit test and team1 write input error handling and README.md file.
+Each teams reviews other teams' outcomes.
 
 ### Project file tree
 
@@ -60,10 +60,18 @@ input error handling and README.md file. each teams reviews other teams' outcome
 
 ### Brief explanation of recommendation algorithm
 
-In `LoadUser.java`, Select proper users of input criteria and put them to user list. When the user information is not same as criteria, only 1/4 of them(randomly) is putted in user list with their _weight_ value which denoting _similarity_ with input criteria.  
-In this situation, users _weight_ value means that **How much this user is close(=similar) to input user**. _weight_=1 means the user has same criteria with input user, and when the _weight_ is close to 0, _similarity_ between the user and the input user becomes lower. (ie. When occupation or age of user is different from input user, weight value becomes lower.)  
-The reason that why we use only 1/4 of _similar_ users is that when we use the whole _similar_ users, impact on results of whole users are so big that the datas of users' ratings who have same criteria with input user become small. Because of this, the results could be different with same inputs.  
-After that, select top 10 movies in `BestMovie.java`. To recommand movies, select top 30 most viewed movies first, and then select 10 top movies according to its average rating.
+The basic concept is, finds the users who rated high score for the entered movie, then
+recommends the movies that the selected users watched a lot and rated well.    
+
+In `LoadMovieTitle.java`, creates a userList of users who rated the movie at least 3 points. 
+With that userList, in `MovieTitleRecommend.java`, find movies that the selected users rated more than
+3 points and record the number of rating for each movie. At this point, weights are applied using 
+similarities in genres, the more genres that match, the more weights. Then rank the records to generate movieList
+of limit*2 sizes(`ArrayList<Integer> topDoubleLimit`).    
+After that, rank the selected movies by average rating to create a final movieList that size of limit.    
+If the size of final movieList is smaller than limit(when movie has very rare genre), it adds other movies with high 
+views and ratings to the back until limit.
+
 
 ## 2. How to run program?
 
