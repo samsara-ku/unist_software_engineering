@@ -97,8 +97,8 @@ java -jar target/cse364-project-1.0-SNAPSHOT.jar
 
 20171013_YunhoeKu : Refactoring milestone2 codes to keep clean. Make part 1 of milestone 3 task.  
 20171021_GeonUKim : Make part 2 of milestone 3 task and make some error handling codes.  
-20181049_OhnKim :  
-20181228_YunyoungJung :
+20181049_OhnKim : Remake unit tests of Milestone 1, 2 via refactoring. Make Spring-boot-test. Fix some errors
+20181228_YunyoungJung : Remake unit tests of Milestone 1, 2 via refactoring. Make Spring-boot-test. Fix some errors
 
 Common : Comment and suggest a better idea about other codes. (e.g Github activity, Slack communication)
 
