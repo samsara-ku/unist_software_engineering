@@ -5,7 +5,11 @@ For group project CSE 364, Software Programming
 ## 1.  Project description 
 ### Workflow
 
-The way of using github is same as milestone1. we make issues and branches of some topics and Pull Requests to repository before merge it. We seperate the project to two teams;team1 for algorithm of part1 & part2 and team2 for unit test. After making the algorithm of part1 and part2, team2 reviews that and edit to proper way. Then, team2 makes unit test and team1 write input error handling and README.md file. each teams reviews other teams' outcomes.
+The way of using github is same as milestone1. we make issues and branches of some topics and 
+Pull Requests to repository before merge it. We seperate the project to two teams;team1 for 
+algorithm of part1 & part2 and team2 for unit test. After making the algorithm of part1 and 
+part2, team2 reviews that and edit to proper way. Then, team2 makes unit test and team1 write 
+input error handling and README.md file. each teams reviews other teams' outcomes.
 
 ### Project file tree
 ```
