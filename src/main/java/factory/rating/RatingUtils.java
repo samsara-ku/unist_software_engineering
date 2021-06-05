@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators.In;
 
 public class RatingUtils {
 
@@ -165,15 +166,15 @@ public class RatingUtils {
     return userIdIndexList;
   }
 
-  public List<Entry<String, Double>> getMovieRankingList(int rank) {
+  public List<Entry<Integer, Double>> getMovieRankingList(int rank) {
     int movieIndexSize = getFileListSize("./data/movies.dat");
     int intMovieIdIndex;
-    HashMap<String, Double> movieRankingList = new HashMap();
-    HashMap<String, Double> numOfRating = new HashMap();
+    HashMap<Integer, Double> movieRankingList = new HashMap();
+    HashMap<Integer, Double> numOfRating = new HashMap();
 
     for (String rateLine : getRatingList()) {
       String[] parseLine = rateLine.split("::");
-      String movieId = parseLine[1];
+      Integer movieId = Integer.parseInt(parseLine[1]);
       if (movieRankingList.get(movieId) == null) {
         movieRankingList.put(movieId, Double.valueOf(parseLine[2]));
         numOfRating.put(movieId, 1.0);
@@ -184,27 +185,27 @@ public class RatingUtils {
       }
     }
 
-    List<Entry<String, Double>> sortedViewers = new ArrayList<>(
+    List<Entry<Integer, Double>> sortedViewers = new ArrayList<>(
         numOfRating.entrySet());
     sortedViewers.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
     //Sort list with number of viewers
-    List<Entry<String, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, rank*3));
+    List<Entry<Integer, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, rank*3));
 
-    HashMap<String, Double> avgRating = new HashMap<>();
+    HashMap<Integer, Double> avgRating = new HashMap<>();
 
     //Get average rating
-    for (Entry<String, Double> movieId : sortedViewersTop) {
+    for (Entry<Integer, Double> movieId : sortedViewersTop) {
       avgRating
           .put(movieId.getKey(), movieRankingList.get(movieId.getKey()) / numOfRating.get(movieId.getKey()));
     }
 
     //Sort list with rating
-    List<Entry<String, Double>> sortedRating = new ArrayList<>(
+    List<Entry<Integer, Double>> sortedRating = new ArrayList<>(
         avgRating.entrySet());
     sortedRating.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
-    List<Entry<String, Double>> rankingList = new ArrayList<>(sortedRating.subList(0, rank));
+    List<Entry<Integer, Double>> rankingList = new ArrayList<>(sortedRating.subList(0, rank));
 
     return rankingList;
   }

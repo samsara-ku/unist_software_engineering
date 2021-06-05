@@ -12,10 +12,10 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
   private final int limit;
   private final String genre;
   private final String movieId;
-  private ArrayList<Integer> topRecommendMovies;
   private HashMap<String, Integer>[] userIdIndexList;
   private HashMap<String, String[]> movieGenreList;
   private HashMap<Integer, Integer> numOfRating;
+  private List<Entry<Integer, Double>> topMoviesWithRating;
 
   public MovieTitleRecommend(ArrayList<String> userList, int limit, String movieId, String genre) {
     this.ratingUtils = new RatingUtils();
@@ -31,7 +31,6 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
 
     HashMap<Integer, Integer> numberOfMovie = numberOfMovie();
     HashMap<Integer, Double> sumOfRating = sumOfRating();
-    this.topRecommendMovies = new ArrayList<>();
 
     //user들이 남긴 movie rating의 개수로 정렬 후 limit의 두배 크기의 리스트 생성
     ArrayList<Integer> topDoubleLimit = this.sortGetTopN(numberOfMovie, 2 * this.limit);
@@ -45,21 +44,16 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
 
     //평균 rating으로 최종 정렬 후 리스트 생성
     List<Entry<Integer, Double>> sortedRating = sortWithRating(ratingList);
+    this.topMoviesWithRating = new ArrayList<>(sortedRating.subList(0, limit));
 
     int idx = 0;
 
-    for (Entry<Integer, Double> entry : sortedRating) {
-      if (idx < this.limit) {
-        this.topRecommendMovies.add(entry.getKey());
-        idx++;
-      }
-    }
-    if (this.topRecommendMovies.size() < this.limit) {
+    if (this.topMoviesWithRating.size() < this.limit) {
 
-      for (Entry<String, Double> movieId : ratingUtils.getMovieRankingList(1000)) {
-        if (numberOfMovie.get(Integer.parseInt(movieId.getKey())) == null) {
-          this.topRecommendMovies.add(Integer.parseInt(movieId.getKey()));
-          if (this.topRecommendMovies.size() >= this.limit) {
+      for (Entry<Integer, Double> movieId : ratingUtils.getMovieRankingList(1000)) {
+        if (numberOfMovie.get(movieId.getKey()) == null) {
+          this.topMoviesWithRating.add(movieId);
+          if (this.topMoviesWithRating.size() >= this.limit) {
             break;
           }
         }
@@ -150,11 +144,13 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
     return similarity;
   }
 
-  public ArrayList<Integer> getTopRecommendMovies() {
-    if (this.topRecommendMovies == null) {
+  public List<Entry<Integer, Double>> getTopRecommendMovies() {
+    if (this.topMoviesWithRating == null) {
       recommendMovies();
     }
-    return this.topRecommendMovies;
+    return this.topMoviesWithRating;
   }
+
+
 
 }

@@ -11,6 +11,7 @@ public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
   private final ArrayList<Integer> top10 = new ArrayList<>();
   private final ArrayList<Integer> top10_num = new ArrayList<>();
   private final ArrayList<Double> top10_rat = new ArrayList<>();
+  private final List<Entry<Integer,Double>> top10WithRating = new ArrayList<>();
   private final HashMap<String, Double> userList;
   private HashMap<String, Integer>[] userIdIndexList;
   private double sumOfWeight = 0;
@@ -67,9 +68,9 @@ public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
   }
 
 
-  public ArrayList<Integer> getTop10() {
+  public List<Entry<Integer, Double>> getTop10() {
     setTop10(this.userList);
-    return this.top10;
+    return this.top10WithRating;
   }
 
   // Find the best 10 movies to recommend
@@ -105,6 +106,7 @@ public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
         this.top10.add(entry.getKey());
         this.top10_rat.add(entry.getValue());
         this.top10_num.add(numberOfMovie.get(entry.getKey()));
+        this.top10WithRating.add(entry);
         idx = idx + 1;
       }
     }

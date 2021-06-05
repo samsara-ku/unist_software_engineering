@@ -4,6 +4,8 @@ import factory.link.LinkUserAndRating;
 import factory.rating.MovieTitleRecommend;
 import factory.user.LoadMovieTitle;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class MovieRecommendFactory {
 
@@ -17,7 +19,7 @@ public class MovieRecommendFactory {
     this.errorMessage = "";
   }
 
-  public ArrayList<Integer> getResult() {
+  public List<Entry<Integer, Double>> getResult() {
     LoadMovieTitle loadMovieTitle = new LoadMovieTitle(this.title);
 
     MovieTitleRecommend movieTitleRecommend = new MovieTitleRecommend(loadMovieTitle.getUserList(),
