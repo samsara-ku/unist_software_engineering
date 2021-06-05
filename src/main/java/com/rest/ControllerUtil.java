@@ -3,6 +3,7 @@ package com.rest;
 import com.csvtomongo.model.Links;
 import com.csvtomongo.model.Movies;
 import com.csvtomongo.model.Posters;
+import com.csvtomongo.model.RecommendMovie;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -19,7 +20,7 @@ public class ControllerUtil {
   public ArrayList<Movies> getMovieList(List<Entry<Integer, Double>> movieList, String collection) {
     ArrayList<Movies> object = new ArrayList<>();
     mongoTemplate.dropCollection(collection);
-    for(Entry<Integer, Double> e : movieList){
+    for (Entry<Integer, Double> e : movieList) {
       int id = e.getKey();
 
       Movies movie = mongoTemplate.findOne(
@@ -29,20 +30,20 @@ public class ControllerUtil {
       Posters poster = mongoTemplate.findOne(
           Query.query(Criteria.where("id").is(id)), Posters.class);
 
-      Movies indexMovie = new Movies();
-      indexMovie.setId(movie.getId());
-      indexMovie.setGenre(movie.getGenre());
-      indexMovie.setTitle(movie.getTitle());
-      indexMovie.setLink(link.getLink());
-      indexMovie.setRating(e.getValue());
-      if(poster == null){
-        indexMovie.setPoster("https://www.shutterstock.com/image-vector/no-image-available-sign-internet-web-261719003");
+      RecommendMovie recommendMovie = new RecommendMovie();
+      recommendMovie.setId(movie.getId());
+      recommendMovie.setGenre(movie.getGenre());
+      recommendMovie.setTitle(movie.getTitle());
+      recommendMovie.setLink("https://www.imdb.com/title/tt" + link.getLink());
+      recommendMovie.setRating(e.getValue());
+      if (poster == null) {
+        recommendMovie.setPoster(
+            "https://www.shutterstock.com/image-vector/no-image-available-sign-internet-web-261719003");
+      } else {
+        recommendMovie.setPoster(poster.getPoster());
       }
-      else {
-        indexMovie.setPoster(poster.getPoster());
-      }
-      mongoTemplate.save(indexMovie, collection);
-      object.add(indexMovie);
+      mongoTemplate.save(recommendMovie, collection);
+      object.add(recommendMovie);
     }
     return object;
   }
