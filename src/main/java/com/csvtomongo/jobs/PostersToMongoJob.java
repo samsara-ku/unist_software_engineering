@@ -32,7 +32,6 @@ public class PostersToMongoJob {
   private MongoTemplate mongoTemplate;
 
   @Bean
-  @Order(3)
   public Job readPostersFile() {
     return jobBuilderFactory.get("readPostersFile").incrementer(new RunIdIncrementer()).start(step3())
         .build();
