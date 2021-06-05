@@ -56,7 +56,7 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
     }
     if (this.topRecommendMovies.size() < this.limit) {
 
-      for (Entry<String, Double> movieId : ratingUtils.getMovieRankingList()) {
+      for (Entry<String, Double> movieId : ratingUtils.getMovieRankingList(1000)) {
         if (numberOfMovie.get(Integer.parseInt(movieId.getKey())) == null) {
           this.topRecommendMovies.add(Integer.parseInt(movieId.getKey()));
           if (this.topRecommendMovies.size() >= this.limit) {

@@ -50,7 +50,7 @@ public class RatingUtilsTest {
         assertNotNull(actualInput.getMovieIdIndexList());
         System.out.println("passed RatingUtils_getMovieIdIndexList");
 
-        assertNotNull(actualInput.getMovieRankingList());
+        assertNotNull(actualInput.getMovieRankingList(1000));
         System.out.println("passed RatingUtils_getMovieIdIndexList");
     }
 }

@@ -88,6 +88,16 @@ public class FourArgsFactory extends Factory {
     return result.getLinkList();
   }
 
+  public ArrayList<Integer> getTop10() {
+    if (this.categories.isBlank()) {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
+    } else {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
+    }
+
+    return this.resultMaker.getTop10();
+  }
+
   public void printResult() {
     if (this.categories.isBlank()) {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());

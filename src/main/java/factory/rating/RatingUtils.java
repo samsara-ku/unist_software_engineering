@@ -165,7 +165,7 @@ public class RatingUtils {
     return userIdIndexList;
   }
 
-  public List<Entry<String, Double>> getMovieRankingList() {
+  public List<Entry<String, Double>> getMovieRankingList(int rank) {
     int movieIndexSize = getFileListSize("./data/movies.dat");
     int intMovieIdIndex;
     HashMap<String, Double> movieRankingList = new HashMap();
@@ -189,7 +189,7 @@ public class RatingUtils {
     sortedViewers.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
     //Sort list with number of viewers
-    List<Entry<String, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, 1000));
+    List<Entry<String, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, rank*3));
 
     HashMap<String, Double> avgRating = new HashMap<>();
 
@@ -204,6 +204,8 @@ public class RatingUtils {
         avgRating.entrySet());
     sortedRating.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
-    return sortedRating;
+    List<Entry<String, Double>> rankingList = new ArrayList<>(sortedRating.subList(0, rank));
+
+    return rankingList;
   }
 }

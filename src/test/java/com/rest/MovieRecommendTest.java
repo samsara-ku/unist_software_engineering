@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-public class MovieRecommendModelTest {
+public class MovieRecommendTest {
 
   @Test
   public void allTest() {
