@@ -97,7 +97,7 @@ public class FourArgsFactory extends Factory {
       this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
     }
 
-    return this.resultMaker.getTop10();
+    return this.resultMaker.getTop10WithRating();
   }
 
   public void printResult() {

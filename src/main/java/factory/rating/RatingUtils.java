@@ -190,7 +190,8 @@ public class RatingUtils {
     sortedViewers.sort((obj1, obj2) -> obj2.getValue().compareTo(obj1.getValue()));
 
     //Sort list with number of viewers
-    List<Entry<Integer, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, rank*3));
+    int viewLimit = rank>=100 ? rank : 3*rank;
+    List<Entry<Integer, Double>> sortedViewersTop = new ArrayList<>(sortedViewers.subList(0, viewLimit));
 
     HashMap<Integer, Double> avgRating = new HashMap<>();
 
