@@ -4,6 +4,8 @@ import factory.link.LinkUserAndRating;
 import factory.rating.MovieTitleRecommend;
 import factory.user.LoadMovieTitle;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class MovieRecommendFactory {
 
@@ -17,16 +19,16 @@ public class MovieRecommendFactory {
     this.errorMessage = "";
   }
 
-  public ArrayList<String> getResult() {
+  public List<Entry<Integer, Double>> getResult() {
     LoadMovieTitle loadMovieTitle = new LoadMovieTitle(this.title);
 
     MovieTitleRecommend movieTitleRecommend = new MovieTitleRecommend(loadMovieTitle.getUserList(),
         Integer.parseInt(this.limit), loadMovieTitle.getMovieId(), loadMovieTitle.getMovieGenre());
 
-    LinkUserAndRating result = new LinkUserAndRating(movieTitleRecommend.getTopRecommendMovies(),
-        Integer.parseInt(this.limit));
+//    LinkUserAndRating result = new LinkUserAndRating(movieTitleRecommend.getTopRecommendMovies(),
+//        Integer.parseInt(this.limit));
 
-    return result.getLinkList();
+    return movieTitleRecommend.getTopRecommendMovies();
   }
 
   public boolean titleIsValid() {
@@ -44,8 +46,8 @@ public class MovieRecommendFactory {
   public boolean limitIsValid() {
     try {
       int limitParse = Integer.parseInt(limit);
-      if (limitParse <= 0 || limitParse > 100) {
-        this.errorMessage += "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 100.\n";
+      if (limitParse <= 0 || limitParse > 700) {
+        this.errorMessage += "Wrong limit input. (Not in range) Please try again with appropriate limit that 1 to 700.\n";
         return false;
       }
     } catch (Exception e) {

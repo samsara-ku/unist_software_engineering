@@ -4,6 +4,8 @@ import factory.link.LinkUserAndRating;
 import factory.rating.RatingMoreThanTwoArgs;
 import factory.user.LoadMoreThanTwoArgs;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class FourArgsFactory extends Factory {
 
@@ -86,6 +88,16 @@ public class FourArgsFactory extends Factory {
     LinkUserAndRating result = new LinkUserAndRating(this.resultMaker.getTop10(), 10);
 
     return result.getLinkList();
+  }
+
+  public List<Entry<Integer, Double>> getTop10() {
+    if (this.categories.isBlank()) {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList());
+    } else {
+      this.resultMaker = new RatingMoreThanTwoArgs(this.userInfo.getUserList(), this.categories);
+    }
+
+    return this.resultMaker.getTop10WithRating();
   }
 
   public void printResult() {
