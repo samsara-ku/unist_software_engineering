@@ -22,6 +22,14 @@ public class IndexController extends ControllerUtil {
     return getMovieList(ratingUtils.getMovieRankingList(10), "indexMovie");
   }
 
+  @RequestMapping(value = "/topmovies", method = RequestMethod.GET)
+  public Object top() {
+    RatingUtils ratingUtils = new RatingUtils();
+    ratingUtils.getMovieRankingList(10);
+
+    return getMovieList(ratingUtils.getMovieRankingList(10), "indexMovie");
+  }
+
   @RequestMapping(value = "/movies", method = RequestMethod.GET)
   public Object allMovies() {
     return movieRepository.findAll();
