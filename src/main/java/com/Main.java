@@ -9,9 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class Main {
+public class Main extends SpringBootServletInitializer{
 
   @Autowired
   private LinksToMongoJob linksToMongoJob;
@@ -25,4 +27,10 @@ public class Main {
   public static void main(String[] args) throws IOException {
     SpringApplication.run(Main.class, args);
   }
+
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+    return builder.sources(Main.class);
+  }
+
 }
