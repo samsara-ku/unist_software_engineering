@@ -44,7 +44,13 @@ public class MovieTitleRecommend extends RecommendMovieAbstract {
 
     //평균 rating으로 최종 정렬 후 리스트 생성
     List<Entry<Integer, Double>> sortedRating = sortWithRating(ratingList);
-    this.topMoviesWithRating = new ArrayList<>(sortedRating.subList(0, limit));
+    if(this.limit<sortedRating.size()){
+      this.topMoviesWithRating = new ArrayList<>(sortedRating.subList(0, limit));
+    }
+    else {
+      this.topMoviesWithRating = sortedRating;
+    }
+
 
     int idx = 0;
 

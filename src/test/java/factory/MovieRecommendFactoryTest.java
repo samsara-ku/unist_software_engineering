@@ -67,6 +67,7 @@ public class MovieRecommendFactoryTest {
     System.out.println("passed MovieRecommendFactory_testOutLimit2");
   }
 
+
   @Test
   public void testNotIntLimit() {
 
@@ -93,6 +94,17 @@ public class MovieRecommendFactoryTest {
 
     // w/o invalid input
     MovieRecommendFactory actualInput = new MovieRecommendFactory("Toy Story (1995)", "5");
+
+    assertNotNull(actualInput.getResult());
+
+    System.out.println("passed MovieRecommendFactory_getResult");
+  }
+
+  @Test
+  public void testgetResult2() {
+
+    // w/o invalid input
+    MovieRecommendFactory actualInput = new MovieRecommendFactory("Brazil (1985)", "500");
 
     assertNotNull(actualInput.getResult());
 

@@ -7,14 +7,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
-@WebMvcTest(MovieRecommendController.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class MovieRecommendControllerTest {
 
   private final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
@@ -28,11 +33,7 @@ public class MovieRecommendControllerTest {
   @Test
   public void TestMovieRecommend() throws Exception {
 
-    String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "10"));
-
-    mvc.perform(get("/movies/recommendations")
-        .content(content)
-        .contentType(contentType))
+    mvc.perform(get("/movies/recommendations/?title=Toystory(1995)&limit=1"))
         .andExpect((res) -> assertNotNull(status().isOk()));
 
     System.out.println("passed MovieRecommend with good arguments");
@@ -40,11 +41,8 @@ public class MovieRecommendControllerTest {
 
   @Test
   public void TestWrongTitleMovieRecommend() throws Exception {
-    String content = objectMapper.writeValueAsString(new MovieRecommend("", "10"));
 
-    mvc.perform(get("/movies/recommendations")
-        .content(content)
-        .contentType(contentType))
+    mvc.perform(get("/movies/recommendations/?title=&limit=1"))
         .andExpect((res) -> assertNotNull(status().isOk()));
 
     System.out.println("passed MovieRecommend with wrong title");
@@ -52,11 +50,8 @@ public class MovieRecommendControllerTest {
 
   @Test
   public void TestWrongLimitMovieRecommend() throws Exception {
-    String content = objectMapper.writeValueAsString(new MovieRecommend("Toy Story (1995)", "-1"));
 
-    mvc.perform(get("/movies/recommendations")
-        .content(content)
-        .contentType(contentType))
+    mvc.perform(get("/movies/recommendations/?title=Toystory(1995)&limit=-1"))
         .andExpect((res) -> assertNotNull(status().isOk()));
 
     System.out.println("passed MovieRecommend with wrong limit");
