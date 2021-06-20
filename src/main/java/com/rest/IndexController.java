@@ -14,14 +14,6 @@ public class IndexController extends ControllerUtil {
   @Autowired
   private MovieRepository movieRepository;
 
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public Object index() {
-    RatingUtils ratingUtils = new RatingUtils();
-    ratingUtils.getMovieRankingList(10);
-
-    return getMovieList(ratingUtils.getMovieRankingList(10), "indexMovie");
-  }
-
   @RequestMapping(value = "/topmovies", method = RequestMethod.GET)
   public Object top() {
     RatingUtils ratingUtils = new RatingUtils();

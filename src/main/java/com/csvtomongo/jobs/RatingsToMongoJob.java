@@ -32,17 +32,17 @@ public class RatingsToMongoJob {
   @Autowired
   private MongoTemplate mongoTemplate;
 
-  @Bean
-  public Job readRatingsFile() {
-    return jobBuilderFactory.get("readRatingsFile").incrementer(new RunIdIncrementer()).start(step4())
-        .build();
-  }
+ @Bean
+ public Job readRatingsFile() {
+   return jobBuilderFactory.get("readRatingsFile").incrementer(new RunIdIncrementer()).start(step4())
+       .build();
+ }
 
-  @Bean
-  public Step step4() {
-    return stepBuilderFactory.get("step4").<Ratings, Ratings>chunk(10).reader(ratingsReader())
-        .writer(ratingsWriter()).build();
-  }
+ @Bean
+ public Step step4() {
+   return stepBuilderFactory.get("step4").<Ratings, Ratings>chunk(10).reader(ratingsReader())
+       .writer(ratingsWriter()).build();
+ }
 
   @Bean
   public FlatFileItemReader<Ratings> ratingsReader() {
