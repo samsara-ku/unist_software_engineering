@@ -32,15 +32,6 @@ public class UserRecommendControllerTest {
   private ObjectMapper objectMapper;
 
   @Test
-  public void TestUserRecommend() throws Exception {
-
-    mvc.perform(get("/users/recommendations?gender=&age=20&occupation=&genre=Action"))
-        .andExpect((res) -> assertNotNull(status().isOk()));
-
-    System.out.println("passed UserRecommend with good arguments");
-  }
-
-  @Test
   public void TestWrongGenderUserRecommend() throws Exception {
 
     mvc.perform(get("/users/recommendations?gender=G&age=&occupation=&genre="))

@@ -31,15 +31,6 @@ public class MovieRecommendControllerTest {
   private ObjectMapper objectMapper;
 
   @Test
-  public void TestMovieRecommend() throws Exception {
-
-    mvc.perform(get("/movies/recommendations/?title=Toystory(1995)&limit=1"))
-        .andExpect((res) -> assertNotNull(status().isOk()));
-
-    System.out.println("passed MovieRecommend with good arguments");
-  }
-
-  @Test
   public void TestWrongTitleMovieRecommend() throws Exception {
 
     mvc.perform(get("/movies/recommendations/?title=&limit=1"))
