@@ -14,7 +14,7 @@ public class RatingUtilsTest {
     public void RatingUtilsTest() {
         RatingUtils actualInput = new RatingUtils();
 
-        int userSize = actualInput.getFileListSize("./data/users.dat");
+        int userSize = actualInput.getFileListSize("data/users.dat");
         assertEquals(userSize, actualInput.setUserIdIndexList().length);
         System.out.println("passed RatingUtils_setUserIdIndexList1");
         
@@ -36,7 +36,7 @@ public class RatingUtilsTest {
         assertNotNull(actualInput.getRatingList());
         System.out.println("passed RatingUtils_getRatingList");
 
-        assertEquals(6040, actualInput.getFileListSize("./data/users.dat"));
+        assertEquals(6040, actualInput.getFileListSize("data/users.dat"));
         System.out.println("passed RatingUtils_getFileListSize");
         
         assertNotNull(actualInput.getMovieGenreList());

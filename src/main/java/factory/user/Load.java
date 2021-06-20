@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 abstract class Load {
 
@@ -19,7 +21,15 @@ abstract class Load {
   }
 
   public String findOccupationNumber(String occupation) {
-    File occu_file = new File("./data/occupation.dat");
+    Resource targetFileResource = new ClassPathResource("data/occupation.dat");
+    File occu_file = null;
+
+    try {
+      occu_file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     String occupationNumber = null;
 
     try {

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LoadMovieTitle {
 
@@ -20,7 +22,15 @@ public class LoadMovieTitle {
   }
 
   public void setUserWatchedMovie() {
-    File file = new File("./data/ratings.dat");
+    Resource targetFileResource = new ClassPathResource("data/ratings.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     this.setMovieIdAndGenre();
     if (this.movieId != "0") {
       try {
@@ -46,7 +56,15 @@ public class LoadMovieTitle {
   }
 
   public void setMovieIdAndGenre() {
-    File file = new File("./data/movies.dat");
+    Resource targetFileResource = new ClassPathResource("data/movies.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     this.movieId = "0";
 
     try {

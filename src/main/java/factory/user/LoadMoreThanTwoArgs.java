@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LoadMoreThanTwoArgs extends Load {
 
@@ -52,7 +54,15 @@ public class LoadMoreThanTwoArgs extends Load {
   public void setUserList() {
     String occupationNumber =
         !this.occupation.isBlank() ? this.findOccupationNumber(this.getOccupation()) : "";
-    File user_file = new File("./data/users.dat");
+
+    Resource targetFileResource = new ClassPathResource("data/users.dat");
+    File user_file = null;
+
+    try {
+      user_file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
       // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".

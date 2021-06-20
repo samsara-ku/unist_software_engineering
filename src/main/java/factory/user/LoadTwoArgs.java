@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LoadTwoArgs extends Load {
 
@@ -48,7 +50,15 @@ public class LoadTwoArgs extends Load {
 
   public void setUserList() {
     String occupationNumber = this.findOccupationNumber(this.getOccupation());
-    File user_file = new File("./data/users.dat");
+
+    Resource targetFileResource = new ClassPathResource("data/users.dat");
+    File user_file = null;
+
+    try {
+      user_file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
       // In this step, we read "user.dat" and filter user data using local variable "occupationNumber".
@@ -72,7 +82,14 @@ public class LoadTwoArgs extends Load {
   }
 
   public void setMovieList() {
-    File file = new File("./data/movies.dat");
+    Resource targetFileResource = new ClassPathResource("data/movies.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
       // In this step, we read "movies.dat" and filter movie data properly using member variable "categories".

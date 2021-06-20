@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.mongodb.core.aggregation.ArrayOperators.In;
 
 public class RatingUtils {
@@ -22,7 +24,16 @@ public class RatingUtils {
   /* Set RatingList from file */
   public ArrayList<String> getRatingList() {
     ArrayList<String> ratingList = new ArrayList<>();
-    File file = new File("./data/ratings.dat");
+
+    Resource targetFileResource = new ClassPathResource("data/ratings.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
       String line;
@@ -39,7 +50,15 @@ public class RatingUtils {
 
   /* get original list size from file */
   public int getFileListSize(String path) {
-    File file = new File(path);
+    Resource targetFileResource = new ClassPathResource(path);
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     String line;
     String lastLine = null;
     try {
@@ -56,7 +75,15 @@ public class RatingUtils {
   }
 
   public HashMap<String, String[]> getMovieGenreList() {
-    File file = new File("./data/movies.dat");
+    Resource targetFileResource = new ClassPathResource("data/movies.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
     HashMap<String, String[]> movieGenreList = new HashMap<>();
 
     try {
@@ -80,7 +107,7 @@ public class RatingUtils {
   }
 
   public HashMap<String, String>[] getMovieIdIndexList() {
-    int movieIndexSize = getFileListSize("./data/movies.dat");
+    int movieIndexSize = getFileListSize("data/movies.dat");
     int intMovieIdIndex;
     /* Generate map array which can include every movieId */
     HashMap<String, String>[] movieIdIndexList = new HashMap[movieIndexSize];
@@ -99,7 +126,7 @@ public class RatingUtils {
 
   public HashMap<String, Integer>[] setUserIdIndexList() {
     int intUserIdIndex;
-    int userSize = getFileListSize("./data/users.dat");
+    int userSize = getFileListSize("data/users.dat");
 
     HashMap<String, Integer>[] userIdIndexList = new HashMap[userSize];
 
@@ -107,7 +134,14 @@ public class RatingUtils {
       userIdIndexList[i] = new HashMap<>();
     }
 
-    File file = new File("./data/ratings.dat");
+    Resource targetFileResource = new ClassPathResource("data/ratings.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -127,7 +161,7 @@ public class RatingUtils {
   }
 
   public HashMap<String, Integer>[] setUserIdIndexList(String[] genreList) {
-    int userSize = getFileListSize("./data/users.dat");
+    int userSize = getFileListSize("data/users.dat");
     int intUserIdIndex;
     HashMap<String, String[]> movieGenreList = getMovieGenreList();
 
@@ -135,7 +169,15 @@ public class RatingUtils {
     for (int i = 0; i < userSize; i++) {
       userIdIndexList[i] = new HashMap<>();
     }
-    File file = new File("./data/ratings.dat");
+
+    Resource targetFileResource = new ClassPathResource("data/ratings.dat");
+    File file = null;
+
+    try {
+      file = targetFileResource.getFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
@@ -167,7 +209,7 @@ public class RatingUtils {
   }
 
   public List<Entry<Integer, Double>> getMovieRankingList(int rank) {
-    int movieIndexSize = getFileListSize("./data/movies.dat");
+    int movieIndexSize = getFileListSize("data/movies.dat");
     int intMovieIdIndex;
     HashMap<Integer, Double> movieRankingList = new HashMap();
     HashMap<Integer, Double> numOfRating = new HashMap();

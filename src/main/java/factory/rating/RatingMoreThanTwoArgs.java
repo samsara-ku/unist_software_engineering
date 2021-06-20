@@ -31,7 +31,7 @@ public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
 
   public HashMap<Integer, Integer> numberOfMovie() {
     HashMap<Integer, Integer> numberOfMovie = new HashMap<>(
-        ratingUtils.getFileListSize("./data/movies.dat"));
+        ratingUtils.getFileListSize("data/movies.dat"));
 
     for (HashMap.Entry<String, Double> user : this.userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;
@@ -49,7 +49,7 @@ public class RatingMoreThanTwoArgs extends RecommendMovieAbstract {
 
   public HashMap<Integer, Double> sumOfRating() {
     HashMap<Integer, Double> sumOfRating = new HashMap<>(
-        ratingUtils.getFileListSize("./data/movies.dat"));
+        ratingUtils.getFileListSize("data/movies.dat"));
 
     for (HashMap.Entry<String, Double> user : this.userList.entrySet()) {
       int index = Integer.parseInt(user.getKey()) - 1;

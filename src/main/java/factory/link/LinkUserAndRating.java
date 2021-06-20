@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LinkUserAndRating {
 
@@ -23,8 +25,16 @@ public class LinkUserAndRating {
 
     // Find movie name and link from .dat file with movieID
     for (Integer movieID : topMovies) {
-      File file = new File("./data/links.dat");
-      File file2 = new File("./data/movies.dat");
+      Resource targetFileResource = new ClassPathResource("data/links.dat");
+      Resource targetFileResource2 = new ClassPathResource("data/movies.dat");
+      File file = null;
+      File file2 = null;
+      try {
+        file = targetFileResource.getFile();
+        file2 = targetFileResource2.getFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
 
       try {
         // In this step, we read "movies.dat" and filter movie data properly using member variable "categories".
