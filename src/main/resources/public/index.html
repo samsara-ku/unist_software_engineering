@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="main_container">
+      <div class="main_header">
+        <img
+          id="logo"
+          src="https://fontmeme.com/permalink/210609/7aab8d1b363ed000592aa5fd8a7cb245.png"
+          alt="netflix-font"
+          width="120"
+        />
+      </div>
+      <div class="main_content">
+        <h1>Top 10 rated movies</h1>
+        <div class="top_movies">
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="top_movie">
+            <div class="top_movie_title"></div>
+            <a class="top_movie_img_link" href="" target="_blank">
+              <img class="top_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+        </div>
+
+        <h1 id="random_header"></h1>
+        <div class="random_movies">
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+          <div class="random_movie">
+            <div class="random_movie_title"></div>
+            <a class="random_movie_img_link" href="" target="_blank">
+              <img class="random_movie_img" src="" alt="no image"
+            /></a>
+          </div>
+        </div>
+
+        <div class="input_container">
+          <div class="input_container_header">
+            <h1>User recommended movies using user information</h1>
+            <button onclick="getRecommendedWithInfo();">Search</button>
+          </div>
+          <div class="input">
+            <div>Age: <input type="text" id="age" /></div>
+            <div>Gender: <input type="text" id="gender" /></div>
+            <div>Occupation: <input type="text" id="occupation" /></div>
+            <div>Genre: <input type="text" id="genre" /></div>
+          </div>
+          <div class="input_movies">
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title">No input here</div>
+              <a class="input_movie_img_link" href="" target="_blank">
+                <img
+                  class="input_movie_img"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="input_container">
+          <div class="input_container_header">
+            <h1>User recommended movies using title</h1>
+            <button onclick="getRecommendedWithTitle();">Search</button>
+          </div>
+          <div class="input">
+            <div>Title: <input type="text" id="title" /></div>
+          </div>
+          <div class="input_movies">
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+            <div class="input_movie">
+              <div class="input_movie_title_other">No input here</div>
+              <a class="input_movie_img_link_other" href="" target="_blank">
+                <img
+                  class="input_movie_img_other"
+                  src="https://image.shutterstock.com/image-vector/no-image-available-sign-internet-600w-261719003.jpg"
+                  alt="no image"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

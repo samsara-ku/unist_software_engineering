@@ -7,15 +7,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @ResponseBody
-@WebMvcTest(UserRecommendController.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class UserRecommendControllerTest {
 
   private final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
@@ -29,12 +34,7 @@ public class UserRecommendControllerTest {
   @Test
   public void TestUserRecommend() throws Exception {
 
-    String content = objectMapper
-        .writeValueAsString(new UserRecommend("F", "15", "Educator", "Adventure"));
-
-    mvc.perform(get("/users/recommendations")
-        .content(content)
-        .contentType(contentType))
+    mvc.perform(get("/users/recommendations?gender=&age=20&occupation=&genre=Action"))
         .andExpect((res) -> assertNotNull(status().isOk()));
 
     System.out.println("passed UserRecommend with good arguments");
@@ -43,12 +43,7 @@ public class UserRecommendControllerTest {
   @Test
   public void TestWrongGenderUserRecommend() throws Exception {
 
-    String content = objectMapper
-        .writeValueAsString(new UserRecommend("G", "15", "Educator", "Adventure"));
-
-    mvc.perform(get("/users/recommendations")
-        .content(content)
-        .contentType(contentType))
+    mvc.perform(get("/users/recommendations?gender=G&age=&occupation=&genre="))
         .andExpect((res) -> assertNotNull(status().isOk()));
 
     System.out.println("passed UserRecommend with wrong arguments");
