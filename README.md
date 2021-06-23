@@ -41,7 +41,7 @@ There is another recommend system. If there are some impressive movies you’ve 
 - tomcat
 - mongodb
 
-# ##### IMPORTANT NOTICE #####
+# ----- IMPORTANT NOTICE -----
  
 We confirm that all features work well on the local machine. But sometimes we could see it didn't work on docker. (Even though running the same code on the local machine works fine!) If you run docker for grading, refer to this if you encounter any problems.
 
