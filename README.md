@@ -40,3 +40,18 @@ There is another recommend system. If there are some impressive movies you’ve 
 - maven
 - tomcat
 - mongodb
+
+# ----- IMPORTANT NOTICE -----
+ 
+We confirm that all features work well on the local machine. But sometimes we could see it didn't work on docker. (Even though running the same code on the local machine works fine!) If you run docker for grading, refer to this if you encounter any problems.
+
+How to run our program on the local machine.
+
+1. Run mvn package.
+2. Import the cse364~~~.war file into the target directory.
+3. After renaming the file ROOT.war, move it to the tomcat/webapps location.
+4. Enter tomcat/bin and run the command ./catalina.sh run.
+(FIX the tomcat version to 8.5.)
+
+We find that when running this code on docker, it is turned off without any error messages. Debugging is impossible because the error message cannot be checked.
+On the local machine, we can confirm that it works the same way for sure.
